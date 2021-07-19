@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
+
+import { RegisterPage, LoginPage, TodoScreen } from './pages/';
+import { NavLinks } from './components/';
+import { AuthProvider } from './context/auth';
+import AuthRoute from './util/AuthRoute.jsx';
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<AuthProvider>
+			<Router>
+				<Container>
+					<NavLinks />
+					<Route exact path='/todos' component={TodoScreen} />
+					<AuthRoute exact path='/register' component={RegisterPage} />
+					<AuthRoute exact path='/login' component={LoginPage} />
+				</Container>
+			</Router>
+		</AuthProvider>
+	);
 }
 
 export default App;
