@@ -8,7 +8,6 @@ export const useForm = (callback, initialState = {}) => {
 	};
 
 	const onSubmit = (e) => {
-		console.log('Trying to submit a login', values);
 		e.preventDefault();
 		callback();
 	};

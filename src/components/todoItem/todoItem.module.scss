@@ -1,0 +1,55 @@
+@import '../../sass/';
+
+$leftWidth: 50px;
+$rightWidth: 60px;
+
+.OuterContainer {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+
+	transition: 0.2s;
+	&.Complete {
+		opacity: 0.6;
+	}
+
+	.LeftIconContainer,
+	.RightIconContainer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		svg {
+			font-size: 28px;
+			color: $light-grey;
+		}
+	}
+
+	.LeftIconContainer {
+		width: $leftWidth;
+	}
+
+	.MiddleIconContainer {
+		display: flex;
+		align-items: center;
+
+		border-radius: 25px;
+		color: white;
+		width: calc(100% - (#{$leftWidth} + #{$rightWidth}));
+
+		.Left,
+		.Right {
+			padding: 13px 20px;
+		}
+
+		.Right {
+			margin-left: auto;
+			border-left: 1px white solid;
+			width: 200px;
+			text-align: center;
+		}
+	}
+
+	.RightIconContainer {
+		width: $rightWidth;
+	}
+}

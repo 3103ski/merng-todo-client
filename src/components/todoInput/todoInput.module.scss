@@ -1,0 +1,31 @@
+@import '../../sass/';
+
+$button-width: 80px;
+$drop-select-width: 200px;
+
+.TodoInputContainer {
+	width: 100%;
+	border-radius: 20px;
+	padding: 0 0 0 15px;
+
+	.TodoInput {
+		width: calc(100% - (#{$button-width} + #{$drop-select-width}));
+		border: none !important;
+		outline: none;
+	}
+
+	.DropMenu {
+		width: $drop-select-width;
+		.OptionText {
+			font-size: 15px;
+			// color: white;
+			span {
+				svg {
+					font-size: 20px;
+					margin-bottom: -5px;
+					margin-right: 8px;
+				}
+			}
+		}
+	}
+}

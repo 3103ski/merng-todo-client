@@ -1,0 +1,15 @@
+.Container {
+	padding: 10px 20px;
+	color: white;
+	border-radius: 20px;
+	margin: 0 10px 0 0;
+	transition: 0.25s;
+
+	&.NotSelected {
+		opacity: 0.5;
+	}
+
+	&:hover {
+		cursor: pointer;
+	}
+}
