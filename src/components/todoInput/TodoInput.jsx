@@ -5,7 +5,8 @@ import { Icon } from '@iconify/react-with-api';
 import * as style from './todoInput.module.scss';
 
 import { useMutation, gql } from '@apollo/client';
-import { ADD_TODO_TO_LIST } from '../../util/graphql';
+
+import { ADD_TODO_TO_LIST } from '../../graphql/';
 
 const TodoInput = ({ lists, isolatedList }) => {
 	const [selectedList, setSelectedList] = useState(null);
@@ -40,7 +41,7 @@ const TodoInput = ({ lists, isolatedList }) => {
 		update(cache, { data: { addTodoListItem: newItem } }) {
 			cache.modify({
 				fields: {
-					getUserTodos(existingLists = []) {
+					getUserTodos(existingTodos = []) {
 						const newListRef = cache.writeFragment({
 							data: newItem,
 							fragment: gql`
@@ -50,7 +51,7 @@ const TodoInput = ({ lists, isolatedList }) => {
 								}
 							`,
 						});
-						return [...existingLists, newListRef];
+						return [...existingTodos, newListRef];
 					},
 				},
 			});
@@ -95,7 +96,6 @@ const TodoInput = ({ lists, isolatedList }) => {
 
 				<Dropdown
 					className={style.DropMenu}
-					defaultValue={listOptions.length > 0 && listOptions[0].value}
 					value={selectedList}
 					upward
 					options={listOptions}

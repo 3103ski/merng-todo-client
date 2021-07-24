@@ -15,9 +15,9 @@ function App() {
 			<Router>
 				<Container>
 					<NavBar />
-					<Route exact path='/todos' component={TodoScreen} />
-					<AuthRoute exact path='/register' component={RegisterPage} />
-					<AuthRoute exact path='/login' component={LoginPage} />
+					<AuthRoute exact path='/todos' component={TodoScreen} />
+					<Route exact path='/register' component={RegisterPage} />
+					<Route exact path='/login' component={LoginPage} />
 				</Container>
 			</Router>
 		</AuthProvider>

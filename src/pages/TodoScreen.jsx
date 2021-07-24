@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { Grid, Loader, Container, Transition } from 'semantic-ui-react';
-
+import { Grid, Loader, Container } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
 import { AuthContext } from '../context/auth';
 import { GET_USER_LISTS, GET_USER_TODOS } from '../util/graphql';
 import { TodoListButton, TodoItem, TodoInput } from '../components';
@@ -11,22 +11,17 @@ import * as style from './todoScreen.module.scss';
 
 const TodoScreen = () => {
 	const { user } = useContext(AuthContext);
-
 	const [isolatedList, setIsolatedList] = useState(null);
-
-	const userId = user.id;
-
 	const { loading: loadingLists, data: listData } = useQuery(GET_USER_LISTS, {
-		variables: { userId },
+		variables: { userId: user.id },
 	});
-
 	const { loading: loadingTodos, data: todoData } = useQuery(GET_USER_TODOS, {
-		variables: { userId },
+		variables: { userId: user.id },
 	});
 
-	console.log(isolatedList);
-
-	return (
+	return !user ? (
+		<Redirect to='/login' />
+	) : (
 		<Container>
 			<Grid className={style.ContentContainer}>
 				<Grid.Row className={style.ListRow}>

@@ -4,13 +4,14 @@ import * as style from './buttonToggleTodo.module.scss';
 
 import { Icon } from '@iconify/react-with-api';
 import { useMutation } from '@apollo/client';
-import { TOGGLE_TODO_IS_COMPLETE } from '../../util/graphql';
+
+import { TOGGLE_TODO_IS_COMPLETE } from '../../graphql';
 
 const ToggleTodoButton = ({ todo }) => {
 	const [isComplete, setIsComplete] = useState(todo.isComplete);
 
 	const [toggleComplete] = useMutation(TOGGLE_TODO_IS_COMPLETE, {
-		update(cache, { data }) {
+		update() {
 			setIsComplete(!isComplete);
 		},
 		onError(err) {

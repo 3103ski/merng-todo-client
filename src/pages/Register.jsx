@@ -2,8 +2,10 @@ import React, { useContext, useState } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
+
 import { useForm } from '../util/hooks';
 import { AuthContext } from '../context/auth';
+import {} from '../graphql/';
 
 const Register = (props) => {
 	const context = useContext(AuthContext);

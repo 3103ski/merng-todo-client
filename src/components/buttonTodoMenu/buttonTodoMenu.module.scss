@@ -1,0 +1,17 @@
+.IconMenu {
+	display: flex;
+	flex-direction: column;
+	svg {
+		font-size: 30px;
+		&:first-of-type {
+			margin-bottom: 13px;
+		}
+		&:last-of-type {
+			margin-top: 13px;
+		}
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}

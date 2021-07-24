@@ -7,16 +7,13 @@
 	.ListRow {
 		min-height: 70px;
 		.ListCollectionContainer {
-			display: flex !important;
-			align-items: center;
+			@include flex-center;
 			flex-wrap: wrap;
 			width: 100%;
 			padding: 15px 10px;
 		}
 		.ListUtilityColumn {
-			display: flex !important;
-			align-items: center;
-			justify-content: center;
+			@include flex-center-row;
 			svg {
 				font-size: 30px;
 				color: $dark-grey;

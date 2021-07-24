@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
 
-import { LOGIN_USER } from '../util/graphql';
+import { LOGIN_USER } from '../graphql/';
 import { useForm } from '../util/hooks';
 import { AuthContext } from '../context/auth';
 

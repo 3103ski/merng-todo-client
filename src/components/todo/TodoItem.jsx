@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { Icon } from '@iconify/react-with-api';
-
 import * as style from './todoItem.module.scss';
-import { ToggleIsCompleteButton } from '../../components/';
+import { ToggleIsCompleteButton, TodoMenuButton } from '..';
 
 const TodoItem = ({ todoItem }) => {
 	useEffect(() => {
@@ -24,7 +22,7 @@ const TodoItem = ({ todoItem }) => {
 				</div>
 			</div>
 			<div className={style.RightIconContainer}>
-				<Icon icon='bi:three-dots' />
+				<TodoMenuButton todoId={todoItem.id} />
 			</div>
 		</div>
 	);
