@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, gql } from '@apollo/client';
 import { Grid, Loader, Container } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import { AuthContext } from '../context/auth';
-import { GET_USER_LISTS, GET_USER_TODOS } from '../util/graphql';
+import { GET_USER_LISTS } from '../util/graphql';
 import { TodoListButton, TodoItem, TodoInput } from '../components';
 import { CreateListModal } from '../modals/';
 
@@ -12,10 +12,11 @@ import * as style from './todoScreen.module.scss';
 const TodoScreen = () => {
 	const { user } = useContext(AuthContext);
 	const [isolatedList, setIsolatedList] = useState(null);
+
 	const { loading: loadingLists, data: listData } = useQuery(GET_USER_LISTS, {
 		variables: { userId: user.id },
 	});
-	const { loading: loadingTodos, data: todoData } = useQuery(GET_USER_TODOS, {
+	const { loading: loadingTodos, data: todoData } = useQuery(GET_TODOS, {
 		variables: { userId: user.id },
 	});
 
@@ -133,5 +134,34 @@ const TodoScreen = () => {
 		</Container>
 	);
 };
+
+const GET_TODOS = gql`
+	query ($userId: ID!) {
+		getUserTodos(userId: $userId) {
+			title
+			creatorId
+			listId
+			color
+			createdAt
+			listTitle
+			myDay
+			id
+			dueDate
+			isSubTask
+			isComplete
+			subTasks {
+				title
+				creatorId
+				listId
+				myDay
+				color
+				listTitle
+				dueDate
+				isSubTask
+				isComplete
+			}
+		}
+	}
+`;
 
 export default TodoScreen;

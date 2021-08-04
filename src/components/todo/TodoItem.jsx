@@ -22,7 +22,7 @@ const TodoItem = ({ todoItem }) => {
 				</div>
 			</div>
 			<div className={style.RightIconContainer}>
-				<TodoMenuButton todoId={todoItem.id} />
+				<TodoMenuButton todo={todoItem} />
 			</div>
 		</div>
 	);
