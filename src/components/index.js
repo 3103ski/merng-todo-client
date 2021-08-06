@@ -1,4 +1,5 @@
 export { default as NavBar } from './navBar/NavBar.jsx';
+export { default as FocusListMenu } from './focusListMenu/FocusListMenu.jsx';
 
 export { default as TodoListButton } from './todoListButton/TodoListButton.jsx';
 export { default as TodoMenuButton } from './buttonTodoMenu/ButtonTodoMenu.jsx';

@@ -27,8 +27,6 @@ const AssignDueDateModal = ({ todoId, dueDate, isSettingDate, setIsSettingDate, 
 		},
 	});
 
-	console.log('Starting Date:: ', dueDate);
-
 	return (
 		<Popup
 			content={

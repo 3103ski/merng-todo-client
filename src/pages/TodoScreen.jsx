@@ -4,8 +4,8 @@ import { Grid, Loader, Container } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import { AuthContext } from '../context/auth';
 import { GET_USER_LISTS } from '../util/graphql';
-import { TodoListButton, TodoItem, TodoInput } from '../components';
-import { CreateListModal } from '../modals/';
+import { TodoListButton, TodoItem, TodoInput, FocusListMenu } from '../components';
+import { CreateListModal, DeleteAllComplete } from '../modals/';
 
 import * as style from './todoScreen.module.scss';
 
@@ -26,7 +26,9 @@ const TodoScreen = () => {
 		<Container>
 			<Grid className={style.ContentContainer}>
 				<Grid.Row className={style.ListRow}>
-					<Grid.Column className={style.ListCollectionContainer} width={14}>
+					<Grid.Column
+						className={style.ListCollectionContainer}
+						width={isolatedList ? 13 : 14}>
 						{loadingLists ? (
 							<Loader active={loadingLists}>Loading Todo Lists</Loader>
 						) : (
@@ -46,8 +48,15 @@ const TodoScreen = () => {
 							</>
 						)}
 					</Grid.Column>
-					<Grid.Column width={2} className={style.ListUtilityColumn}>
-						<CreateListModal />
+					<Grid.Column width={isolatedList ? 3 : 2} className={style.ListUtilityColumn}>
+						<DeleteAllComplete
+							userId={user.id}
+							clearIsolatedList={() => setIsolatedList(null)}
+						/>
+						<CreateListModal clearIsolatedList={() => setIsolatedList(null)} />
+						{isolatedList ? (
+							<FocusListMenu userId={user.id} list={isolatedList} />
+						) : null}
 					</Grid.Column>
 				</Grid.Row>
 

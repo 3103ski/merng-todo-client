@@ -4,9 +4,9 @@ import { SketchPicker } from 'react-color';
 import { useMutation, gql } from '@apollo/client';
 import { Icon } from '@iconify/react-with-api';
 
-import { CREATE_TODO_LIST } from '../../util/graphql';
+import { CREATE_TODO_LIST } from '../graphql/';
 
-const CreateListModal = () => {
+const CreateListModal = ({ clearIsolatedList }) => {
 	const [open, setOpen] = useState(false);
 	const defaultColor = '#4B6E90';
 	const [errors, setErrors] = useState({});
@@ -16,8 +16,6 @@ const CreateListModal = () => {
 
 	const [createList, { error }] = useMutation(CREATE_TODO_LIST, {
 		update(cache, { data: { createTodoList: newList } }) {
-			console.log('What is this cache', cache);
-			console.log('What is this newList', newList);
 			cache.modify({
 				fields: {
 					getUserLists(existingLists = []) {
@@ -61,7 +59,10 @@ const CreateListModal = () => {
 				<Popup
 					trigger={
 						<Icon
-							onClick={() => setOpen(true)}
+							onClick={() => {
+								clearIsolatedList();
+								setOpen(true);
+							}}
 							icon='fluent:task-list-square-add-20-filled'
 						/>
 					}

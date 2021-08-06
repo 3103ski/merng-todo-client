@@ -17,7 +17,7 @@ const TodoListButton = ({ list, isolatedList, setIsolatedList }) => {
 				<div
 					id={list.id}
 					style={{ backgroundColor: list.color }}
-					className={`${style.Container} ${
+					className={`${style.Container} noselect ${
 						isolatedList && isolatedList.value !== list.id ? style.NotSelected : null
 					} `}
 					onClick={() => {
@@ -25,7 +25,12 @@ const TodoListButton = ({ list, isolatedList, setIsolatedList }) => {
 							setIsolatedList(null);
 						}
 						if ((isolatedList && isolatedList.value !== list.id) || !isolatedList) {
-							setIsolatedList({ value: list.id, color: list.color });
+							setIsolatedList({
+								value: list.id,
+								color: list.color,
+								title: list.title,
+								id: list.id,
+							});
 						}
 					}}>
 					<p>{list.title}</p>

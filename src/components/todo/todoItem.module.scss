@@ -36,6 +36,21 @@ $rightWidth: 60px;
 		.Left,
 		.Right {
 			padding: 8px 20px;
+			@include flex-center-row;
+
+			p {
+				margin: 0;
+			}
+		}
+
+		.Left {
+			width: 100%;
+			.TodoTitle {
+				margin-right: auto;
+			}
+			.DueDate {
+				margin-left: auto;
+			}
 		}
 
 		.Right {
@@ -50,6 +65,12 @@ $rightWidth: 60px;
 		width: $rightWidth;
 		svg {
 			cursor: pointer;
+		}
+	}
+
+	p {
+		&:hover {
+			cursor: default;
 		}
 	}
 }
