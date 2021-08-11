@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { Modal, Button, Popup, Form, Grid, Label } from 'semantic-ui-react';
 import { SketchPicker } from 'react-color';
 import { useMutation, gql } from '@apollo/client';
@@ -6,13 +7,14 @@ import { Icon } from '@iconify/react-with-api';
 
 import { CREATE_TODO_LIST } from '../graphql/';
 
-const CreateListModal = ({ clearIsolatedList }) => {
-	const [open, setOpen] = useState(false);
+const CreateListModal = ({ clearIsolatedList, list = null, trigger = null }) => {
 	const defaultColor = '#4B6E90';
+
+	const [open, setOpen] = useState(false);
 	const [errors, setErrors] = useState({});
 
-	const [color, setColor] = useState(defaultColor);
-	const [title, setTitle] = useState('');
+	const [color, setColor] = useState(list ? list.color : defaultColor);
+	const [title, setTitle] = useState(list ? list.title : '');
 
 	const [createList, { error }] = useMutation(CREATE_TODO_LIST, {
 		update(cache, { data: { createTodoList: newList } }) {
@@ -58,13 +60,22 @@ const CreateListModal = ({ clearIsolatedList }) => {
 			trigger={
 				<Popup
 					trigger={
-						<Icon
-							onClick={() => {
-								clearIsolatedList();
-								setOpen(true);
-							}}
-							icon='fluent:task-list-square-add-20-filled'
-						/>
+						trigger ? (
+							<p
+								onClick={() => {
+									setOpen(true);
+								}}>
+								Edit List Details
+							</p>
+						) : (
+							<Icon
+								onClick={() => {
+									clearIsolatedList();
+									setOpen(true);
+								}}
+								icon='fluent:task-list-square-add-20-filled'
+							/>
+						)
 					}
 					content='Create New Todo List'
 				/>

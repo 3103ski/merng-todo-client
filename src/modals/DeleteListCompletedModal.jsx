@@ -1,31 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Icon } from '@iconify/react-with-api';
-import { Button, Header, Modal, Popup } from 'semantic-ui-react';
-import { GET_USER_TODOS } from '../graphql';
+import { Button, Header, Modal } from 'semantic-ui-react';
 
-const DeleteListCompletedModal = ({ userId, list }) => {
-	const [open, setOpen] = useState(false);
-	console.log('My list has an id ?? :: ', list);
-
+const DeleteListCompletedModal = ({
+	isDeletingCompletedTodos,
+	setIsDeletingCompletedTodos,
+	list,
+}) => {
 	const [deleteCompleted] = useMutation(DELETE_LIST_COMPLETED, {
 		update(cache, { data: { deleteListCompletedTodos: ids } }) {
-			const existingTodos = cache.readQuery({
-				query: GET_USER_TODOS,
-				variables: {
-					userId,
-				},
-			}).getUserTodos;
-
-			console.log('existing todos??', existingTodos);
-			// console.log('data??', ids);
-
-			const updatedTodos = existingTodos.filter((todo) => !ids.includes(todo.id));
-
 			cache.modify({
 				fields: {
-					getUserTodos() {
-						return updatedTodos;
+					getUserTodos(existingTaskRefs, { readField }) {
+						return existingTaskRefs.filter(
+							(todo) => !ids.includes(readField('id', todo))
+						);
 					},
 				},
 			});
@@ -38,11 +28,10 @@ const DeleteListCompletedModal = ({ userId, list }) => {
 	return (
 		<Modal
 			basic
-			onClose={() => setOpen(false)}
-			onOpen={() => setOpen(true)}
-			open={open}
-			size='small'
-			trigger={<p>Delete Completed Todos</p>}>
+			onClose={() => setIsDeletingCompletedTodos(false)}
+			onOpen={() => setIsDeletingCompletedTodos(true)}
+			open={isDeletingCompletedTodos}
+			size='small'>
 			<Header icon>
 				<Icon name='archive' />
 				Delete Completed Todos for "{list.title}"
@@ -51,7 +40,11 @@ const DeleteListCompletedModal = ({ userId, list }) => {
 				<p>You can not undo this action</p>
 			</Modal.Content>
 			<Modal.Actions>
-				<Button basic color='red' inverted onClick={() => setOpen(false)}>
+				<Button
+					basic
+					color='red'
+					inverted
+					onClick={() => setIsDeletingCompletedTodos(false)}>
 					<Icon name='remove' /> No
 				</Button>
 				<Button
@@ -59,7 +52,7 @@ const DeleteListCompletedModal = ({ userId, list }) => {
 					inverted
 					onClick={() => {
 						deleteCompleted();
-						setOpen(false);
+						setIsDeletingCompletedTodos(false);
 					}}>
 					<Icon name='checkmark' /> Yes
 				</Button>

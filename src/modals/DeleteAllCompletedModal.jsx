@@ -9,19 +9,12 @@ const DeleteAllCompletedModal = ({ clearIsolatedList, userId }) => {
 
 	const [deleteCompleted] = useMutation(DELETE_ALL_COMPLETED, {
 		update(cache, { data: { deleteAllCompletedTodos: ids } }) {
-			const existingTodos = cache.readQuery({
-				query: GET_USER_TODOS,
-				variables: {
-					userId,
-				},
-			}).getUserTodos;
-
-			const updatedTodos = existingTodos.filter((todo) => !ids.includes(todo.id));
-
 			cache.modify({
 				fields: {
-					getUserTodos() {
-						return updatedTodos;
+					getUserTodos(existingTaskRefs, { readField }) {
+						return existingTaskRefs.filter(
+							(todo) => !ids.includes(readField('id', todo))
+						);
 					},
 				},
 			});

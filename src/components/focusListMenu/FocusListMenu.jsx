@@ -1,62 +1,78 @@
 import React, { useState } from 'react';
 import * as style from './focusListMenu.module.scss';
-import { Menu, Dropdown } from 'semantic-ui-react';
-import { DeleteListComplete } from '../../modals/';
+import { Popup } from 'semantic-ui-react';
 
-const FocusListMenu = ({ list, userId }) => {
+import { DeleteListComplete, DeleteList, EditList } from '../../modals/';
+
+const FocusListMenu = ({ list, userId, setIsolatedList }) => {
 	const [menuState, setMenuState] = useState(false);
-	const options = [
-		{
-			key: 1,
-			text: (
-				// <p
-				// 	onClick={() => {
-				// 		setMenuState(!menuState);
-				// 	}}>
-				// 	Delete Completed Todos
-				// </p>
-				<DeleteListComplete list={list} userId={userId} />
-			),
-			value: 1,
-		},
-		{
-			key: 2,
-			text: (
-				<p
-					onClick={() => {
-						setMenuState(!menuState);
-					}}>
-					Edit List
-				</p>
-			),
-			value: 2,
-		},
-		{
-			key: 3,
-			text: (
-				<p
-					onClick={() => {
-						setMenuState(!menuState);
-					}}>
-					Delete List
-				</p>
-			),
-			value: 3,
-		},
-	];
+
+	const [isEditing, setIsEditing] = useState(false);
+	const [isDeletingCompletedTodos, setIsDeletingCompletedTodos] = useState(false);
+	const [isDeletingList, setIsDeletingList] = useState(false);
 
 	return (
-		<Menu compact>
-			<Dropdown
-				simple
-				item
-				options={options}
+		<>
+			<Popup
+				trigger={
+					<div className={style.ListActionMenuButton}>
+						<p> List Actions</p>
+					</div>
+				}
+				on='click'
+				onOpen={() => setMenuState(true)}
+				onClose={() => setMenuState(false)}
 				open={menuState}
-				direction='left'
-				className={style.FocusMenuButton}
-				text={<p className={style.MenuButton}>Actions</p>}
+				content={
+					<div className={style.ListActionsMenu}>
+						<p
+							onClick={() => {
+								setMenuState(false);
+								setIsDeletingCompletedTodos(true);
+							}}>
+							Delete Completed Todos
+						</p>
+						<p
+							onClick={() => {
+								setMenuState(false);
+								setIsDeletingList(true);
+							}}>
+							Delete List
+						</p>
+						<p
+							onClick={() => {
+								setMenuState(false);
+								setIsEditing(true);
+							}}>
+							Edit List
+						</p>
+					</div>
+				}
 			/>
-		</Menu>
+			<DeleteListComplete
+				isDeletingCompletedTodos={isDeletingCompletedTodos}
+				setIsDeletingCompletedTodos={setIsDeletingCompletedTodos}
+				setMenuState={setMenuState}
+				list={list}
+				userId={userId}
+			/>
+			<DeleteList
+				setMenuState={setMenuState}
+				isDeletingList={isDeletingList}
+				setIsDeletingList={setIsDeletingList}
+				setIsolatedList={setIsolatedList}
+				list={list}
+				userId={userId}
+			/>
+			<EditList
+				list={list}
+				setIsolatedList={setIsolatedList}
+				userId={userId}
+				setIsEditing={setIsEditing}
+				isEditing={isEditing}
+				setMenuState={setMenuState}
+			/>
+		</>
 	);
 };
 

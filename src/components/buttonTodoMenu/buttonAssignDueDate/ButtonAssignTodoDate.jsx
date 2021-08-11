@@ -14,11 +14,8 @@ const AssignDueDateModal = ({ todoId, dueDate, isSettingDate, setIsSettingDate, 
 	const [isoDate, setIsoDate] = useState(dueDate ? dueDate : new Date().toISOString());
 
 	const [setTodoDate] = useMutation(SET_DUE_DATE, {
-		update(cache, { data }) {
-			console.log('Cache', cache);
-			console.log('Date', data);
+		update() {
 			setIsSettingDate(false);
-			setCalendarDate(new Date(data));
 			setMenuState(true);
 		},
 		variables: {
@@ -41,6 +38,13 @@ const AssignDueDateModal = ({ todoId, dueDate, isSettingDate, setIsSettingDate, 
 							setTodoDate();
 						}}
 					/>
+					<button
+						onClick={async () => {
+							await setIsoDate('');
+							return setTodoDate();
+						}}>
+						Clear Due Date
+					</button>
 				</div>
 			}
 			on='click'

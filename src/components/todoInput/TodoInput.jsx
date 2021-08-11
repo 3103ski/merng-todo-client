@@ -68,11 +68,15 @@ const TodoInput = ({ lists, isolatedList }) => {
 			setSelectedList(isolatedList.value);
 			setActiveColor(isolatedList.color);
 		}
+		if (selectedList && !isolatedList && listOptions.length !== lists.length) {
+			setSelectedList(listOptions[0].value);
+			setActiveColor(listOptions[0].color);
+		}
 		if (selectedList === null && !isolatedList && listOptions.length > 0) {
 			setSelectedList(listOptions[0].value);
 			setActiveColor(listOptions[0].color);
 		}
-	}, [isolatedList, selectedList, listOptions]);
+	}, [isolatedList, selectedList, listOptions, lists]);
 
 	return (
 		<div

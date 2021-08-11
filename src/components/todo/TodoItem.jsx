@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import moment from 'moment';
+import { Icon } from '@iconify/react-with-api';
 
 import * as style from './todoItem.module.scss';
 import { ToggleIsCompleteButton, TodoMenuButton } from '../../components/';
@@ -14,8 +15,6 @@ const TodoItem = ({ todoItem }) => {
 		dueDate = moment(new Date(todoItem.dueDate)).format('MMM Do YYYY');
 	}
 
-	console.log('this item :: ', dueDate);
-
 	return (
 		<div
 			className={`${style.OuterContainer} noselect ${todoItem.isComplete && style.Complete}`}>
@@ -27,6 +26,12 @@ const TodoItem = ({ todoItem }) => {
 					<p className={style.TodoTitle}>{todoItem.title}</p>
 					{todoItem.dueDate !== '' ? (
 						<p className={style.DueDate}>Due : {dueDate}</p>
+					) : null}
+					{todoItem.myDay ? (
+						<Icon
+							style={{ marginLeft: '13px' }}
+							icon='fluent:weather-partly-cloudy-day-24-filled'
+						/>
 					) : null}
 				</div>
 				<div className={style.Right}>

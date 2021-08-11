@@ -31,3 +31,28 @@
 	}
 	color: $dark-grey;
 }
+
+.ListActionMenuButton {
+	background-color: $dark-grey;
+	padding: 4px 12px;
+	font-size: 12px;
+	border-radius: 4px;
+	color: white;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.ListActionsMenu {
+	display: flex;
+	flex-direction: column;
+
+	&:hover {
+		cursor: pointer;
+	}
+	p {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}

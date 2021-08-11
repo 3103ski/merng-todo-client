@@ -55,7 +55,11 @@ const TodoScreen = () => {
 						/>
 						<CreateListModal clearIsolatedList={() => setIsolatedList(null)} />
 						{isolatedList ? (
-							<FocusListMenu userId={user.id} list={isolatedList} />
+							<FocusListMenu
+								userId={user.id}
+								list={isolatedList}
+								setIsolatedList={setIsolatedList}
+							/>
 						) : null}
 					</Grid.Column>
 				</Grid.Row>
