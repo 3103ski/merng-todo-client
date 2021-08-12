@@ -4,8 +4,8 @@ import { Modal, Button, Form, Grid, Label } from 'semantic-ui-react';
 import { SketchPicker } from 'react-color';
 import { useMutation, gql } from '@apollo/client';
 
-import { GET_USER_TODOS } from '../graphql';
-import { GlobalContext } from '../context/global';
+import { GET_USER_TODOS } from '../../graphql';
+import { GlobalContext } from '../../context/global';
 
 const EditListModal = ({ list, setMenuState, setIsEditing, isEditing, userId }) => {
 	const [color, setColor] = useState(list.color);

@@ -5,7 +5,7 @@ import { SketchPicker } from 'react-color';
 import { useMutation, gql } from '@apollo/client';
 import { Icon } from '@iconify/react-with-api';
 
-import { CREATE_TODO_LIST } from '../graphql/';
+import { CREATE_TODO_LIST } from '../../graphql/';
 
 const CreateListModal = ({ clearFocusList, list = null, trigger = null }) => {
 	const defaultColor = '#4B6E90';

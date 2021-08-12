@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react-with-api';
 import { useMutation } from '@apollo/client';
-import { SET_DUE_DATE } from '../../../../graphql';
 import { Popup } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
-
 import 'react-datepicker/dist/react-datepicker.css';
+
+import { SET_DUE_DATE } from '../../../../graphql';
 
 const AssignDueDateModal = ({ todoId, dueDate, isSettingDate, setIsSettingDate, setMenuState }) => {
 	const [calendarDate, setCalendarDate] = useState(

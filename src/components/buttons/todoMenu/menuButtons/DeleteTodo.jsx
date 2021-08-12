@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Button, Header } from 'semantic-ui-react';
 import { Icon } from '@iconify/react-with-api';
 import { useMutation } from '@apollo/client';
+
 import { DELETE_TODO } from '../../../../graphql';
 
 const DeleteTodoButton = ({ todoId, isDeleting, setIsDeleting }) => {

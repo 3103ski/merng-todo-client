@@ -3,7 +3,7 @@ import { gql, useMutation } from '@apollo/client';
 import { Icon } from '@iconify/react-with-api';
 import { Button, Header, Modal } from 'semantic-ui-react';
 
-import { GlobalContext } from '../context/global';
+import { GlobalContext } from '../../context/global';
 
 const DeleteList = ({ list, setIsDeletingList, isDeletingList }) => {
 	const { clearFocusList } = useContext(GlobalContext);

@@ -4,9 +4,7 @@ import { Popup } from 'semantic-ui-react';
 import { Icon } from '@iconify/react-with-api';
 import * as style from './todoMenu.module.scss';
 
-import DeleteTodoModal from './deleteTodo/DeleteTodo.jsx';
-import ToggleMyDayButton from './toggleMyDay/ToggleMyDay.jsx';
-import DueDateModal from './assignDueDate/AssignDueDate.jsx';
+import { DeleteTodo, ToggleMyDay, AssignDueDate } from './menuButtons';
 
 const TodoMenu = ({ todo }) => {
 	const [menuState, setMenuState] = useState(false);
@@ -20,8 +18,8 @@ const TodoMenu = ({ todo }) => {
 				flowing
 				content={
 					<div className={style.IconMenu}>
-						<ToggleMyDayButton myDay={todo.myDay} todoId={todo.id} />
-						<DueDateModal
+						<ToggleMyDay myDay={todo.myDay} todoId={todo.id} />
+						<AssignDueDate
 							todoId={todo.id}
 							dueDate={todo.dueDate}
 							setIsSettingDate={setIsSettingDate}
@@ -47,7 +45,7 @@ const TodoMenu = ({ todo }) => {
 				onOpen={() => setMenuState(true)}
 				className={style.TodoMenu}
 			/>
-			<DeleteTodoModal
+			<DeleteTodo
 				setMenuStateCallback={setMenuState}
 				setIsDeleting={setIsDeleting}
 				isDeleting={isDeleting}

@@ -7,8 +7,14 @@ import { AuthContext } from '../context/auth';
 import { GlobalContext } from '../context/global';
 import { GET_USER_LISTS } from '../util/graphql';
 
-import { TodoListButton, TodoItem, TodoInput, FocusListMenu } from '../components';
-import { CreateListModal, DeleteAllComplete } from '../modals/';
+import {
+	TodoListButton,
+	TodoItem,
+	TodoInput,
+	FocusListMenu,
+	CreateListModal,
+	DeleteAllComplete,
+} from '../components';
 
 import * as style from './todoScreen.module.scss';
 

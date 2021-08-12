@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as style from './focusListMenu.module.scss';
 import { Popup } from 'semantic-ui-react';
 
-import { DeleteListComplete, DeleteList, EditList } from '../../../modals';
+import { DeleteListComplete, DeleteList, EditList } from '../../../components/';
 
 const FocusListMenu = ({ list, userId }) => {
 	const [menuState, setMenuState] = useState(false);

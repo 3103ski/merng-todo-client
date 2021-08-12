@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Icon } from '@iconify/react-with-api';
 
 import * as style from './todoItem.module.scss';
-import { ToggleIsCompleteButton, TodoMenuButton } from '../../components/';
+import { ToggleIsCompleteButton, TodoMenuButton } from '..';
 
 const TodoItem = ({ todoItem }) => {
 	useEffect(() => {
