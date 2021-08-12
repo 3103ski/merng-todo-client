@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Popup } from 'semantic-ui-react';
 
-import * as style from './todoListButton.module.scss';
+import * as style from './todoListFilter.module.scss';
 
-import { GlobalContext } from '../../context/global';
+import { GlobalContext } from '../../../context/global';
 
 const TodoListButton = ({ list }) => {
 	const { focusList, setFocusList, clearFocusList } = useContext(GlobalContext);

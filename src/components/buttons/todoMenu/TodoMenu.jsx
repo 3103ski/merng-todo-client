@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 import { Popup } from 'semantic-ui-react';
 import { Icon } from '@iconify/react-with-api';
-import * as style from './buttonTodoMenu.module.scss';
+import * as style from './todoMenu.module.scss';
 
-import DeleteTodoModal from './buttonDeleteTodo/ButtonDeleteTodo.jsx';
-import ToggleMyDayButton from './buttonToggleMyDay/ButtonToggleMyDay.jsx';
-import DueDateModal from './buttonAssignDueDate/ButtonAssignTodoDate.jsx';
+import DeleteTodoModal from './deleteTodo/DeleteTodo.jsx';
+import ToggleMyDayButton from './toggleMyDay/ToggleMyDay.jsx';
+import DueDateModal from './assignDueDate/AssignDueDate.jsx';
 
 const TodoMenu = ({ todo }) => {
 	const [menuState, setMenuState] = useState(false);

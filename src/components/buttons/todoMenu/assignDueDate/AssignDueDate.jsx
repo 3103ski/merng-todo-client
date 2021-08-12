@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react-with-api';
 import { useMutation } from '@apollo/client';
-import { SET_DUE_DATE } from '../../../graphql/';
+import { SET_DUE_DATE } from '../../../../graphql';
 import { Popup } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 

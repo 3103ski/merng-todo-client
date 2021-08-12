@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-import * as style from './buttonToggleTodo.module.scss';
+import * as style from './toggleComplete.module.scss';
 
 import { Icon } from '@iconify/react-with-api';
 import { useMutation } from '@apollo/client';
 
-import { TOGGLE_TODO_IS_COMPLETE } from '../../graphql';
+import { TOGGLE_TODO_IS_COMPLETE } from '../../../graphql';
 
 const ToggleTodoButton = ({ todo }) => {
 	const [isComplete, setIsComplete] = useState(todo.isComplete);
