@@ -1,37 +1,5 @@
 @import '../../../sass/';
 
-.ButtonContainer {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: $dark-grey;
-	border-radius: 15px;
-	font-size: 12px !important;
-	padding: 5px;
-
-	p {
-		color: white !important;
-		margin: 0;
-	}
-
-	svg {
-		color: white !important;
-		font-size: 17px !important;
-		margin: 2px 0 0 5px;
-	}
-}
-
-.FocusMenuButton {
-	.MenuButton {
-		color: $dark-grey;
-		margin: 0;
-	}
-	p {
-		color: $dark-grey;
-	}
-	color: $dark-grey;
-}
-
 .ListActionMenuButton {
 	background-color: $dark-grey;
 	padding: 4px 12px;

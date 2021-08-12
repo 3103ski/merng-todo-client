@@ -1,0 +1,48 @@
+@import '../../../sass/';
+
+.TriggerIcon {
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.DateFilterMenu {
+	display: flex;
+	flex-direction: column;
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	.MenuButton {
+		margin-bottom: 3px;
+
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.ActiveFilterButton {
+	display: flex;
+	align-items: center;
+	border: solid 1px $dark-grey;
+	border-radius: 10px;
+
+	margin: 0 0 0 30px;
+	height: 25px;
+	padding: 3px 10px;
+
+	p {
+		margin: 0;
+		line-height: 12px;
+	}
+
+	svg {
+		margin-left: auto;
+		font-size: 15px;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}

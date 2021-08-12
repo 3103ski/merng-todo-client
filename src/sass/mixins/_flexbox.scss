@@ -14,26 +14,26 @@
 }
 
 @mixin flex-col-start {
-	@include flex-start();
+	@include flex-start;
 	flex-direction: column;
 }
 
 @mixin flex-col-center {
-	@include flex-col-center();
+	@include flex-col-center;
 	flex-direction: column;
 }
 
 @mixin flex-col-end {
-	@include flex-col-end();
+	@include flex-col-end;
 	flex-direction: column;
 }
 
 @mixin flex-center-row {
-	@include flex-center();
+	@include flex-center;
 	justify-content: center;
 }
 
 @mixin flex-center-col {
-	@include flex-col-center();
+	@include flex-col-center;
 	justify-content: center;
 }

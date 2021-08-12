@@ -34,16 +34,16 @@ const FocusListMenu = ({ list, userId }) => {
 						<p
 							onClick={() => {
 								setMenuState(false);
-								setIsDeletingList(true);
+								setIsEditing(true);
 							}}>
-							Delete List
+							Edit List
 						</p>
 						<p
 							onClick={() => {
 								setMenuState(false);
-								setIsEditing(true);
+								setIsDeletingList(true);
 							}}>
-							Edit List
+							Delete List
 						</p>
 					</div>
 				}

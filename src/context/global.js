@@ -1,30 +1,24 @@
 import React, { createContext, useReducer } from 'react';
+import { updateObj } from '../util/helperFunctions';
 
 const initialState = {
 	focusList: null,
 	isolateMyDay: false,
-	focusDateRange: null,
+	dateFilter: null,
 };
 
 const GlobalContext = createContext(initialState);
 
-const globalReducer = (state, { type, focusList }) => {
+const globalReducer = (state, { type, focusList, dateFilter }) => {
 	switch (type) {
 		case 'TOGGLE_MY_DAY_FILTER':
-			return {
-				...state,
-				isolateMyDay: !state.isolateMyDay,
-			};
+			return updateObj(state, { isolateMyDay: !state.isolateMyDay });
 		case 'CLEAR_FOCUS_LIST':
-			return {
-				...state,
-				focusList: null,
-			};
+			return updateObj(state, { focusList: null });
 		case 'SET_FOCUS_LIST':
-			return {
-				...state,
-				focusList,
-			};
+			return updateObj(state, { focusList });
+		case 'SET_DATE_FILTER':
+			return updateObj(state, { dateFilter });
 		default:
 			return state;
 	}
@@ -45,15 +39,20 @@ const GlobalProvider = (props) => {
 		dispatch({ type: 'SET_FOCUS_LIST', focusList: list });
 	};
 
+	const setDateFilter = (df) => {
+		dispatch({ type: 'SET_DATE_FILTER', dateFilter: df });
+	};
+
 	return (
 		<GlobalContext.Provider
 			value={{
 				focusList: state.focusList,
 				isolateMyDay: state.isolateMyDay,
-				focusDateRange: state.focusDateRange,
+				dateFilter: state.dateFilter,
 				toggleMyDayFilter,
 				clearFocusList,
 				setFocusList,
+				setDateFilter,
 			}}
 			{...props}
 		/>

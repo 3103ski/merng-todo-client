@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/auth';
 import { GlobalContext } from '../../context/global';
 import * as style from './navBar.module.scss';
+import { DueDateFilterMenu } from '../../components/';
 
 export const NavLinks = () => {
 	const { user, logout } = useContext(AuthContext);
@@ -31,13 +32,8 @@ export const NavLinks = () => {
 							)}
 						</Menu.Item>
 
-						<Menu.Item
-							as={Link}
-							to='/login'
-							name='logout'
-							active={activeItem === 'logout'}
-							onClick={logout}>
-							<Icon icon='carbon:calendar-heat-map' />
+						<Menu.Item>
+							<DueDateFilterMenu />
 						</Menu.Item>
 					</>
 				)}

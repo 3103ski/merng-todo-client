@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { AuthContext } from '../context/auth';
 import { GlobalContext } from '../context/global';
 import { GET_USER_LISTS } from '../util/graphql';
+import { checkDateToDateFilter } from '../util/helperFunctions';
 
 import {
 	TodoListButton,
@@ -20,7 +21,8 @@ import * as style from './todoScreen.module.scss';
 
 const TodoScreen = () => {
 	const { user } = useContext(AuthContext);
-	const { isolateMyDay, focusList, setFocusList, clearFocusList } = useContext(GlobalContext);
+	const { isolateMyDay, focusList, setFocusList, clearFocusList, dateFilter } =
+		useContext(GlobalContext);
 
 	const { loading: loadingLists, data: listData } = useQuery(GET_USER_LISTS, {
 		variables: { userId: user.id },
@@ -81,22 +83,30 @@ const TodoScreen = () => {
 								{todoData &&
 									todoData.getUserTodos &&
 									todoData.getUserTodos.map((todo, i) => {
-										if (!todo.isComplete) {
-											if ((isolateMyDay && todo.myDay) || !isolateMyDay) {
-												if (focusList && focusList.value === todo.listId) {
-													return (
-														<TodoItem
-															key={`${todo.id}${i}`}
-															todoItem={todo}
-														/>
-													);
-												} else if (!focusList) {
-													return (
-														<TodoItem
-															key={`${todo.id}${i}`}
-															todoItem={todo}
-														/>
-													);
+										if (
+											!dateFilter ||
+											checkDateToDateFilter(dateFilter, todo.dueDate)
+										) {
+											if (!todo.isComplete) {
+												if ((isolateMyDay && todo.myDay) || !isolateMyDay) {
+													if (
+														focusList &&
+														focusList.value === todo.listId
+													) {
+														return (
+															<TodoItem
+																key={`${todo.id}${i}`}
+																todoItem={todo}
+															/>
+														);
+													} else if (!focusList) {
+														return (
+															<TodoItem
+																key={`${todo.id}${i}`}
+																todoItem={todo}
+															/>
+														);
+													}
 												}
 											}
 										}

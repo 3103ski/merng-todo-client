@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import moment from 'moment';
+import { Popup } from 'semantic-ui-react';
 import { Icon } from '@iconify/react-with-api';
 
 import * as style from './todoItem.module.scss';
-import { ToggleIsCompleteButton, TodoMenuButton } from '..';
+import { ToggleIsCompleteButton, TodoMenuButton } from '../../components/';
+import { checkDateToDateFilter } from '../../util/helperFunctions';
 
 const TodoItem = ({ todoItem }) => {
 	useEffect(() => {
@@ -12,7 +14,7 @@ const TodoItem = ({ todoItem }) => {
 
 	let dueDate = '';
 	if (todoItem.dueDate !== '') {
-		dueDate = moment(new Date(todoItem.dueDate)).format('MMM Do YYYY');
+		dueDate = moment(new Date(todoItem.dueDate)).format('dddd MMM Do YYYY');
 	}
 
 	return (
@@ -25,12 +27,31 @@ const TodoItem = ({ todoItem }) => {
 				<div className={style.Left}>
 					<p className={style.TodoTitle}>{todoItem.title}</p>
 					{todoItem.dueDate !== '' ? (
-						<p className={style.DueDate}>Due : {dueDate}</p>
+						<Popup
+							content='Due Date'
+							trigger={<p className={style.DueDate}>{dueDate}</p>}
+						/>
 					) : null}
 					{todoItem.myDay ? (
-						<Icon
-							style={{ marginLeft: '13px' }}
-							icon='fluent:weather-partly-cloudy-day-24-filled'
+						<Popup
+							content='Is My Day'
+							trigger={
+								<Icon
+									style={{ marginLeft: '13px' }}
+									icon='fluent:weather-partly-cloudy-day-24-filled'
+								/>
+							}
+						/>
+					) : null}
+					{checkDateToDateFilter('Past Due', todoItem.dueDate) ? (
+						<Popup
+							content='Past Due'
+							trigger={
+								<Icon
+									style={{ marginLeft: '10px' }}
+									icon='ant-design:warning-filled'
+								/>
+							}
 						/>
 					) : null}
 				</div>
