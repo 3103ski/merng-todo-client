@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { Input, Dropdown, Button, Form } from 'semantic-ui-react';
+import { useMutation, gql } from '@apollo/client';
 import { Icon } from '@iconify/react-with-api';
 
 import * as style from './todoInput.module.scss';
-
-import { useMutation, gql } from '@apollo/client';
-
 import { ADD_TODO_TO_LIST } from '../../graphql/';
+import { GlobalContext } from '../../context/global';
 
-const TodoInput = ({ lists, isolatedList }) => {
+const TodoInput = ({ lists }) => {
 	const [selectedList, setSelectedList] = useState(null);
 	const [activeColor, setActiveColor] = useState('');
-
 	const [todoText, setTodoText] = useState('');
+	const { focusList } = useContext(GlobalContext);
 
 	async function onChangeListSelector(e, option) {
 		e.persist();
@@ -63,20 +62,25 @@ const TodoInput = ({ lists, isolatedList }) => {
 		},
 	});
 
+	const selectedListIsOption = useCallback(() => {
+		return listOptions.filter((option) => option.value === selectedList).length > 0;
+	}, [listOptions, selectedList]);
+
 	useEffect(() => {
-		if (isolatedList) {
-			setSelectedList(isolatedList.value);
-			setActiveColor(isolatedList.color);
+		if (focusList) {
+			setSelectedList(focusList.value);
+			setActiveColor(focusList.color);
+		} else {
+			if (
+				(selectedList === null &&
+					(listOptions.length > 0 || listOptions.length !== lists.length)) ||
+				(selectedList && !selectedListIsOption())
+			) {
+				setSelectedList(listOptions[0].value);
+				setActiveColor(listOptions[0].color);
+			}
 		}
-		if (selectedList && !isolatedList && listOptions.length !== lists.length) {
-			setSelectedList(listOptions[0].value);
-			setActiveColor(listOptions[0].color);
-		}
-		if (selectedList === null && !isolatedList && listOptions.length > 0) {
-			setSelectedList(listOptions[0].value);
-			setActiveColor(listOptions[0].color);
-		}
-	}, [isolatedList, selectedList, listOptions, lists]);
+	}, [focusList, selectedList, listOptions, lists, selectedListIsOption]);
 
 	return (
 		<div

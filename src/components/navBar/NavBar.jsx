@@ -4,12 +4,15 @@ import { Icon } from '@iconify/react-with-api';
 import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../context/auth';
+import { GlobalContext } from '../../context/global';
 import * as style from './navBar.module.scss';
 
 export const NavLinks = () => {
 	const { user, logout } = useContext(AuthContext);
+	const { isolateMyDay, toggleMyDayFilter } = useContext(GlobalContext);
 
 	const [activeItem, setActiveItem] = useState('login');
+
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 
 	return (
@@ -18,12 +21,14 @@ export const NavLinks = () => {
 				{user && (
 					<>
 						<Menu.Item
-							as={Link}
-							to='/login'
-							name='logout'
-							active={activeItem === 'logout'}
-							onClick={logout}>
-							<Icon icon='fluent:weather-partly-cloudy-day-16-regular' />
+							name='isolateMyDay'
+							active={activeItem === 'isolateMyDay'}
+							onClick={toggleMyDayFilter}>
+							{isolateMyDay ? (
+								<Icon icon='fluent:weather-partly-cloudy-day-24-filled' />
+							) : (
+								<Icon icon='fluent:weather-partly-cloudy-day-16-regular' />
+							)}
 						</Menu.Item>
 
 						<Menu.Item

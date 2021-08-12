@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Popup } from 'semantic-ui-react';
 
 import * as style from './todoListButton.module.scss';
 
-const TodoListButton = ({ list, isolatedList, setIsolatedList }) => {
+import { GlobalContext } from '../../context/global';
+
+const TodoListButton = ({ list }) => {
+	const { focusList, setFocusList, clearFocusList } = useContext(GlobalContext);
 	return (
 		<Popup
 			content={
-				!isolatedList
+				!focusList
 					? `Isolate ${list.title}`
-					: isolatedList.value !== list.id
+					: focusList.value !== list.id
 					? `Isolate ${list.title}`
 					: `Remove Filter`
 			}
@@ -18,19 +21,21 @@ const TodoListButton = ({ list, isolatedList, setIsolatedList }) => {
 					id={list.id}
 					style={{ backgroundColor: list.color }}
 					className={`${style.Container} noselect ${
-						isolatedList && isolatedList.value !== list.id ? style.NotSelected : null
+						focusList && focusList.value !== list.id ? style.NotSelected : null
 					} `}
 					onClick={() => {
-						if (isolatedList && isolatedList.value === list.id) {
-							setIsolatedList(null);
+						if (focusList && focusList.value === list.id) {
+							clearFocusList();
 						}
-						if ((isolatedList && isolatedList.value !== list.id) || !isolatedList) {
-							setIsolatedList({
+						if ((focusList && focusList.value !== list.id) || !focusList) {
+							const fl = {
 								value: list.id,
 								color: list.color,
 								title: list.title,
 								id: list.id,
-							});
+							};
+
+							setFocusList(fl);
 						}
 					}}>
 					<p>{list.title}</p>

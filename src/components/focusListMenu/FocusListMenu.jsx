@@ -4,7 +4,7 @@ import { Popup } from 'semantic-ui-react';
 
 import { DeleteListComplete, DeleteList, EditList } from '../../modals/';
 
-const FocusListMenu = ({ list, userId, setIsolatedList }) => {
+const FocusListMenu = ({ list, userId }) => {
 	const [menuState, setMenuState] = useState(false);
 
 	const [isEditing, setIsEditing] = useState(false);
@@ -60,13 +60,11 @@ const FocusListMenu = ({ list, userId, setIsolatedList }) => {
 				setMenuState={setMenuState}
 				isDeletingList={isDeletingList}
 				setIsDeletingList={setIsDeletingList}
-				setIsolatedList={setIsolatedList}
 				list={list}
 				userId={userId}
 			/>
 			<EditList
 				list={list}
-				setIsolatedList={setIsolatedList}
 				userId={userId}
 				setIsEditing={setIsEditing}
 				isEditing={isEditing}

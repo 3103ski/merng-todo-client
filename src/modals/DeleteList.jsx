@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Icon } from '@iconify/react-with-api';
 import { Button, Header, Modal } from 'semantic-ui-react';
 
-const DeleteList = ({ list, setIsolatedList, setMenuState, setIsDeletingList, isDeletingList }) => {
-	// const [open, setIsDeletingList] = useState(false);
+import { GlobalContext } from '../context/global';
 
+const DeleteList = ({ list, setIsDeletingList, isDeletingList }) => {
+	const { clearFocusList } = useContext(GlobalContext);
 	const [deleteList] = useMutation(DELETE_LIST, {
 		update(cache, { data }) {
 			cache.modify({
@@ -22,7 +23,7 @@ const DeleteList = ({ list, setIsolatedList, setMenuState, setIsDeletingList, is
 					},
 				},
 			});
-			setIsolatedList(null);
+			clearFocusList();
 		},
 		variables: {
 			listId: list.id,

@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Icon } from '@iconify/react-with-api';
 import { Button, Header, Modal, Popup } from 'semantic-ui-react';
-import { GET_USER_TODOS } from '../graphql';
 
-const DeleteAllCompletedModal = ({ clearIsolatedList, userId }) => {
+const DeleteAllCompletedModal = ({ clearFocusList, userId }) => {
 	const [open, setOpen] = useState(false);
 
 	const [deleteCompleted] = useMutation(DELETE_ALL_COMPLETED, {
@@ -38,7 +37,7 @@ const DeleteAllCompletedModal = ({ clearIsolatedList, userId }) => {
 						<Icon
 							icon='ic:baseline-delete-sweep'
 							onClick={() => {
-								clearIsolatedList();
+								clearFocusList();
 								return setOpen(true);
 							}}
 						/>

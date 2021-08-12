@@ -7,7 +7,7 @@ import { Icon } from '@iconify/react-with-api';
 
 import { CREATE_TODO_LIST } from '../graphql/';
 
-const CreateListModal = ({ clearIsolatedList, list = null, trigger = null }) => {
+const CreateListModal = ({ clearFocusList, list = null, trigger = null }) => {
 	const defaultColor = '#4B6E90';
 
 	const [open, setOpen] = useState(false);
@@ -70,7 +70,7 @@ const CreateListModal = ({ clearIsolatedList, list = null, trigger = null }) => 
 						) : (
 							<Icon
 								onClick={() => {
-									clearIsolatedList();
+									clearFocusList();
 									setOpen(true);
 								}}
 								icon='fluent:task-list-square-add-20-filled'

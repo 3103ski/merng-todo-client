@@ -1,9 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { Grid, Loader, Container } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
+
 import { AuthContext } from '../context/auth';
+import { GlobalContext } from '../context/global';
 import { GET_USER_LISTS } from '../util/graphql';
+
 import { TodoListButton, TodoItem, TodoInput, FocusListMenu } from '../components';
 import { CreateListModal, DeleteAllComplete } from '../modals/';
 
@@ -11,7 +14,7 @@ import * as style from './todoScreen.module.scss';
 
 const TodoScreen = () => {
 	const { user } = useContext(AuthContext);
-	const [isolatedList, setIsolatedList] = useState(null);
+	const { isolateMyDay, focusList, setFocusList, clearFocusList } = useContext(GlobalContext);
 
 	const { loading: loadingLists, data: listData } = useQuery(GET_USER_LISTS, {
 		variables: { userId: user.id },
@@ -28,7 +31,7 @@ const TodoScreen = () => {
 				<Grid.Row className={style.ListRow}>
 					<Grid.Column
 						className={style.ListCollectionContainer}
-						width={isolatedList ? 13 : 14}>
+						width={focusList ? 13 : 14}>
 						{loadingLists ? (
 							<Loader active={loadingLists}>Loading Todo Lists</Loader>
 						) : (
@@ -38,8 +41,7 @@ const TodoScreen = () => {
 									listData.getUserLists.map((list, i) => {
 										return (
 											<TodoListButton
-												setIsolatedList={setIsolatedList}
-												isolatedList={isolatedList}
+												setFocusList={setFocusList}
 												key={list.id}
 												list={list}
 											/>
@@ -48,17 +50,14 @@ const TodoScreen = () => {
 							</>
 						)}
 					</Grid.Column>
-					<Grid.Column width={isolatedList ? 3 : 2} className={style.ListUtilityColumn}>
-						<DeleteAllComplete
-							userId={user.id}
-							clearIsolatedList={() => setIsolatedList(null)}
-						/>
-						<CreateListModal clearIsolatedList={() => setIsolatedList(null)} />
-						{isolatedList ? (
+					<Grid.Column width={focusList ? 3 : 2} className={style.ListUtilityColumn}>
+						<DeleteAllComplete userId={user.id} clearFocusList={clearFocusList} />
+						<CreateListModal clearFocusList={clearFocusList} />
+						{focusList ? (
 							<FocusListMenu
 								userId={user.id}
-								list={isolatedList}
-								setIsolatedList={setIsolatedList}
+								list={focusList}
+								setFocusList={setFocusList}
 							/>
 						) : null}
 					</Grid.Column>
@@ -77,23 +76,22 @@ const TodoScreen = () => {
 									todoData.getUserTodos &&
 									todoData.getUserTodos.map((todo, i) => {
 										if (!todo.isComplete) {
-											if (
-												isolatedList &&
-												isolatedList.value === todo.listId
-											) {
-												return (
-													<TodoItem
-														key={`${todo.id}${i}`}
-														todoItem={todo}
-													/>
-												);
-											} else if (!isolatedList) {
-												return (
-													<TodoItem
-														key={`${todo.id}${i}`}
-														todoItem={todo}
-													/>
-												);
+											if ((isolateMyDay && todo.myDay) || !isolateMyDay) {
+												if (focusList && focusList.value === todo.listId) {
+													return (
+														<TodoItem
+															key={`${todo.id}${i}`}
+															todoItem={todo}
+														/>
+													);
+												} else if (!focusList) {
+													return (
+														<TodoItem
+															key={`${todo.id}${i}`}
+															todoItem={todo}
+														/>
+													);
+												}
 											}
 										}
 										return null;
@@ -108,23 +106,22 @@ const TodoScreen = () => {
 									todoData.getUserTodos &&
 									todoData.getUserTodos.map((todo, i) => {
 										if (todo.isComplete) {
-											if (
-												isolatedList &&
-												isolatedList.value === todo.listId
-											) {
-												return (
-													<TodoItem
-														key={`${todo.id}${i}`}
-														todoItem={todo}
-													/>
-												);
-											} else if (!isolatedList) {
-												return (
-													<TodoItem
-														key={`${todo.id}${i}`}
-														todoItem={todo}
-													/>
-												);
+											if ((isolateMyDay && todo.myDay) || !isolateMyDay) {
+												if (focusList && focusList.value === todo.listId) {
+													return (
+														<TodoItem
+															key={`${todo.id}${i}`}
+															todoItem={todo}
+														/>
+													);
+												} else if (!focusList) {
+													return (
+														<TodoItem
+															key={`${todo.id}${i}`}
+															todoItem={todo}
+														/>
+													);
+												}
 											}
 										}
 										return null;
@@ -139,7 +136,7 @@ const TodoScreen = () => {
 				<Grid.Row className={style.InputRow}>
 					<Grid.Column width={16}>
 						{listData && listData.getUserLists.length > 0 && (
-							<TodoInput isolatedList={isolatedList} lists={listData.getUserLists} />
+							<TodoInput lists={listData.getUserLists} />
 						)}
 					</Grid.Column>
 				</Grid.Row>

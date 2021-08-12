@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { Modal, Button, Form, Grid, Label } from 'semantic-ui-react';
 import { SketchPicker } from 'react-color';
 import { useMutation, gql } from '@apollo/client';
 
 import { GET_USER_TODOS } from '../graphql';
+import { GlobalContext } from '../context/global';
 
-const EditListModal = ({
-	list,
-	setMenuState,
-	setIsEditing,
-	isEditing,
-	userId,
-	setIsolatedList,
-}) => {
+const EditListModal = ({ list, setMenuState, setIsEditing, isEditing, userId }) => {
 	const [color, setColor] = useState(list.color);
 	const [title, setTitle] = useState(list.title);
+
+	const { setFocusList } = useContext(GlobalContext);
 
 	const [updateList] = useMutation(UPDATE_LIST_DETAILS, {
 		async update(
@@ -62,7 +58,7 @@ const EditListModal = ({
 					return null;
 				});
 
-			setIsolatedList({
+			setFocusList({
 				color,
 				id,
 				title,
