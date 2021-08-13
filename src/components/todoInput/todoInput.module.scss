@@ -6,23 +6,46 @@ $drop-select-width: 200px;
 .TodoInputContainer {
 	width: 100%;
 	border-radius: 20px;
-	padding: 0 0 0 15px;
+	padding: 3px;
 
-	.TodoInput {
-		width: calc(100% - (#{$button-width} + #{$drop-select-width}));
-		border: none !important;
-		outline: none;
-	}
+	.InputInner {
+		display: flex;
+		justify-content: flex-start;
+		.InputWrapper {
+			padding-left: 20px;
+			background-color: white;
+			border-radius: 20px 0 0 20px;
+			width: calc(100% - (#{$button-width} + #{$drop-select-width}));
+			.TodoInput {
+				width: 100%;
+				outline: none !important;
+			}
+			input {
+				border: none !important;
+			}
+		}
+		.TodoAddButton {
+			border-radius: 0 !important;
+		}
 
-	.DropMenu {
-		width: $drop-select-width;
-		.OptionText {
-			font-size: 15px;
-			span {
-				svg {
-					font-size: 20px;
-					margin-bottom: -5px;
-					margin-right: 8px;
+		.DropMenu {
+			width: $drop-select-width;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			i {
+				color: white;
+			}
+
+			.OptionText {
+				font-size: 15px;
+				span {
+					svg {
+						font-size: 20px;
+						margin-bottom: -5px;
+						margin-right: 8px;
+					}
 				}
 			}
 		}

@@ -39,7 +39,9 @@ const TodoScreen = () => {
 				<Grid.Row className={style.ListRow}>
 					<Grid.Column
 						className={style.ListCollectionContainer}
-						width={focusList ? 13 : 14}>
+						mobile={11}
+						tablet={focusList ? 12 : 13}
+						computer={focusList ? 13 : 14}>
 						{loadingLists ? (
 							<Loader active={loadingLists}>Loading Todo Lists</Loader>
 						) : (
@@ -58,7 +60,11 @@ const TodoScreen = () => {
 							</>
 						)}
 					</Grid.Column>
-					<Grid.Column width={focusList ? 3 : 2} className={style.ListUtilityColumn}>
+					<Grid.Column
+						mobile={5}
+						tablet={focusList ? 4 : 3}
+						computer={focusList ? 3 : 2}
+						className={style.ListUtilityColumn}>
 						<DeleteAllComplete userId={user.id} clearFocusList={clearFocusList} />
 						<CreateListModal clearFocusList={clearFocusList} />
 						{focusList ? (

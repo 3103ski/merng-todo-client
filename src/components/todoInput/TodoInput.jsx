@@ -59,6 +59,7 @@ const TodoInput = ({ lists }) => {
 		variables: {
 			title: todoText,
 			listId: selectedList,
+			isSubTask: false,
 		},
 	});
 
@@ -87,17 +88,19 @@ const TodoInput = ({ lists }) => {
 			id='inputContainer'
 			className={style.TodoInputContainer}
 			style={{
-				border: `5px solid `,
+				// border: `5px solid `,
 				borderColor: activeColor,
 				backgroundColor: activeColor,
 			}}>
-			<Form onSubmit={addToList}>
-				<Input
-					placeholder='Add a todo'
-					value={todoText}
-					onChange={(e) => setTodoText(e.target.value)}
-					className={style.TodoInput}
-				/>
+			<Form onSubmit={addToList} className={style.InputInner}>
+				<div className={style.InputWrapper}>
+					<Input
+						placeholder='Add a todo'
+						value={todoText}
+						onChange={(e) => setTodoText(e.target.value)}
+						className={style.TodoInput}
+					/>
+				</div>
 				<Button type='submit' className={style.TodoAddButton}>
 					Add
 				</Button>

@@ -26,7 +26,6 @@ export const checkDateToDateFilter = (filter, date, getFilters) => {
 
 		switch (filter) {
 			case 'Today':
-				console.log(dueDate.dayOfYear());
 				return now.dayOfYear() === dueDate.dayOfYear();
 			case 'Tomorrow':
 				return now.add(1, 'd').dayOfYear() === dueDate.dayOfYear();
@@ -39,7 +38,6 @@ export const checkDateToDateFilter = (filter, date, getFilters) => {
 			case 'Next Month':
 				return now.add(1, 'M').month() === dueDate.month();
 			case 'Past Due':
-				console.log(now.isBefore(dueDate));
 				return dueDate.isBefore(now, 'date');
 			default:
 				return false;

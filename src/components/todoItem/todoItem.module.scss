@@ -4,6 +4,13 @@ $leftWidth: 50px;
 $rightWidth: 60px;
 
 .OuterContainer {
+	.SvgButton {
+		display: flex;
+		align-items: center;
+		&:hover {
+			cursor: pointer;
+		}
+	}
 	@include flex-center;
 	margin-bottom: 10px;
 	transition: 0.2s;
@@ -27,37 +34,55 @@ $rightWidth: 60px;
 	}
 
 	.MiddleIconContainer {
-		@include flex-center;
-
-		border-radius: 25px;
-		color: white;
 		width: calc(100% - (#{$leftWidth} + #{$rightWidth}));
+		display: flex;
+		align-items: stretch;
+		border-radius: 40px;
+		color: white;
 
-		.Left,
-		.Right {
-			padding: 8px 20px;
-			@include flex-center-row;
-
-			p {
-				margin: 0;
-			}
+		p {
+			margin: 0;
 		}
 
 		.Left {
-			width: 100%;
+			padding: 10px 25px;
+
 			.TodoTitle {
-				margin-right: auto;
+				font-size: 15px;
 			}
+
 			.DueDate {
-				margin-left: auto;
+				margin-top: 4px;
+				font-size: 10px;
+				padding-left: 15px;
+			}
+		}
+
+		.Middle,
+		.Right {
+			@include flex-center-row;
+		}
+
+		.Middle {
+			margin-left: auto;
+			display: flex;
+			padding: 0 5px;
+			svg {
+				font-size: 20px;
+				margin: 0 10px;
 			}
 		}
 
 		.Right {
-			margin-left: auto;
 			border-left: 1px white solid;
 			width: 200px;
 			text-align: center;
+			position: relative;
+
+			&:hover,
+			p:hover {
+				cursor: pointer;
+			}
 		}
 	}
 

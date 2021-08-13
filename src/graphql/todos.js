@@ -38,8 +38,8 @@ export const GET_USER_TODOS = gql`
 `;
 
 export const ADD_TODO_TO_LIST = gql`
-	mutation addTodoItem($title: String!, $listId: ID!) {
-		addTodoListItem(listId: $listId, masterId: $listId, title: $title) {
+	mutation addTodoItem($title: String!, $listId: ID!, $isSubTask: Boolean) {
+		addTodoListItem(listId: $listId, masterId: $listId, title: $title, isSubTask: $isSubTask) {
 			title
 			creatorId
 			listId
