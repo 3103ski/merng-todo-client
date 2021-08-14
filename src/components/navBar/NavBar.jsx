@@ -1,16 +1,16 @@
 import React, { useState, useContext } from 'react';
-import { Menu, Popup } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import { Icon } from '@iconify/react-with-api';
 import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../context/auth';
 import { GlobalContext } from '../../context/global';
 import * as style from './navBar.module.scss';
-import { DueDateFilterMenu, UserMenu } from '../../components/';
+import { DueDateFilterMenu, UserMenu, FocusListMenu } from '../../components/';
 
 export const NavLinks = () => {
-	const { user, logout } = useContext(AuthContext);
-	const { isolateMyDay, toggleMyDayFilter } = useContext(GlobalContext);
+	const { user } = useContext(AuthContext);
+	const { isolateMyDay, toggleMyDayFilter, focusList } = useContext(GlobalContext);
 
 	const [activeItem, setActiveItem] = useState('login');
 
@@ -57,20 +57,14 @@ export const NavLinks = () => {
 							/>
 						</>
 					) : (
-						// <Popup
-						// 	content='Logout'
-						// 	trigger={
-						// 		<Menu.Item
-						// 			as={Link}
-						// 			to='/login'
-						// 			name='logout'
-						// 			active={activeItem === 'logout'}
-						// 			onClick={logout}>
-						// 			<Icon icon='ls:logout' />
-						// 		</Menu.Item>
-						// 	}
-						// />
-						<UserMenu />
+						<>
+							{focusList ? (
+								<Menu.Item>
+									<FocusListMenu />
+								</Menu.Item>
+							) : null}
+							<UserMenu />
+						</>
 					)}
 				</Menu.Menu>
 			</Menu>

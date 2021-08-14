@@ -1,16 +1,19 @@
 import React, { useState, useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 import * as style from './userMenu.module.scss';
 import { Popup, Menu } from 'semantic-ui-react';
 
 import { Icon } from '@iconify/react-with-api';
 
-// import { CreateListModal } from '../../../components/';
 import { GlobalContext } from '../../../context/global';
+import { AuthContext } from '../../../context/auth';
 
 const UserMenu = () => {
 	const [open, setOpen] = useState(false);
 	const { setIsDeletingAllComplete, setIsCreatingNewList, clearFocusList } =
 		useContext(GlobalContext);
+
+	const { logout } = useContext(AuthContext);
 
 	return (
 		<Menu.Item>
@@ -42,6 +45,9 @@ const UserMenu = () => {
 							}}>
 							Create New List
 						</p>
+						<NavLink to='/login' onClick={logout}>
+							Logout
+						</NavLink>
 					</div>
 				}
 			/>

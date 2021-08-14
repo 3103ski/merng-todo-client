@@ -21,8 +21,7 @@ import * as style from './todoScreen.module.scss';
 
 const TodoScreen = () => {
 	const { user } = useContext(AuthContext);
-	const { isolateMyDay, focusList, setFocusList, clearFocusList, dateFilter } =
-		useContext(GlobalContext);
+	const { isolateMyDay, focusList, setFocusList, dateFilter } = useContext(GlobalContext);
 
 	const { loading: loadingLists, data: listData } = useQuery(GET_USER_LISTS, {
 		variables: { userId: user.id },
@@ -67,13 +66,13 @@ const TodoScreen = () => {
 						className={style.ListUtilityColumn}>
 						{/* <DeleteAllComplete userId={user.id} clearFocusList={clearFocusList} />
 						<CreateListModal clearFocusList={clearFocusList} /> */}
-						{focusList ? (
+						{/* {focusList ? (
 							<FocusListMenu
 								userId={user.id}
 								list={focusList}
 								setFocusList={setFocusList}
 							/>
-						) : null}
+						) : null} */}
 					</Grid.Column>
 				</Grid.Row>
 
@@ -132,8 +131,8 @@ const TodoScreen = () => {
 						{listData && listData.getUserLists.length > 0 && (
 							<TodoInput lists={listData.getUserLists} />
 						)}
-						<DeleteAllComplete userId={user.id} clearFocusList={clearFocusList} />
-						<CreateListModal clearFocusList={clearFocusList} />
+						<DeleteAllComplete />
+						<CreateListModal />
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>

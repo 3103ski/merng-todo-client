@@ -21,9 +21,8 @@ const Login = (props) => {
 			props.history.push('/todos');
 		},
 		onError(err) {
-			// console.log(err.graphQLErrors[0].extensions.exception.errors);
-			// setErrors(err.graphQLErrors[0].extensions.exception.errors);
-			console.log(err);
+			console.log(err.graphQLErrors[0].extensions.exception.errors);
+			setErrors(err.graphQLErrors[0].extensions.exception.errors);
 		},
 		variables: values,
 	});

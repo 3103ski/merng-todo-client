@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 
-import { Modal, Button, Popup, Form, Grid, Label } from 'semantic-ui-react';
+import { Modal, Button, Form, Grid, Label } from 'semantic-ui-react';
 import { SketchPicker } from 'react-color';
 import { useMutation, gql } from '@apollo/client';
-import { Icon } from '@iconify/react-with-api';
+// import { Icon } from '@iconify/react-with-api';
 
 import { CREATE_TODO_LIST } from '../../graphql/';
 import { GlobalContext } from '../../context/global';
@@ -13,7 +13,6 @@ const CreateListModal = ({ list = null, trigger = null }) => {
 
 	const { isCreatingNewList, setIsCreatingNewList } = useContext(GlobalContext);
 
-	const [open, setOpen] = useState(false);
 	const [errors, setErrors] = useState({});
 
 	const [color, setColor] = useState(list ? list.color : defaultColor);
@@ -39,7 +38,7 @@ const CreateListModal = ({ list = null, trigger = null }) => {
 			});
 			setColor(defaultColor);
 			setTitle('');
-			return setOpen(false);
+			return setIsCreatingNewList(false);
 		},
 		onError(err) {
 			console.log('Returned Errors', err.graphQLErrors[0].extensions.exception.errors);
@@ -59,31 +58,7 @@ const CreateListModal = ({ list = null, trigger = null }) => {
 				return setTitle('');
 			}}
 			onOpen={() => setIsCreatingNewList(true)}
-			open={isCreatingNewList}
-			// trigger={
-			// 	<Popup
-			// 		trigger={
-			// 			trigger ? (
-			// 				<p
-			// 					onClick={() => {
-			// 						setOpen(true);
-			// 					}}>
-			// 					Edit List Details
-			// 				</p>
-			// 			) : (
-			// 				<Icon
-			// 					onClick={() => {
-			// 						clearFocusList();
-			// 						setOpen(true);
-			// 					}}
-			// 					icon='fluent:task-list-square-add-20-filled'
-			// 				/>
-			// 			)
-			// 		}
-			// 		content='Create New Todo List'
-			// 	/>
-			//  }
-		>
+			open={isCreatingNewList}>
 			<Modal.Header style={{ color: 'white', backgroundColor: color }}>
 				{title === '' ? 'Create List' : title}
 			</Modal.Header>

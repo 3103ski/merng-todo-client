@@ -1,15 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Icon } from '@iconify/react-with-api';
-import { Button, Header, Modal, Popup } from 'semantic-ui-react';
+import { Button, Header, Modal } from 'semantic-ui-react';
 
 import { AuthContext } from '../../context/auth';
 import { GlobalContext } from '../../context/global';
 
 const DeleteAllCompletedModal = ({ closeSettings = null }) => {
-	const [open, setOpen] = useState(false);
-	const { clearFocusList, isDeletingAllComplete, setIsDeletingAllComplete } =
-		useContext(GlobalContext);
+	const { isDeletingAllComplete, setIsDeletingAllComplete } = useContext(GlobalContext);
 	const { user } = useContext(AuthContext);
 	const userId = user.id;
 
@@ -36,25 +34,7 @@ const DeleteAllCompletedModal = ({ closeSettings = null }) => {
 			onClose={() => setIsDeletingAllComplete(false)}
 			onOpen={() => setIsDeletingAllComplete(true)}
 			open={isDeletingAllComplete}
-			size='small'
-			// trigger={
-			// 	<Popup
-			// 		content='Delete ALL Completed Todos'
-			// 		trigger={
-			// 			<Icon
-			// 				icon='ic:baseline-delete-sweep'
-			// 				onClick={() => {
-			// 					clearFocusList();
-			// 					if (closeSettings) {
-			// 						closeSettings();
-			// 					}
-			// 					return setIsDeletingAllComplete(true);
-			// 				}}
-			// 			/>
-			// 		}
-			// 	/>
-			// }
-		>
+			size='small'>
 			<Header icon>
 				<Icon name='archive' />
 				Delete ALL Completed Todo Items
