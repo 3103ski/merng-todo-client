@@ -15,6 +15,8 @@
 			border: solid 3px;
 			width: 100%;
 			display: flex;
+			display: flex;
+			align-items: center;
 
 			input {
 				padding: 7px;
@@ -26,9 +28,13 @@
 			button {
 				border-radius: 20px;
 				border: none;
-				margin-right: -1px;
+				margin-right: 3px;
+				margin-bottom: 1px;
+				margin-left: auto;
 				font-size: 12px;
-				width: 120px;
+				width: 25px;
+				height: 25px;
+				background-color: $light-grey;
 				color: white;
 
 				&:hover {

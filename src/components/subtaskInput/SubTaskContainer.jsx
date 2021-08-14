@@ -5,6 +5,8 @@ import * as style from './subTaskContainer.module.scss';
 import { ADD_TODO_TO_LIST, GET_USER_TODOS } from '../../graphql/';
 import { TodoItem } from '../../components/';
 
+import { Icon } from '@iconify/react-with-api';
+
 const SubTaskSection = ({ todoItem = {} }) => {
 	const [textContent, setTextContent] = useState('');
 	const borderColor = todoItem.color;
@@ -45,8 +47,8 @@ const SubTaskSection = ({ todoItem = {} }) => {
 						}}
 						onChange={(e) => setTextContent(e.target.value)}
 					/>
-					<button onClick={addSubTask} style={{ backgroundColor: todoItem.color }}>
-						Add SubTask
+					<button onClick={addSubTask} style={{ backgroundColor: borderColor }}>
+						<Icon icon='fluent:arrow-enter-up-24-regular' />
 					</button>
 				</div>
 			</div>
