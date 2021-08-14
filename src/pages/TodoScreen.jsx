@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import { Grid, Loader, Container } from 'semantic-ui-react';
+import { Grid, Loader } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 
 import { AuthContext } from '../context/auth';
@@ -34,7 +34,7 @@ const TodoScreen = () => {
 	return !user ? (
 		<Redirect to='/login' />
 	) : (
-		<Container>
+		<>
 			<Grid className={style.ContentContainer}>
 				<Grid.Row className={style.ListRow}>
 					<Grid.Column
@@ -88,12 +88,15 @@ const TodoScreen = () => {
 							<>
 								{todoData &&
 									todoData.getUserTodos &&
-									todoData.getUserTodos.map((todo, i) => {
-										if (
-											!dateFilter ||
-											checkDateToDateFilter(dateFilter, todo.dueDate)
-										) {
-											if (!todo.isComplete) {
+									[...todoData.getUserTodos]
+										.sort((a, b) => {
+											return a.isComplete - b.isComplete;
+										})
+										.map((todo, i) => {
+											if (
+												!dateFilter ||
+												checkDateToDateFilter(dateFilter, todo.dueDate)
+											) {
 												if ((isolateMyDay && todo.myDay) || !isolateMyDay) {
 													if (
 														focusList &&
@@ -115,39 +118,8 @@ const TodoScreen = () => {
 													}
 												}
 											}
-										}
-										return null;
-									})}
-							</>
-						)}
-						{loadingTodos ? (
-							<Loader active={loadingTodos}>Loading Todos</Loader>
-						) : (
-							<>
-								{todoData &&
-									todoData.getUserTodos &&
-									todoData.getUserTodos.map((todo, i) => {
-										if (todo.isComplete) {
-											if ((isolateMyDay && todo.myDay) || !isolateMyDay) {
-												if (focusList && focusList.value === todo.listId) {
-													return (
-														<TodoItem
-															key={`${todo.id}${i}`}
-															todoItem={todo}
-														/>
-													);
-												} else if (!focusList) {
-													return (
-														<TodoItem
-															key={`${todo.id}${i}`}
-															todoItem={todo}
-														/>
-													);
-												}
-											}
-										}
-										return null;
-									})}
+											return null;
+										})}
 							</>
 						)}
 					</Grid.Column>
@@ -163,7 +135,7 @@ const TodoScreen = () => {
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
-		</Container>
+		</>
 	);
 };
 

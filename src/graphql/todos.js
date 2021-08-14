@@ -4,6 +4,8 @@ export const DELETE_TODO = gql`
 	mutation deleteTodo($todoId: ID!) {
 		deleteTodo(todoId: $todoId) {
 			id
+			isSubTask
+			listId
 		}
 	}
 `;

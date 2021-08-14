@@ -18,14 +18,18 @@ const TodoMenu = ({ todo }) => {
 				flowing
 				content={
 					<div className={style.IconMenu}>
-						<ToggleMyDay myDay={todo.myDay} todoId={todo.id} />
-						<AssignDueDate
-							todoId={todo.id}
-							dueDate={todo.dueDate}
-							setIsSettingDate={setIsSettingDate}
-							isSettingDate={isSettingDate}
-							setMenuState={setMenuState}
-						/>
+						{!todo.isSubTask ? (
+							<>
+								<ToggleMyDay myDay={todo.myDay} todoId={todo.id} />
+								<AssignDueDate
+									todoId={todo.id}
+									dueDate={todo.dueDate}
+									setIsSettingDate={setIsSettingDate}
+									isSettingDate={isSettingDate}
+									setMenuState={setMenuState}
+								/>
+							</>
+						) : null}
 						<Icon
 							icon='bi:trash-fill'
 							onClick={() => {

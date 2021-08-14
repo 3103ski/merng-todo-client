@@ -50,15 +50,14 @@ const TodoItem = ({ todoItem }) => {
 				<div id={todoItem.id} className={style.TodoItemColorContainer}>
 					<div className={style.TodoDetails}>
 						<p className={style.TodoTitle}>{todoItem.title}</p>
-
-						{todoItem.dueDate !== '' ? (
-							<Popup
-								content='Due Date'
-								trigger={<p className={style.DueDate}>{dueDate}</p>}
-							/>
-						) : null}
 					</div>
 					<div className={style.IconContainer}>
+						{todoItem.dueDate !== '' ? (
+							<Popup
+								content={<p className={style.DueDate}>{dueDate}</p>}
+								trigger={<Icon icon='bx:bx-calendar' />}
+							/>
+						) : null}
 						{checkDateToDateFilter('Past Due', todoItem.dueDate) &&
 						!todoItem.isComplete ? (
 							<Popup

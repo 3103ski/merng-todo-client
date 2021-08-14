@@ -17,7 +17,7 @@ export const NavLinks = () => {
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 
 	return (
-		<div>
+		<div className={style.NavOuterContainer}>
 			<Menu pointing secondary className={style.NavOuterContainer}>
 				{user && (
 					<>

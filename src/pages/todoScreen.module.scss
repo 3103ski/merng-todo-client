@@ -2,11 +2,14 @@
 
 .ContentContainer {
 	height: calc(100vh - (#{$nav-height} + #{$input-height}));
+	overflow-y: scroll;
 
 	display: flex;
 	flex-direction: column !important;
 	justify-content: flex-start !important;
-	align-items: flex-start;
+	align-items: flex-start !important;
+	flex-wrap: nowrap !important;
+	margin-top: 0 !important;
 
 	.ListRow {
 		display: flex;
@@ -43,8 +46,9 @@
 			display: flex !important;
 			flex-direction: column;
 			justify-content: flex-start;
-			max-height: calc(100vh - (#{$nav-height} + #{$input-height}));
-			overflow-y: scroll;
+
+			// max-height: calc(100vh - (#{$nav-height} + #{$input-height}));
+			// overflow-y: scroll;
 		}
 	}
 }

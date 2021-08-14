@@ -5,7 +5,7 @@ $rightWidth: 60px;
 
 .OuterContainer {
 	&.Complete {
-		opacity: 0.5;
+		opacity: 0.4;
 	}
 	.TodoItemContainer {
 		@include flex-center;
@@ -24,7 +24,7 @@ $rightWidth: 60px;
 
 		.TodoCompleteToggleContainer {
 			svg {
-				font-size: 40px;
+				font-size: 35px;
 			}
 			width: $leftWidth;
 		}
