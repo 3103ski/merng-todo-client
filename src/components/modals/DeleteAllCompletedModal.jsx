@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Icon } from '@iconify/react-with-api';
 import { Button, Header, Modal, Popup } from 'semantic-ui-react';
 
-const DeleteAllCompletedModal = ({ clearFocusList, userId }) => {
+import { AuthContext } from '../../context/auth';
+import { GlobalContext } from '../../context/global';
+
+const DeleteAllCompletedModal = ({ closeSettings = null }) => {
 	const [open, setOpen] = useState(false);
+	const { clearFocusList, isDeletingAllComplete, setIsDeletingAllComplete } =
+		useContext(GlobalContext);
+	const { user } = useContext(AuthContext);
+	const userId = user.id;
 
 	const [deleteCompleted] = useMutation(DELETE_ALL_COMPLETED, {
 		update(cache, { data: { deleteAllCompletedTodos: ids } }) {
@@ -26,24 +33,28 @@ const DeleteAllCompletedModal = ({ clearFocusList, userId }) => {
 	return (
 		<Modal
 			basic
-			onClose={() => setOpen(false)}
-			onOpen={() => setOpen(true)}
-			open={open}
+			onClose={() => setIsDeletingAllComplete(false)}
+			onOpen={() => setIsDeletingAllComplete(true)}
+			open={isDeletingAllComplete}
 			size='small'
-			trigger={
-				<Popup
-					content='Delete ALL Completed Todos'
-					trigger={
-						<Icon
-							icon='ic:baseline-delete-sweep'
-							onClick={() => {
-								clearFocusList();
-								return setOpen(true);
-							}}
-						/>
-					}
-				/>
-			}>
+			// trigger={
+			// 	<Popup
+			// 		content='Delete ALL Completed Todos'
+			// 		trigger={
+			// 			<Icon
+			// 				icon='ic:baseline-delete-sweep'
+			// 				onClick={() => {
+			// 					clearFocusList();
+			// 					if (closeSettings) {
+			// 						closeSettings();
+			// 					}
+			// 					return setIsDeletingAllComplete(true);
+			// 				}}
+			// 			/>
+			// 		}
+			// 	/>
+			// }
+		>
 			<Header icon>
 				<Icon name='archive' />
 				Delete ALL Completed Todo Items
@@ -55,7 +66,7 @@ const DeleteAllCompletedModal = ({ clearFocusList, userId }) => {
 				</p>
 			</Modal.Content>
 			<Modal.Actions>
-				<Button basic color='red' inverted onClick={() => setOpen(false)}>
+				<Button basic color='red' inverted onClick={() => setIsDeletingAllComplete(false)}>
 					<Icon name='remove' /> No
 				</Button>
 				<Button
@@ -63,7 +74,7 @@ const DeleteAllCompletedModal = ({ clearFocusList, userId }) => {
 					inverted
 					onClick={() => {
 						deleteCompleted();
-						setOpen(false);
+						setIsDeletingAllComplete(false);
 					}}>
 					<Icon name='checkmark' /> Yes
 				</Button>

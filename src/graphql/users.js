@@ -6,6 +6,11 @@ export const LOGIN_USER = gql`
 			token
 			id
 			username
+			userSettings {
+				darkMode
+				darkText
+				squareEdges
+			}
 		}
 	}
 `;

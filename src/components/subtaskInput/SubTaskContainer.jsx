@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 import * as style from './subTaskContainer.module.scss';
-import { ADD_TODO_TO_LIST, GET_USER_TODOS } from '../../graphql/';
+import { ADD_TODO_TO_LIST } from '../../graphql/';
 import { TodoItem } from '../../components/';
 
 import { Icon } from '@iconify/react-with-api';

@@ -39,6 +39,7 @@ const AuthProvider = (props) => {
 
 	const login = (userData) => {
 		localStorage.setItem('jwtToken', userData.token);
+		console.log('User logged in :: ', userData);
 
 		dispatch({ type: 'LOGIN', payload: userData });
 	};

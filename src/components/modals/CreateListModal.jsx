@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { Modal, Button, Popup, Form, Grid, Label } from 'semantic-ui-react';
 import { SketchPicker } from 'react-color';
@@ -6,9 +6,12 @@ import { useMutation, gql } from '@apollo/client';
 import { Icon } from '@iconify/react-with-api';
 
 import { CREATE_TODO_LIST } from '../../graphql/';
+import { GlobalContext } from '../../context/global';
 
-const CreateListModal = ({ clearFocusList, list = null, trigger = null }) => {
+const CreateListModal = ({ list = null, trigger = null }) => {
 	const defaultColor = '#4B6E90';
+
+	const { isCreatingNewList, setIsCreatingNewList } = useContext(GlobalContext);
 
 	const [open, setOpen] = useState(false);
 	const [errors, setErrors] = useState({});
@@ -51,35 +54,36 @@ const CreateListModal = ({ clearFocusList, list = null, trigger = null }) => {
 	return (
 		<Modal
 			onClose={() => {
-				setOpen(false);
+				setIsCreatingNewList(false);
 				setColor(defaultColor);
 				return setTitle('');
 			}}
-			onOpen={() => setOpen(true)}
-			open={open}
-			trigger={
-				<Popup
-					trigger={
-						trigger ? (
-							<p
-								onClick={() => {
-									setOpen(true);
-								}}>
-								Edit List Details
-							</p>
-						) : (
-							<Icon
-								onClick={() => {
-									clearFocusList();
-									setOpen(true);
-								}}
-								icon='fluent:task-list-square-add-20-filled'
-							/>
-						)
-					}
-					content='Create New Todo List'
-				/>
-			}>
+			onOpen={() => setIsCreatingNewList(true)}
+			open={isCreatingNewList}
+			// trigger={
+			// 	<Popup
+			// 		trigger={
+			// 			trigger ? (
+			// 				<p
+			// 					onClick={() => {
+			// 						setOpen(true);
+			// 					}}>
+			// 					Edit List Details
+			// 				</p>
+			// 			) : (
+			// 				<Icon
+			// 					onClick={() => {
+			// 						clearFocusList();
+			// 						setOpen(true);
+			// 					}}
+			// 					icon='fluent:task-list-square-add-20-filled'
+			// 				/>
+			// 			)
+			// 		}
+			// 		content='Create New Todo List'
+			// 	/>
+			//  }
+		>
 			<Modal.Header style={{ color: 'white', backgroundColor: color }}>
 				{title === '' ? 'Create List' : title}
 			</Modal.Header>

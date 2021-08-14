@@ -65,8 +65,8 @@ const TodoScreen = () => {
 						tablet={focusList ? 4 : 3}
 						computer={focusList ? 3 : 2}
 						className={style.ListUtilityColumn}>
-						<DeleteAllComplete userId={user.id} clearFocusList={clearFocusList} />
-						<CreateListModal clearFocusList={clearFocusList} />
+						{/* <DeleteAllComplete userId={user.id} clearFocusList={clearFocusList} />
+						<CreateListModal clearFocusList={clearFocusList} /> */}
 						{focusList ? (
 							<FocusListMenu
 								userId={user.id}
@@ -132,6 +132,8 @@ const TodoScreen = () => {
 						{listData && listData.getUserLists.length > 0 && (
 							<TodoInput lists={listData.getUserLists} />
 						)}
+						<DeleteAllComplete userId={user.id} clearFocusList={clearFocusList} />
+						<CreateListModal clearFocusList={clearFocusList} />
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>

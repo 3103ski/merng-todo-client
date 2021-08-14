@@ -1,0 +1,8 @@
+@import '../../../sass/';
+
+.UserMenuIcon,
+.UserMenuContainer p {
+	&:hover {
+		cursor: pointer;
+	}
+}
