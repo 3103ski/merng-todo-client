@@ -8,9 +8,11 @@ import { DELETE_TODO } from '../../../../graphql';
 const DeleteTodoButton = ({ todoId, isDeleting, setIsDeleting }) => {
 	const [deleteTodo] = useMutation(DELETE_TODO, {
 		update(cache, { data: { deleteTodo } }) {
+			console.log(deleteTodo);
 			cache.modify({
 				fields: {
-					getUserTodos(existingTodos = []) {
+					getUserTodos(existingTodos = [], { readField }) {
+						console.log(readField('listId', deleteTodo));
 						return existingTodos.filter((f) => f.__ref !== `Todo:${deleteTodo.id}`);
 					},
 				},

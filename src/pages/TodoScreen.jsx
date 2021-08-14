@@ -177,15 +177,18 @@ const GET_TODOS = gql`
 			createdAt
 			listTitle
 			myDay
+			masterId
 			id
 			dueDate
 			isSubTask
 			isComplete
 			subTasks {
 				title
+				masterId
 				creatorId
 				listId
 				myDay
+				id
 				color
 				listTitle
 				dueDate

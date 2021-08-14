@@ -11,19 +11,23 @@ $drop-select-width: 200px;
 	.InputInner {
 		display: flex;
 		justify-content: flex-start;
+
 		.InputWrapper {
 			padding-left: 20px;
 			background-color: white;
 			border-radius: 20px 0 0 20px;
 			width: calc(100% - (#{$button-width} + #{$drop-select-width}));
+
 			.TodoInput {
 				width: 100%;
 				outline: none !important;
 			}
+
 			input {
 				border: none !important;
 			}
 		}
+
 		.TodoAddButton {
 			border-radius: 0 !important;
 		}

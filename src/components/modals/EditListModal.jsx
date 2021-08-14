@@ -29,8 +29,19 @@ const EditListModal = ({ list, setMenuState, setIsEditing, isEditing, userId }) 
 						userId,
 					},
 				})
-				.getUserTodos.map((todo) => {
+				.getUserTodos.map(async (todo) => {
 					if (todo.listId === id) {
+						let subTasks = [];
+						if (todo.subTasks && todo.subTasks.length > 0) {
+							subTasks = await todo.subTasks.map((task) => {
+								return {
+									...task,
+									color,
+									listTitle: title,
+								};
+							});
+						}
+						console.log(subTasks);
 						cache.writeQuery({
 							query: gql`
 								query WriteTodo($id: ID) {
@@ -38,6 +49,11 @@ const EditListModal = ({ list, setMenuState, setIsEditing, isEditing, userId }) 
 										id
 										listTitle
 										color
+										subTasks {
+											id
+											listTitle
+											color
+										}
 									}
 								}
 							`,
@@ -47,6 +63,7 @@ const EditListModal = ({ list, setMenuState, setIsEditing, isEditing, userId }) 
 									id: todo.id,
 									color,
 									listTitle: title,
+									subTasks,
 								},
 							},
 							variables: {

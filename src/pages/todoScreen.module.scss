@@ -1,10 +1,15 @@
 @import '../sass/';
 
 .ContentContainer {
-	max-height: calc(100vh - (#{$nav-height} + #{$input-height}));
-	overflow-y: scroll;
+	height: calc(100vh - (#{$nav-height} + #{$input-height}));
+	display: flex;
+	flex-direction: column !important;
+	justify-content: flex-start !important;
+	align-items: flex-start;
 
 	.ListRow {
+		display: flex;
+
 		min-height: 70px;
 
 		.ListCollectionContainer {
@@ -33,10 +38,14 @@
 		}
 	}
 
-	.TodosContainer {
-		display: flex !important;
-		flex-direction: column;
-		justify-content: flex-start;
+	.TodoRow {
+		.TodosContainer {
+			display: flex !important;
+			flex-direction: column;
+			justify-content: flex-start;
+		}
+		max-height: calc(100vh - (#{$nav-height} + #{$input-height}));
+		overflow-y: scroll;
 	}
 }
 

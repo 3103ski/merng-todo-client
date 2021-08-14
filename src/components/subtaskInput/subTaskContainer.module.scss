@@ -1,0 +1,40 @@
+@import '../../sass/';
+
+.MainContainer {
+	margin-left: 100px;
+	margin-bottom: 20px;
+	padding: 0 0 10px 20px;
+	border-left: solid 4px;
+
+	.InputContainer {
+		margin-right: 55px;
+
+		.InputWrapper {
+			padding: 0 0 0 15px;
+			border-radius: 20px;
+			border: solid 3px;
+			width: 100%;
+			display: flex;
+
+			input {
+				padding: 7px;
+				width: 100%;
+				border: none;
+				outline: none;
+			}
+
+			button {
+				border-radius: 20px;
+				border: none;
+				margin-right: -1px;
+				font-size: 12px;
+				width: 120px;
+				color: white;
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+	}
+}

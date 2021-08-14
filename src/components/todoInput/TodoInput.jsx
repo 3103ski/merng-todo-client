@@ -15,6 +15,7 @@ const TodoInput = ({ lists }) => {
 
 	async function onChangeListSelector(e, option) {
 		e.persist();
+
 		const color = e.target.parentNode.getAttribute('color');
 		setActiveColor(color);
 		setSelectedList(option.value);
@@ -59,6 +60,7 @@ const TodoInput = ({ lists }) => {
 		variables: {
 			title: todoText,
 			listId: selectedList,
+			masterId: selectedList,
 			isSubTask: false,
 		},
 	});
@@ -88,7 +90,6 @@ const TodoInput = ({ lists }) => {
 			id='inputContainer'
 			className={style.TodoInputContainer}
 			style={{
-				// border: `5px solid `,
 				borderColor: activeColor,
 				backgroundColor: activeColor,
 			}}>
