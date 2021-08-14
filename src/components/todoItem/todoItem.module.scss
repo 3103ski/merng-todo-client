@@ -18,12 +18,14 @@ $rightWidth: 60px;
 			@include flex-center-row;
 
 			svg {
-				font-size: 22px;
 				color: $light-grey;
 			}
 		}
 
 		.TodoCompleteToggleContainer {
+			svg {
+				font-size: 40px;
+			}
 			width: $leftWidth;
 		}
 
@@ -95,6 +97,7 @@ $rightWidth: 60px;
 		width: $rightWidth;
 		svg {
 			cursor: pointer;
+			font-size: 22px;
 		}
 	}
 }

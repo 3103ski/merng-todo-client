@@ -23,14 +23,16 @@ const ToggleTodoButton = ({ todo }) => {
 		},
 	});
 
+	// <Icon icon="akar-icons:circle" />
+	// <Icon icon="akar-icons:circle-check" />
 	return isComplete ? (
 		<Icon
-			icon='bx:bx-checkbox-checked'
+			icon='akar-icons:circle-check'
 			onClick={toggleComplete}
 			className={style.CompleteToggle}
 		/>
 	) : (
-		<Icon icon='bx:bx-checkbox' onClick={toggleComplete} className={style.CompleteToggle} />
+		<Icon icon='akar-icons:circle' onClick={toggleComplete} className={style.CompleteToggle} />
 	);
 };
 

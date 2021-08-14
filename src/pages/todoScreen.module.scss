@@ -2,6 +2,7 @@
 
 .ContentContainer {
 	height: calc(100vh - (#{$nav-height} + #{$input-height}));
+
 	display: flex;
 	flex-direction: column !important;
 	justify-content: flex-start !important;
@@ -9,7 +10,6 @@
 
 	.ListRow {
 		display: flex;
-
 		min-height: 70px;
 
 		.ListCollectionContainer {
@@ -43,9 +43,9 @@
 			display: flex !important;
 			flex-direction: column;
 			justify-content: flex-start;
+			max-height: calc(100vh - (#{$nav-height} + #{$input-height}));
+			overflow-y: scroll;
 		}
-		max-height: calc(100vh - (#{$nav-height} + #{$input-height}));
-		overflow-y: scroll;
 	}
 }
 
