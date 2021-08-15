@@ -12,8 +12,8 @@ import {
 	TodoListButton,
 	TodoItem,
 	TodoInput,
-	FocusListMenu,
 	CreateListModal,
+	SettingsModal,
 	DeleteAllComplete,
 } from '../components';
 
@@ -36,11 +36,7 @@ const TodoScreen = () => {
 		<>
 			<Grid className={style.ContentContainer}>
 				<Grid.Row className={style.ListRow}>
-					<Grid.Column
-						className={style.ListCollectionContainer}
-						mobile={11}
-						tablet={focusList ? 12 : 13}
-						computer={focusList ? 13 : 14}>
+					<Grid.Column className={style.ListCollectionContainer}>
 						{loadingLists ? (
 							<Loader active={loadingLists}>Loading Todo Lists</Loader>
 						) : (
@@ -58,21 +54,6 @@ const TodoScreen = () => {
 									})}
 							</>
 						)}
-					</Grid.Column>
-					<Grid.Column
-						mobile={5}
-						tablet={focusList ? 4 : 3}
-						computer={focusList ? 3 : 2}
-						className={style.ListUtilityColumn}>
-						{/* <DeleteAllComplete userId={user.id} clearFocusList={clearFocusList} />
-						<CreateListModal clearFocusList={clearFocusList} /> */}
-						{/* {focusList ? (
-							<FocusListMenu
-								userId={user.id}
-								list={focusList}
-								setFocusList={setFocusList}
-							/>
-						) : null} */}
 					</Grid.Column>
 				</Grid.Row>
 
@@ -133,6 +114,7 @@ const TodoScreen = () => {
 						)}
 						<DeleteAllComplete />
 						<CreateListModal />
+						<SettingsModal />
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>

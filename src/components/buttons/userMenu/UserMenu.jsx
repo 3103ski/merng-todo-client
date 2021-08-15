@@ -10,7 +10,7 @@ import { AuthContext } from '../../../context/auth';
 
 const UserMenu = () => {
 	const [open, setOpen] = useState(false);
-	const { setIsDeletingAllComplete, setIsCreatingNewList, clearFocusList } =
+	const { setIsDeletingAllComplete, setIsCreatingNewList, clearFocusList, setIsEditingSettings } =
 		useContext(GlobalContext);
 
 	const { logout } = useContext(AuthContext);
@@ -44,6 +44,14 @@ const UserMenu = () => {
 								clearFocusList();
 							}}>
 							Create New List
+						</p>
+						<p
+							onClick={() => {
+								setOpen(false);
+								setIsEditingSettings(true);
+								clearFocusList();
+							}}>
+							Style Settings
 						</p>
 						<NavLink to='/login' onClick={logout}>
 							Logout

@@ -3,13 +3,13 @@ import React, { useState, useContext } from 'react';
 import { Modal, Button, Form, Grid, Label } from 'semantic-ui-react';
 import { SketchPicker } from 'react-color';
 import { useMutation, gql } from '@apollo/client';
-// import { Icon } from '@iconify/react-with-api';
 
 import { CREATE_TODO_LIST } from '../../graphql/';
 import { GlobalContext } from '../../context/global';
 
-const CreateListModal = ({ list = null, trigger = null }) => {
-	const defaultColor = '#4B6E90';
+const CreateListModal = ({ list = null }) => {
+	const randomHex = () => `#${Math.floor(Math.random() * 17677215).toString(16)}`;
+	const defaultColor = randomHex();
 
 	const { isCreatingNewList, setIsCreatingNewList } = useContext(GlobalContext);
 
@@ -89,6 +89,9 @@ const CreateListModal = ({ list = null, trigger = null }) => {
 									/>
 								</Form.Field>
 
+								<Button color='teal' onClick={() => setColor(randomHex())}>
+									Random Color
+								</Button>
 								<Button color='green' onClick={createList}>
 									Create Category
 								</Button>

@@ -1,9 +1,32 @@
+@import './sass/';
+
 #inputContainer.ui.dropdown.menu.item {
 	padding: 0 !important;
 }
 
-.divider.text {
-	color: white !important;
+.inputLight .divider.text {
+	color: $light-text !important;
+}
+.inputDark .divider.text {
+	color: $dark-text !important;
+}
+
+[data-dark-text='0'] {
+	color: $light-text;
+}
+[data-dark-text='1'] {
+	color: $dark-text;
+}
+
+[data-dark-icon='0'] {
+	color: $light-mode-icon;
+}
+[data-dark-icon='1'] {
+	color: $dark-mode-icon;
+}
+
+[data-dark-mode='1'] {
+	background-color: $dark-bg;
 }
 
 .noselect {

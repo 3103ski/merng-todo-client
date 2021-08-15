@@ -15,6 +15,18 @@ export const LOGIN_USER = gql`
 	}
 `;
 
+export const UPDATE_USER_SETTINGS = gql`
+	mutation updateSettings($darkMode: Boolean, $darkText: Boolean, $squareEdges: Boolean) {
+		updateSettings(darkMode: $darkMode, darkText: $darkText, squareEdges: $squareEdges) {
+			userSettings {
+				darkMode
+				darkText
+				squareEdges
+			}
+		}
+	}
+`;
+
 export const REGISTER_USER = gql`
 	mutation register(
 		$username: String!

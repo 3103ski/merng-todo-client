@@ -7,4 +7,4 @@ export {
 	TOGGLE_TODO_IS_MY_DAY,
 	SET_DUE_DATE,
 } from './todos';
-export { REGISTER_USER, LOGIN_USER } from './users';
+export { REGISTER_USER, LOGIN_USER, UPDATE_USER_SETTINGS } from './users';

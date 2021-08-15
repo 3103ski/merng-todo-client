@@ -7,6 +7,7 @@ const initialState = {
 	dateFilter: null,
 	isDeletingAllComplete: false,
 	isCreatingNewList: false,
+	isEditingSettings: false,
 	userSettings: {
 		darkMode: false,
 		darkText: false,
@@ -18,7 +19,7 @@ const GlobalContext = createContext(initialState);
 
 const globalReducer = (
 	state,
-	{ type, focusList, dateFilter, isDeletingAllComplete, isCreatingNewList }
+	{ type, focusList, dateFilter, isDeletingAllComplete, isCreatingNewList, isEditingSettings }
 ) => {
 	switch (type) {
 		case 'TOGGLE_MY_DAY_FILTER':
@@ -33,6 +34,8 @@ const globalReducer = (
 			return updateObj(state, { isDeletingAllComplete });
 		case 'SET_IS_CREATING_NEW_LIST':
 			return updateObj(state, { isCreatingNewList });
+		case 'SET_IS_EDITING_SETTINGS':
+			return updateObj(state, { isEditingSettings });
 		default:
 			return state;
 	}
@@ -65,6 +68,10 @@ const GlobalProvider = (props) => {
 		dispatch({ type: 'SET_DATE_FILTER', dateFilter: df });
 	};
 
+	const setIsEditingSettings = (isEditingSettings) => {
+		dispatch({ type: 'SET_IS_EDITING_SETTINGS', isEditingSettings });
+	};
+
 	return (
 		<GlobalContext.Provider
 			value={{
@@ -73,12 +80,14 @@ const GlobalProvider = (props) => {
 				dateFilter: state.dateFilter,
 				isDeletingAllComplete: state.isDeletingAllComplete,
 				isCreatingNewList: state.isCreatingNewList,
+				isEditingSettings: state.isEditingSettings,
 				toggleMyDayFilter,
 				clearFocusList,
 				setFocusList,
 				setDateFilter,
 				setIsDeletingAllComplete,
 				setIsCreatingNewList,
+				setIsEditingSettings,
 			}}
 			{...props}
 		/>

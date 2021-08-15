@@ -9,16 +9,21 @@ import * as style from './navBar.module.scss';
 import { DueDateFilterMenu, UserMenu, FocusListMenu } from '../../components/';
 
 export const NavLinks = () => {
-	const { user } = useContext(AuthContext);
+	const { user, userSettings } = useContext(AuthContext);
 	const { isolateMyDay, toggleMyDayFilter, focusList } = useContext(GlobalContext);
 
 	const [activeItem, setActiveItem] = useState('login');
+	console.log('The nav sees ', userSettings);
 
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 
 	return (
 		<div className={style.NavOuterContainer}>
-			<Menu pointing secondary className={style.NavOuterContainer}>
+			<Menu
+				pointing
+				secondary
+				className={style.NavOuterContainer}
+				data-dark-mode={userSettings.darkMode ? 1 : 0}>
 				{user && (
 					<>
 						<Menu.Item

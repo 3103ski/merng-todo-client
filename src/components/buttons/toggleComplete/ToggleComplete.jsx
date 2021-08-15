@@ -23,8 +23,6 @@ const ToggleTodoButton = ({ todo }) => {
 		},
 	});
 
-	// <Icon icon="akar-icons:circle" />
-	// <Icon icon="akar-icons:circle-check" />
 	return isComplete ? (
 		<Icon
 			icon='akar-icons:circle-check'

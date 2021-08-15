@@ -7,9 +7,11 @@ import * as style from './todoItem.module.scss';
 import { ToggleIsCompleteButton, TodoMenuButton, SubTaskInput } from '../../components/';
 import { checkDateToDateFilter } from '../../util/helperFunctions';
 import { GlobalContext } from '../../context/global';
+import { AuthContext } from '../../context//auth';
 
 const TodoItem = ({ todoItem }) => {
 	const { focusList, setFocusList } = useContext(GlobalContext);
+	const { userSettings } = useContext(AuthContext);
 	const [subTasksOpen, setSubTasksOpen] = useState(false);
 
 	let dueDate = '';
@@ -49,13 +51,22 @@ const TodoItem = ({ todoItem }) => {
 				</div>
 				<div id={todoItem.id} className={style.TodoItemColorContainer}>
 					<div className={style.TodoDetails}>
-						<p className={style.TodoTitle}>{todoItem.title}</p>
+						<p
+							className={style.TodoTitle}
+							data-dark-text={userSettings.darkText ? 1 : 0}>
+							{todoItem.title}
+						</p>
 					</div>
 					<div className={style.IconContainer}>
 						{todoItem.dueDate !== '' ? (
 							<Popup
 								content={<p className={style.DueDate}>{dueDate}</p>}
-								trigger={<Icon icon='bx:bx-calendar' />}
+								trigger={
+									<Icon
+										data-dark-text={userSettings.darkText ? 1 : 0}
+										icon='bx:bx-calendar'
+									/>
+								}
 							/>
 						) : null}
 						{checkDateToDateFilter('Past Due', todoItem.dueDate) &&
@@ -64,6 +75,7 @@ const TodoItem = ({ todoItem }) => {
 								content='Past Due'
 								trigger={
 									<Icon
+										data-dark-text={userSettings.darkText ? 1 : 0}
 										style={{ marginLeft: '10px' }}
 										icon='ant-design:warning-filled'
 									/>
@@ -75,6 +87,7 @@ const TodoItem = ({ todoItem }) => {
 								content='Is My Day'
 								trigger={
 									<Icon
+										data-dark-text={userSettings.darkText ? 1 : 0}
 										style={{ marginLeft: '13px' }}
 										icon='fluent:weather-partly-cloudy-day-24-filled'
 									/>
@@ -88,9 +101,14 @@ const TodoItem = ({ todoItem }) => {
 									<div
 										className={style.SubTaskButton}
 										onClick={() => setSubTasksOpen(!subTasksOpen)}>
-										<Icon icon='bi:list-check' />
+										<Icon
+											data-dark-text={userSettings.darkText ? 1 : 0}
+											icon='bi:list-check'
+										/>
 										{todoItem.subTasks.length > 0 ? (
-											<p style={{ marginRight: '10px' }}>
+											<p
+												data-dark-text={userSettings.darkText ? 1 : 0}
+												style={{ marginRight: '10px' }}>
 												{todoItem.subTasks.length}
 											</p>
 										) : null}
@@ -101,7 +119,9 @@ const TodoItem = ({ todoItem }) => {
 					</div>
 					{!todoItem.isSubTask ? (
 						<div className={style.TodoItemList} onClick={focusRootList}>
-							<p>{todoItem.listTitle}</p>
+							<p data-dark-text={userSettings.darkText ? 1 : 0}>
+								{todoItem.listTitle}
+							</p>
 						</div>
 					) : null}
 				</div>

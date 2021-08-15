@@ -31,6 +31,16 @@ export const REGISTER_USER = gql`
 	}
 `;
 
+export const UPDATE_SETTINGS = gql`
+	mutation updateSettings($darkMode: Boolean, $darkText: Boolean, $squareEdges: Boolean) {
+		updateSettings(darkMode: $darkMode, darkText: $darkText, squareEdges: $squareEdges) {
+			darkMode
+			darkText
+			squareEdges
+		}
+	}
+`;
+
 export const GET_USER_LISTS = gql`
 	query getUserLists($userId: ID!) {
 		getUserLists(userId: $userId) {

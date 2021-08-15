@@ -6,12 +6,14 @@ import { Icon } from '@iconify/react-with-api';
 import * as style from './todoInput.module.scss';
 import { ADD_TODO_TO_LIST } from '../../graphql/';
 import { GlobalContext } from '../../context/global';
+import { AuthContext } from '../../context/auth';
 
 const TodoInput = ({ lists }) => {
 	const [selectedList, setSelectedList] = useState(null);
 	const [activeColor, setActiveColor] = useState('');
 	const [todoText, setTodoText] = useState('');
 	const { focusList } = useContext(GlobalContext);
+	const { userSettings } = useContext(AuthContext);
 
 	async function onChangeListSelector(e, option) {
 		e.persist();
@@ -88,7 +90,9 @@ const TodoInput = ({ lists }) => {
 	return (
 		<div
 			id='inputContainer'
-			className={style.TodoInputContainer}
+			className={`${style.TodoInputContainer} ${
+				userSettings.darkText ? 'inputDark' : 'inputLight'
+			}`}
 			style={{
 				borderColor: activeColor,
 				backgroundColor: activeColor,
@@ -101,13 +105,20 @@ const TodoInput = ({ lists }) => {
 						onChange={(e) => setTodoText(e.target.value)}
 						className={style.TodoInput}
 					/>
+					<Button
+						style={{ backgroundColor: activeColor }}
+						type='submit'
+						className={style.TodoAddButton}>
+						<Icon
+							data-dark-text={userSettings.darkText ? 1 : 0}
+							icon='fluent:arrow-enter-up-24-regular'
+						/>
+					</Button>
 				</div>
-				<Button type='submit' className={style.TodoAddButton}>
-					Add
-				</Button>
 
 				<Dropdown
 					className={style.DropMenu}
+					data-dark-text={userSettings.darkText ? 1 : 0}
 					value={selectedList}
 					upward
 					options={listOptions}

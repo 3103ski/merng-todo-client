@@ -9,6 +9,11 @@
 	&:hover {
 		cursor: pointer;
 	}
+	p {
+		&:hover {
+			cursor: pointer;
+		}
+	}
 }
 
 .ListActionsMenu {
@@ -19,8 +24,10 @@
 		cursor: pointer;
 	}
 	p {
+		transition: 0.2s;
 		&:hover {
 			cursor: pointer;
+			color: $light-grey;
 		}
 	}
 }
