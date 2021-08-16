@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
-// import { useQuery } from '@apollo/client';
-// import { GET_USER_TODOS } from '../../../graphql/';
+import { useQuery } from '@apollo/client';
+import { GET_USER_TODOS } from '../../../graphql/';
 
 import * as style from './todoListFilter.module.scss';
 
@@ -9,10 +9,24 @@ import { GlobalContext } from '../../../context/global';
 import { AuthContext } from '../../../context/auth';
 
 const TodoListButton = ({ list }) => {
-	const [todoCount, setTodoCount] = useState(0);
+	const [todoCount, setTodoCount] = useState(null);
 	const { focusList, setFocusList, clearFocusList } = useContext(GlobalContext);
-	const { userSettings } = useContext(AuthContext);
-	console.log(list);
+	const { userSettings, user } = useContext(AuthContext);
+
+	const { data } = useQuery(GET_USER_TODOS, {
+		variables: {
+			userId: user.id,
+		},
+	});
+
+	const incompleteTodos = data.getUserTodos.filter(
+		(todo) => !todo.isComplete && todo.listId === list.id
+	);
+
+	console.log('work ?? ', incompleteTodos.length);
+	useEffect(() => {
+		setTodoCount(incompleteTodos.length);
+	}, [incompleteTodos]);
 
 	return (
 		<div

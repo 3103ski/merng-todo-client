@@ -33,6 +33,7 @@ const TodoItem = ({ todoItem }) => {
 		document.getElementById(todoItem.id).style.backgroundColor = todoItem.color;
 	});
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
 		if (
 			subTasksOpen !== expandAllSubTasks &&
@@ -42,7 +43,7 @@ const TodoItem = ({ todoItem }) => {
 			setSubTasksOpen(expandAllSubTasks);
 		}
 		console.log(expandAllSubTasks);
-	}, [expandAllSubTasks, subTasksOpen, todoItem.isSubTask]);
+	});
 
 	return (
 		<div
