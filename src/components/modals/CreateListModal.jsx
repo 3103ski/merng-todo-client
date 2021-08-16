@@ -1,11 +1,13 @@
 import React, { useState, useContext } from 'react';
 
-import { Modal, Button, Form, Grid, Label } from 'semantic-ui-react';
-import { SketchPicker } from 'react-color';
+import { Modal, Button, Form, Grid } from 'semantic-ui-react';
+import { SliderPicker } from 'react-color';
 import { useMutation, gql } from '@apollo/client';
 
 import { CREATE_TODO_LIST } from '../../graphql/';
 import { GlobalContext } from '../../context/global';
+
+import * as style from './modals.module.scss';
 
 const CreateListModal = ({ list = null }) => {
 	const randomHex = () => `#${Math.floor(Math.random() * 17677215).toString(16)}`;
@@ -14,7 +16,6 @@ const CreateListModal = ({ list = null }) => {
 	const { isCreatingNewList, setIsCreatingNewList } = useContext(GlobalContext);
 
 	const [errors, setErrors] = useState({});
-
 	const [color, setColor] = useState(list ? list.color : defaultColor);
 	const [title, setTitle] = useState(list ? list.title : '');
 
@@ -57,6 +58,7 @@ const CreateListModal = ({ list = null }) => {
 				setColor(defaultColor);
 				return setTitle('');
 			}}
+			size={'tiny'}
 			onOpen={() => setIsCreatingNewList(true)}
 			open={isCreatingNewList}>
 			<Modal.Header style={{ color: 'white', backgroundColor: color }}>
@@ -66,35 +68,36 @@ const CreateListModal = ({ list = null }) => {
 				<Form>
 					<Grid>
 						<Grid.Row>
-							<Grid.Column width={5}>
-								<Form.Field>
-									<SketchPicker
-										color={color}
-										onChange={(color) => {
-											setColor(color.hex);
-										}}
-									/>
-								</Form.Field>
-							</Grid.Column>
-							<Grid.Column width={11}>
-								<Label.Detail style={{ marginBottom: '15px' }}>
-									If you can't read the white text in the bar above, try picking a
-									darker color.
-								</Label.Detail>
+							<Grid.Column width={16}>
 								<Form.Field>
 									<Form.Input
 										value={title}
 										onChange={(e) => setTitle(e.target.value)}
 										placeholder='Name your todo category'
 									/>
+									<SliderPicker
+										color={color}
+										onChange={(color) => {
+											setColor(color.hex);
+										}}
+									/>
 								</Form.Field>
 
-								<Button color='teal' onClick={() => setColor(randomHex())}>
-									Random Color
-								</Button>
-								<Button color='green' onClick={createList}>
-									Create Category
-								</Button>
+								<div className={style.CreateListButtons}>
+									<Button
+										style={{ backgroundColor: color, color: 'white' }}
+										onClick={() => setColor(randomHex())}>
+										Random Color
+									</Button>
+									<Button
+										style={{
+											backgroundColor: color,
+											color: 'white',
+										}}
+										onClick={createList}>
+										Create Category
+									</Button>
+								</div>
 							</Grid.Column>
 						</Grid.Row>
 					</Grid>

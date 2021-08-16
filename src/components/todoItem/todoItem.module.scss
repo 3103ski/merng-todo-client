@@ -1,6 +1,6 @@
 @import '../../sass/';
 
-$leftWidth: 50px;
+$leftWidth: 45px;
 $rightWidth: 60px;
 
 .OuterContainer {
@@ -10,7 +10,7 @@ $rightWidth: 60px;
 	.TodoItemContainer {
 		@include flex-center;
 
-		margin-bottom: 10px;
+		margin-bottom: 3px;
 		transition: 0.2s;
 
 		.TodoCompleteToggleContainer,
@@ -22,7 +22,7 @@ $rightWidth: 60px;
 			width: $leftWidth;
 
 			svg {
-				font-size: 35px;
+				font-size: 23px;
 			}
 		}
 
@@ -38,7 +38,7 @@ $rightWidth: 60px;
 			}
 
 			.TodoDetails {
-				padding: 10px 25px;
+				padding: 7px 25px;
 
 				.TodoTitle {
 					font-size: 15px;

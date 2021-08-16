@@ -10,7 +10,8 @@ $drop-select-width: 180px;
 
 	.InputInner {
 		display: flex;
-		justify-content: flex-start;
+		justify-content: flex-end;
+		align-items: center;
 
 		.InputWrapper {
 			display: flex;
@@ -28,6 +29,7 @@ $drop-select-width: 180px;
 			input {
 				border: none !important;
 			}
+
 			.TodoAddButton {
 				border-radius: 25px !important;
 				padding: 0 0 0 1px;
@@ -40,14 +42,21 @@ $drop-select-width: 180px;
 			}
 		}
 
+		.DropMenuSubstituteText {
+			font-size: 15px;
+			margin: 0 20px 0 auto;
+		}
+
 		.DropMenu {
 			width: $drop-select-width;
 			display: flex;
 			align-items: center;
-			justify-content: center;
+			justify-content: flex-end;
+			padding-right: 20px;
 
 			.OptionText {
 				font-size: 15px;
+
 				span {
 					svg {
 						font-size: 20px;
@@ -55,6 +64,7 @@ $drop-select-width: 180px;
 						margin-right: 8px;
 					}
 				}
+
 				&:hover {
 					cursor: pointer;
 				}

@@ -116,14 +116,18 @@ const TodoInput = ({ lists }) => {
 					</Button>
 				</div>
 
-				<Dropdown
-					className={style.DropMenu}
-					data-dark-mode-text={userSettings.darkText ? 1 : 0}
-					value={selectedList}
-					upward
-					options={listOptions}
-					onChange={onChangeListSelector}
-				/>
+				{!focusList ? (
+					<Dropdown
+						className={style.DropMenu}
+						data-dark-mode-text={userSettings.darkText ? 1 : 0}
+						value={selectedList}
+						upward
+						options={listOptions}
+						onChange={onChangeListSelector}
+					/>
+				) : (
+					<p className={style.DropMenuSubstituteText}>{focusList.title}</p>
+				)}
 			</Form>
 		</div>
 	);

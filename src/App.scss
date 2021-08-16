@@ -25,11 +25,17 @@
 	svg {
 		color: $light-mode-icon;
 	}
+	&:hover {
+		cursor: pointer;
+	}
 }
 [data-dark-icon='1'] {
 	color: $dark-mode-icon;
 	svg {
 		color: $dark-mode-icon;
+	}
+	&:hover {
+		cursor: pointer;
 	}
 }
 

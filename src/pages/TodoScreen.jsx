@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useQuery, gql } from '@apollo/client';
+import { Icon } from '@iconify/react-with-api';
 import { Grid, Loader } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 
@@ -20,8 +21,9 @@ import {
 import * as style from './todoScreen.module.scss';
 
 const TodoScreen = () => {
-	const { user } = useContext(AuthContext);
-	const { isolateMyDay, focusList, setFocusList, dateFilter } = useContext(GlobalContext);
+	const { user, userSettings } = useContext(AuthContext);
+	const { isolateMyDay, focusList, setFocusList, dateFilter, setIsCreatingNewList } =
+		useContext(GlobalContext);
 
 	const { loading: loadingLists, data: listData } = useQuery(GET_USER_LISTS, {
 		variables: { userId: user.id },
@@ -36,24 +38,38 @@ const TodoScreen = () => {
 		<>
 			<Grid className={style.ContentContainer}>
 				<Grid.Row className={style.ListRow}>
-					<Grid.Column className={style.ListCollectionContainer}>
-						{loadingLists ? (
-							<Loader active={loadingLists}>Loading Todo Lists</Loader>
-						) : (
-							<>
-								{listData &&
-									listData.getUserLists &&
-									listData.getUserLists.map((list, i) => {
-										return (
-											<TodoListButton
-												setFocusList={setFocusList}
-												key={list.id}
-												list={list}
-											/>
-										);
-									})}
-							</>
-						)}
+					<Grid.Column className={style.ListCollectionCol}>
+						<div className={style.AddListIconContainer}>
+							<Icon
+								onClick={() => setIsCreatingNewList(true)}
+								data-dark-icon={userSettings.darkMode ? 1 : 0}
+								icon={
+									userSettings.darkMode
+										? 'fluent:add-circle-16-filled'
+										: 'fluent:add-circle-16-regular'
+								}
+							/>
+						</div>
+
+						<div className={style.ListCollection}>
+							{loadingLists ? (
+								<Loader active={loadingLists}>Loading Todo Lists</Loader>
+							) : (
+								<>
+									{listData &&
+										listData.getUserLists &&
+										listData.getUserLists.map((list, i) => {
+											return (
+												<TodoListButton
+													setFocusList={setFocusList}
+													key={list.id}
+													list={list}
+												/>
+											);
+										})}
+								</>
+							)}
+						</div>
 					</Grid.Column>
 				</Grid.Row>
 
