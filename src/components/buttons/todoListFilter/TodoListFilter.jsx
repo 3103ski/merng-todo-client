@@ -19,11 +19,15 @@ const TodoListButton = ({ list }) => {
 		},
 	});
 
-	const incompleteTodos = data.getUserTodos.filter(
-		(todo) => !todo.isComplete && todo.listId === list.id
-	);
+	let incompleteTodos;
+	incompleteTodos = [];
 
-	console.log('work ?? ', incompleteTodos.length);
+	if (data) {
+		incompleteTodos = data.getUserTodos.filter(
+			(todo) => !todo.isComplete && todo.listId === list.id
+		);
+	}
+
 	useEffect(() => {
 		setTodoCount(incompleteTodos.length);
 	}, [incompleteTodos]);
