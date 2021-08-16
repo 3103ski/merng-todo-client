@@ -8,6 +8,7 @@ const initialState = {
 	isDeletingAllComplete: false,
 	isCreatingNewList: false,
 	isEditingSettings: false,
+	expandAllSubTasks: false,
 	userSettings: {
 		darkMode: false,
 		darkText: false,
@@ -19,7 +20,15 @@ const GlobalContext = createContext(initialState);
 
 const globalReducer = (
 	state,
-	{ type, focusList, dateFilter, isDeletingAllComplete, isCreatingNewList, isEditingSettings }
+	{
+		type,
+		focusList,
+		dateFilter,
+		isDeletingAllComplete,
+		isCreatingNewList,
+		isEditingSettings,
+		expandAllSubTasks,
+	}
 ) => {
 	switch (type) {
 		case 'TOGGLE_MY_DAY_FILTER':
@@ -36,6 +45,8 @@ const globalReducer = (
 			return updateObj(state, { isCreatingNewList });
 		case 'SET_IS_EDITING_SETTINGS':
 			return updateObj(state, { isEditingSettings });
+		case 'SET_EXPAND_ALL_SUB_TASKS':
+			return updateObj(state, { expandAllSubTasks });
 		default:
 			return state;
 	}
@@ -72,6 +83,9 @@ const GlobalProvider = (props) => {
 		dispatch({ type: 'SET_IS_EDITING_SETTINGS', isEditingSettings });
 	};
 
+	const setExpandAllSubTasks = (expandAllSubTasks) => {
+		dispatch({ type: 'SET_EXPAND_ALL_SUB_TASKS', expandAllSubTasks });
+	};
 	return (
 		<GlobalContext.Provider
 			value={{
@@ -81,6 +95,7 @@ const GlobalProvider = (props) => {
 				isDeletingAllComplete: state.isDeletingAllComplete,
 				isCreatingNewList: state.isCreatingNewList,
 				isEditingSettings: state.isEditingSettings,
+				expandAllSubTasks: state.expandAllSubTasks,
 				toggleMyDayFilter,
 				clearFocusList,
 				setFocusList,
@@ -88,6 +103,7 @@ const GlobalProvider = (props) => {
 				setIsDeletingAllComplete,
 				setIsCreatingNewList,
 				setIsEditingSettings,
+				setExpandAllSubTasks,
 			}}
 			{...props}
 		/>

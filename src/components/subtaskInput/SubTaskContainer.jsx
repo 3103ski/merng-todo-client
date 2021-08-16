@@ -33,11 +33,13 @@ const SubTaskSection = ({ todoItem = {} }) => {
 
 	return (
 		<div className={style.MainContainer} style={{ borderColor }}>
-			{[...todoItem.subTasks]
-				.sort((a, b) => a.isComplete - b.isComplete)
-				.map((task) => {
-					return <TodoItem key={task.id} todoItem={task} />;
-				})}
+			{!todoItem.subTasks
+				? null
+				: [...todoItem.subTasks]
+						.sort((a, b) => a.isComplete - b.isComplete)
+						.map((task) => {
+							return <TodoItem key={task.id} todoItem={task} />;
+						})}
 
 			<div className={style.InputContainer}>
 				{!inputActive ? (

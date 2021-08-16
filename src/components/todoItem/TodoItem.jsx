@@ -11,7 +11,7 @@ import { AuthContext } from '../../context//auth';
 import { AssignDueDate } from '../buttons/todoMenu//menuButtons/';
 
 const TodoItem = ({ todoItem }) => {
-	const { focusList, setFocusList } = useContext(GlobalContext);
+	const { focusList, setFocusList, expandAllSubTasks } = useContext(GlobalContext);
 	const { userSettings } = useContext(AuthContext);
 	const [subTasksOpen, setSubTasksOpen] = useState(false);
 	const [isSettingDate, setIsSettingDate] = useState(false);
@@ -32,6 +32,17 @@ const TodoItem = ({ todoItem }) => {
 	useEffect(() => {
 		document.getElementById(todoItem.id).style.backgroundColor = todoItem.color;
 	});
+
+	useEffect(() => {
+		if (
+			subTasksOpen !== expandAllSubTasks &&
+			!todoItem.isSubTask &&
+			todoItem.subTasks.length > 0
+		) {
+			setSubTasksOpen(expandAllSubTasks);
+		}
+		console.log(expandAllSubTasks);
+	}, [expandAllSubTasks, subTasksOpen]);
 
 	return (
 		<div

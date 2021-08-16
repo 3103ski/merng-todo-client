@@ -10,7 +10,8 @@ import { DueDateFilterMenu, UserMenu, FocusListMenu } from '../../components/';
 
 export const NavLinks = () => {
 	const { user, userSettings } = useContext(AuthContext);
-	const { isolateMyDay, toggleMyDayFilter, focusList } = useContext(GlobalContext);
+	const { isolateMyDay, toggleMyDayFilter, focusList, expandAllSubTasks, setExpandAllSubTasks } =
+		useContext(GlobalContext);
 
 	const [activeItem, setActiveItem] = useState('login');
 	console.log('The nav sees ', userSettings);
@@ -40,6 +41,12 @@ export const NavLinks = () => {
 
 						<Menu.Item data-dark-icon={userSettings.darkMode ? 1 : 0}>
 							<DueDateFilterMenu />
+						</Menu.Item>
+
+						<Menu.Item
+							onClick={() => setExpandAllSubTasks(!expandAllSubTasks)}
+							data-dark-icon={userSettings.darkMode ? 1 : 0}>
+							<Icon icon='ic:baseline-expand' />
 						</Menu.Item>
 					</>
 				)}
