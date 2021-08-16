@@ -6,7 +6,7 @@ import { Button, Header, Modal } from 'semantic-ui-react';
 import { AuthContext } from '../../context/auth';
 import { GlobalContext } from '../../context/global';
 
-const DeleteAllCompletedModal = ({ closeSettings = null }) => {
+const DeleteAllCompletedModal = () => {
 	const { isDeletingAllComplete, setIsDeletingAllComplete } = useContext(GlobalContext);
 	const { user } = useContext(AuthContext);
 	const userId = user.id;

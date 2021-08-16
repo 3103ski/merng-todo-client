@@ -11,7 +11,7 @@ import * as style from './modals.module.scss';
 
 const CreateListModal = ({ list = null }) => {
 	const randomHex = () => `#${Math.floor(Math.random() * 17677215).toString(16)}`;
-	const defaultColor = randomHex();
+	const defaultColor = 'rgb(129, 129, 129)';
 
 	const { isCreatingNewList, setIsCreatingNewList } = useContext(GlobalContext);
 

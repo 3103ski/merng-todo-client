@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import * as style from './focusListMenu.module.scss';
 import { Popup } from 'semantic-ui-react';
+import { Icon } from '@iconify/react-with-api';
 
 import { DeleteListComplete, DeleteList, EditList } from '../../../components/';
 import { GlobalContext } from '../../../context/global';
@@ -11,48 +12,55 @@ const FocusListMenu = () => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [isDeletingCompletedTodos, setIsDeletingCompletedTodos] = useState(false);
 	const [isDeletingList, setIsDeletingList] = useState(false);
+
 	const { focusList } = useContext(GlobalContext);
-	const { user } = useContext(AuthContext);
+	const { user, userSettings } = useContext(AuthContext);
+
 	const userId = user.id;
 
 	return (
 		<>
-			<Popup
-				trigger={
-					<div className={style.ListActionMenuButton}>
-						<p> List Actions</p>
-					</div>
-				}
-				on='click'
-				onOpen={() => setMenuState(true)}
-				onClose={() => setMenuState(false)}
-				open={menuState}
-				content={
-					<div className={style.ListActionsMenu}>
-						<p
-							onClick={() => {
-								setMenuState(false);
-								setIsDeletingCompletedTodos(true);
-							}}>
-							Delete Completed Todos
-						</p>
-						<p
+			<div className={style.ListActionsMenu}>
+				<Popup
+					content='Delete Completed Todos'
+					trigger={
+						<Icon
+							data-dark-icon={userSettings.darkMode ? 1 : 0}
 							onClick={() => {
 								setMenuState(false);
 								setIsEditing(true);
-							}}>
-							Edit List
-						</p>
-						<p
+							}}
+							icon='carbon:clean'
+						/>
+					}
+				/>
+				<Popup
+					content='Edit List'
+					trigger={
+						<Icon
+							data-dark-icon={userSettings.darkMode ? 1 : 0}
+							onClick={() => {
+								setMenuState(false);
+								setIsEditing(true);
+							}}
+							icon='fluent:notepad-edit-16-filled'
+						/>
+					}
+				/>
+				<Popup
+					content='Delete List'
+					trigger={
+						<Icon
+							data-dark-icon={userSettings.darkMode ? 1 : 0}
 							onClick={() => {
 								setMenuState(false);
 								setIsDeletingList(true);
-							}}>
-							Delete List
-						</p>
-					</div>
-				}
-			/>
+							}}
+							icon='codicon:clear-all'
+						/>
+					}
+				/>
+			</div>
 			<DeleteListComplete
 				isDeletingCompletedTodos={isDeletingCompletedTodos}
 				setIsDeletingCompletedTodos={setIsDeletingCompletedTodos}

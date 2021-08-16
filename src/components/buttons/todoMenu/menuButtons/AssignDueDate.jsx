@@ -25,10 +25,10 @@ const AssignDueDateModal = ({ todoId, dueDate, isSettingDate, setIsSettingDate, 
 		},
 	});
 
-	let displayDate = '';
-	if (dueDate !== '') {
-		displayDate = moment(new Date(dueDate)).format('dddd MMM Do YYYY');
-	}
+	// let displayDate = '';
+	// if (dueDate !== '') {
+	// 	displayDate = moment(new Date(dueDate)).format('dddd MMM Do YYYY');
+	// }
 
 	return (
 		<Popup
@@ -61,19 +61,20 @@ const AssignDueDateModal = ({ todoId, dueDate, isSettingDate, setIsSettingDate, 
 			onOpen={() => setIsSettingDate(true)}
 			open={isSettingDate}
 			trigger={
-				dueDate !== '' ? (
-					<Popup
-						content={displayDate}
-						trigger={
-							<Icon
-								data-full-opacity={dueDate ? 1 : 0}
-								icon='carbon:calendar-heat-map'
-							/>
-						}
-					/>
-				) : (
-					<Icon data-full-opacity={dueDate ? 1 : 0} icon='carbon:calendar-heat-map' />
-				)
+				// dueDate !== '' ? (
+				// 	<Popup
+				// 		content={displayDate}
+				// 		trigger={
+				// 			<Icon
+				// 				data-full-opacity={dueDate ? 1 : 0}
+				// 				icon='carbon:calendar-heat-map'
+				// 			/>
+				// 		}
+				// 	/>
+				// ) : (
+				// 	<Icon data-full-opacity={dueDate ? 1 : 0} icon='carbon:calendar-heat-map' />
+				// 	)
+				<Icon data-full-opacity={dueDate ? 1 : 0} icon='carbon:calendar-heat-map' />
 			}
 		/>
 	);

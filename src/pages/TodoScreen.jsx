@@ -14,7 +14,6 @@ import {
 	TodoItem,
 	TodoInput,
 	CreateListModal,
-	SettingsModal,
 	DeleteAllComplete,
 } from '../components';
 
@@ -130,7 +129,6 @@ const TodoScreen = () => {
 						)}
 						<DeleteAllComplete />
 						<CreateListModal />
-						<SettingsModal />
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
