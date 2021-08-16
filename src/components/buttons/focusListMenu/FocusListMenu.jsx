@@ -28,7 +28,7 @@ const FocusListMenu = () => {
 							data-dark-icon={userSettings.darkMode ? 1 : 0}
 							onClick={() => {
 								setMenuState(false);
-								setIsEditing(true);
+								setIsDeletingCompletedTodos(true);
 							}}
 							icon='carbon:clean'
 						/>
