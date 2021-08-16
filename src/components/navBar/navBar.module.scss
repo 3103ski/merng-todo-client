@@ -1,10 +1,27 @@
 @import '../../sass/';
 
-.NavOuterContainer {
+.NavOuterContainer,
+.NavInnerContainer {
 	height: $nav-height;
 	z-index: 90;
-
+	display: flex;
+	align-items: center;
+	.FilterIcons {
+		display: flex;
+		margin-right: auto;
+		svg {
+			margin: 0 9px;
+		}
+	}
 	svg {
 		font-size: 25px;
+	}
+}
+
+.NavInnerContainer {
+	width: 100%;
+
+	.IconWrapper {
+		display: flex;
 	}
 }

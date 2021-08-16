@@ -42,7 +42,7 @@ const TodoItem = ({ todoItem }) => {
 			setSubTasksOpen(expandAllSubTasks);
 		}
 		console.log(expandAllSubTasks);
-	}, [expandAllSubTasks, subTasksOpen]);
+	}, [expandAllSubTasks, subTasksOpen, todoItem.isSubTask]);
 
 	return (
 		<div
@@ -85,7 +85,10 @@ const TodoItem = ({ todoItem }) => {
 										<p
 											data-dark-mode-text={userSettings.darkText ? 1 : 0}
 											style={{ marginRight: '10px' }}>
-											{todoItem.subTasks.length}
+											{
+												todoItem.subTasks.filter((task) => !task.isComplete)
+													.length
+											}
 										</p>
 									) : null}
 								</div>

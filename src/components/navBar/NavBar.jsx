@@ -23,13 +23,14 @@ export const NavLinks = () => {
 			<Menu
 				pointing
 				secondary
-				className={style.NavOuterContainer}
+				className={style.NavInnerContainer}
 				data-dark-mode={userSettings.darkMode ? 1 : 0}>
 				{user && (
-					<>
-						<Menu.Item
+					<div className={style.FilterIcons}>
+						<div
 							name='isolateMyDay'
 							active={activeItem === 'isolateMyDay'}
+							className={style.IconWrapper}
 							data-dark-icon={userSettings.darkMode ? 1 : 0}
 							onClick={toggleMyDayFilter}>
 							{isolateMyDay ? (
@@ -37,18 +38,21 @@ export const NavLinks = () => {
 							) : (
 								<Icon icon='fluent:weather-partly-cloudy-day-16-regular' />
 							)}
-						</Menu.Item>
+						</div>
 
-						<Menu.Item data-dark-icon={userSettings.darkMode ? 1 : 0}>
-							<DueDateFilterMenu />
-						</Menu.Item>
-
-						<Menu.Item
+						<div
+							className={style.IconWrapper}
 							onClick={() => setExpandAllSubTasks(!expandAllSubTasks)}
 							data-dark-icon={userSettings.darkMode ? 1 : 0}>
 							<Icon icon='ic:baseline-expand' />
-						</Menu.Item>
-					</>
+						</div>
+
+						<div
+							className={style.IconWrapper}
+							data-dark-icon={userSettings.darkMode ? 1 : 0}>
+							<DueDateFilterMenu />
+						</div>
+					</div>
 				)}
 
 				<Menu.Menu position='right'>

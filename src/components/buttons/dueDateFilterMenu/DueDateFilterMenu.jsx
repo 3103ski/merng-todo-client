@@ -3,12 +3,14 @@ import { Popup, Button } from 'semantic-ui-react';
 import { Icon } from '@iconify/react-with-api';
 
 import { GlobalContext } from '../../../context/global';
+import { AuthContext } from '../../../context/auth';
 import * as style from './dueDateFilterMenu.module.scss';
 import { checkDateToDateFilter } from '../../../util/helperFunctions';
 
 const DueDateFilterMenu = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const { dateFilter, setDateFilter } = useContext(GlobalContext);
+	const { userSettings } = useContext(AuthContext);
 
 	const setFilter = (filter) => {
 		setDateFilter(filter);
@@ -50,9 +52,17 @@ const DueDateFilterMenu = () => {
 				}
 			/>
 			{dateFilter ? (
-				<div className={style.ActiveFilterButton}>
+				<div
+					data-dark-mode={userSettings.darkMode ? 1 : 0}
+					data-square-edges={userSettings.squareEdges ? 1 : 0}
+					className={style.ActiveFilterButton}>
 					<p>{dateFilter}</p>
-					<Icon onClick={() => setDateFilter(null)} icon='eva:close-fill' />
+					<Icon
+						data-dark-icon={userSettings.darkMode ? 1 : 0}
+						className={style.FilterX}
+						onClick={() => setDateFilter(null)}
+						icon='eva:close-fill'
+					/>
 				</div>
 			) : null}
 		</>

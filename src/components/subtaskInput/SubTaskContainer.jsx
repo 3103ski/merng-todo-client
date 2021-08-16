@@ -33,13 +33,15 @@ const SubTaskSection = ({ todoItem = {} }) => {
 
 	return (
 		<div className={style.MainContainer} style={{ borderColor }}>
-			{!todoItem.subTasks
-				? null
-				: [...todoItem.subTasks]
-						.sort((a, b) => a.isComplete - b.isComplete)
-						.map((task) => {
-							return <TodoItem key={task.id} todoItem={task} />;
-						})}
+			<div className={style.SubTaskListContainer}>
+				{!todoItem.subTasks
+					? null
+					: [...todoItem.subTasks]
+							.sort((a, b) => a.isComplete - b.isComplete)
+							.map((task) => {
+								return <TodoItem key={task.id} todoItem={task} />;
+							})}
+			</div>
 
 			<div className={style.InputContainer}>
 				{!inputActive ? (
@@ -78,28 +80,3 @@ const SubTaskSection = ({ todoItem = {} }) => {
 };
 
 export default SubTaskSection;
-
-// 	if (todo.id === newItem.listId) {
-// 		cache.writeQuery({
-// 			query: gql`
-// 				query WriteTodo($id: ID) {
-// 					todo(id: $id) {
-// 						id
-// 						subTasks
-// 					}
-// 				}
-// 			`,
-// 			data: {
-// 				todo: {
-// 					__typename: 'Todo',
-// 					id: todo.id,
-// 					subTasks: [...todo.subTasks, newItem],
-// 				},
-// 			},
-// 			variables: {
-// 				id: todo.id,
-// 			},
-// 		});
-// 	}
-// 	return null;
-// });

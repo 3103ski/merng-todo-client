@@ -27,19 +27,22 @@
 	display: flex;
 	align-items: center;
 	border: solid 1px $dark-grey;
-	border-radius: 10px;
 
-	margin: 0 0 0 30px;
-	height: 25px;
-	padding: 3px 10px;
+	margin: 0 10px;
+	height: 26px;
+	padding: 4px 10px 4px 14px;
 
 	p {
 		margin: 0;
 		line-height: 12px;
 	}
 
+	.FilterX {
+		margin: 0 0 0 5px !important;
+	}
+
 	svg {
-		margin-left: auto;
+		margin: 0;
 		font-size: 15px;
 		&:hover {
 			cursor: pointer;
