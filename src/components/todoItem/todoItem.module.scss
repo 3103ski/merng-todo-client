@@ -10,7 +10,7 @@ $rightWidth: 60px;
 	.TodoItemContainer {
 		@include flex-center;
 
-		margin-bottom: 3px;
+		margin-bottom: 4px;
 		transition: 0.2s;
 
 		.TodoCompleteToggleContainer,
@@ -37,7 +37,7 @@ $rightWidth: 60px;
 			}
 
 			.TodoDetails {
-				padding: 7px 25px;
+				padding: 9px 25px;
 
 				.TodoTitle {
 					font-size: 15px;
