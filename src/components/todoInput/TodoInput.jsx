@@ -110,7 +110,7 @@ const TodoInput = ({ lists }) => {
 						type='submit'
 						className={style.TodoAddButton}>
 						<Icon
-							data-dark-text={userSettings.darkText ? 1 : 0}
+							data-dark-mode-text={userSettings.darkText ? 1 : 0}
 							icon='fluent:arrow-enter-up-24-regular'
 						/>
 					</Button>
@@ -118,7 +118,7 @@ const TodoInput = ({ lists }) => {
 
 				<Dropdown
 					className={style.DropMenu}
-					data-dark-text={userSettings.darkText ? 1 : 0}
+					data-dark-mode-text={userSettings.darkText ? 1 : 0}
 					value={selectedList}
 					upward
 					options={listOptions}

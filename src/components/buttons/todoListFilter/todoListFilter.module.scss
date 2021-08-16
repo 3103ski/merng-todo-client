@@ -1,9 +1,38 @@
+@import '../../../sass/';
+
 .Container {
-	padding: 10px 20px;
+	display: flex;
+	align-items: center;
+	padding: 4px 4px 4px 14px;
 	color: white;
-	border-radius: 20px;
-	margin: 0 10px 0 0;
+	border-radius: 25px;
+	margin: 0 15px 0 0;
 	transition: 0.25s;
+
+	p {
+		margin: 0;
+	}
+
+	.TodoCountContainer {
+		background-color: $dark-mode-bg;
+		border-radius: 15px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-left: 10px;
+
+		$size: 30px;
+		width: $size;
+		height: $size;
+
+		.TodoCount {
+			margin-left: 0;
+
+			padding: 0;
+			color: $light-mode-text;
+			font-size: 11px;
+		}
+	}
 
 	&.NotSelected {
 		opacity: 0.5;

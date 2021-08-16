@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { Modal, Button, Form, Grid, Label, Checkbox } from 'semantic-ui-react';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
-import { GET_USER_TODOS, UPDATE_USER_SETTINGS } from '../../graphql';
+import { UPDATE_USER_SETTINGS } from '../../graphql';
 import { GlobalContext } from '../../context/global';
 import { AuthContext } from '../../context/auth';
 
@@ -47,7 +47,7 @@ const EditSettings = () => {
 			onOpen={() => setIsEditingSettings(true)}
 			open={isEditingSettings}>
 			<Modal.Header
-				data-dark-text={userSettings.darkText ? 1 : 0}
+				data-dark-mode-text={userSettings.darkText ? 1 : 0}
 				data-dark-mode={userSettings.darkMode ? 1 : 0}>
 				Style Settings
 			</Modal.Header>

@@ -7,7 +7,7 @@ import { useForm } from '../util/hooks';
 import { AuthContext } from '../context/auth';
 
 const Login = (props) => {
-	const context = useContext(AuthContext);
+	const { login } = useContext(AuthContext);
 	const [errors, setErrors] = useState({});
 
 	const { onChange, onSubmit, values } = useForm(loginUserCallback, {
@@ -17,7 +17,7 @@ const Login = (props) => {
 
 	const [loginUser, { loading }] = useMutation(LOGIN_USER, {
 		update(_, { data: { login: userData } }) {
-			context.login(userData);
+			login(userData);
 			props.history.push('/todos');
 		},
 		onError(err) {

@@ -6,7 +6,33 @@
 	padding: 0 0 10px 0px;
 
 	.InputContainer {
-		margin: 0 60px 0 50px;
+		margin: 0 60px 0 10px;
+		display: flex;
+		align-items: center;
+
+		.AddSubTaskButton,
+		.CloseSubTaskButton {
+			align-items: center;
+			color: $light-grey;
+			opacity: 0.5;
+			transition: 0.2s;
+			height: 25px;
+
+			svg {
+				margin: 0 10px 0 0;
+				font-size: 25px;
+			}
+			p {
+				margin: 0;
+			}
+			display: flex;
+
+			&:hover,
+			p:hover {
+				opacity: 1;
+				cursor: pointer;
+			}
+		}
 
 		.InputWrapper {
 			padding: 0 0 0 15px;
@@ -16,6 +42,7 @@
 			display: flex;
 			display: flex;
 			align-items: center;
+			background-color: white;
 
 			input {
 				padding: 7px;

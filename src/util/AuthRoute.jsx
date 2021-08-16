@@ -8,7 +8,13 @@ const AuthRoute = ({ path, component: Component, ...rest }) => {
 	return (
 		<Route
 			{...rest}
-			render={(props) => (!user ? <Redirect to='/login' /> : <Component {...props} />)}
+			render={(props) => {
+				if (!user) {
+					// clearSettings();
+					localStorage.removeItem('token');
+				}
+				return !user ? <Redirect to='/login' /> : <Component {...props} />;
+			}}
 		/>
 	);
 };

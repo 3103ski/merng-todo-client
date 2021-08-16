@@ -7,7 +7,7 @@ const MainWrapper = ({ children }) => {
 	return (
 		<div
 			data-dark-mode={userSettings.darkMode ? 1 : 0}
-			data-dark-text={userSettings.darkText ? 1 : 0}
+			data-dark-mode-text={userSettings.darkText ? 1 : 0}
 			data-square-edges={userSettings.squareEdges ? 1 : 0}>
 			{children}
 		</div>

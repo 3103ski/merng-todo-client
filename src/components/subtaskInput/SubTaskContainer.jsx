@@ -10,6 +10,7 @@ import { Icon } from '@iconify/react-with-api';
 const SubTaskSection = ({ todoItem = {} }) => {
 	const [textContent, setTextContent] = useState('');
 	const borderColor = todoItem.color;
+	const [inputActive, setInputActive] = useState(false);
 
 	const [addSubTask] = useMutation(ADD_TODO_TO_LIST, {
 		update(cache, { data: { addTodoListItem: newItem } }) {
@@ -20,6 +21,7 @@ const SubTaskSection = ({ todoItem = {} }) => {
 			});
 
 			setTextContent('');
+			setInputActive(false);
 		},
 		variables: {
 			title: textContent,
@@ -28,31 +30,46 @@ const SubTaskSection = ({ todoItem = {} }) => {
 			isSubTask: true,
 		},
 	});
+
 	return (
 		<div className={style.MainContainer} style={{ borderColor }}>
 			{[...todoItem.subTasks]
 				.sort((a, b) => a.isComplete - b.isComplete)
 				.map((task) => {
-					console.log('this sub todo :: ', task.id);
 					return <TodoItem key={task.id} todoItem={task} />;
 				})}
+
 			<div className={style.InputContainer}>
-				<div className={style.InputWrapper} style={{ borderColor }}>
-					<input
-						style={{ innerWidth: '100%' }}
-						value={textContent}
-						placeholder='Enter Subtask'
-						onKeyDown={(e) => {
-							if (e.key === 'Enter') {
-								addSubTask();
-							}
-						}}
-						onChange={(e) => setTextContent(e.target.value)}
-					/>
-					<button onClick={addSubTask} style={{ backgroundColor: borderColor }}>
-						<Icon icon='fluent:arrow-enter-up-24-regular' />
-					</button>
-				</div>
+				{!inputActive ? (
+					<div onClick={() => setInputActive(true)} className={style.AddSubTaskButton}>
+						<Icon icon='carbon:add' />
+						<p>Add Sub Task</p>
+					</div>
+				) : (
+					<>
+						<div
+							onClick={() => setInputActive(false)}
+							className={style.CloseSubTaskButton}>
+							<Icon icon='ci:off-close' />
+						</div>
+						<div className={style.InputWrapper} style={{ borderColor }}>
+							<input
+								style={{ innerWidth: '100%' }}
+								value={textContent}
+								placeholder='Enter Subtask'
+								onKeyDown={(e) => {
+									if (e.key === 'Enter') {
+										addSubTask();
+									}
+								}}
+								onChange={(e) => setTextContent(e.target.value)}
+							/>
+							<button onClick={addSubTask} style={{ backgroundColor: borderColor }}>
+								<Icon icon='fluent:arrow-enter-up-24-regular' />
+							</button>
+						</div>
+					</>
+				)}
 			</div>
 		</div>
 	);

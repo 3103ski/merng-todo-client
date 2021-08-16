@@ -5,28 +5,39 @@
 }
 
 .inputLight .divider.text {
-	color: $light-text !important;
-}
-.inputDark .divider.text {
-	color: $dark-text !important;
+	color: $light-mode-text !important;
 }
 
-[data-dark-text='0'] {
-	color: $light-text;
+.inputDark .divider.text {
+	color: $dark-mode-text !important;
 }
-[data-dark-text='1'] {
-	color: $dark-text;
+
+[data-dark-mode-text='0'] {
+	color: $light-mode-text;
+}
+
+[data-dark-mode-text='1'] {
+	color: $dark-mode-text;
 }
 
 [data-dark-icon='0'] {
 	color: $light-mode-icon;
+	svg {
+		color: $light-mode-icon;
+	}
 }
 [data-dark-icon='1'] {
 	color: $dark-mode-icon;
+	svg {
+		color: $dark-mode-icon;
+	}
 }
 
 [data-dark-mode='1'] {
-	background-color: $dark-bg;
+	background-color: $dark-mode-bg;
+}
+[data-dark-mode='0'] {
+	background-color: $light-mode-bg;
 }
 
 .noselect {

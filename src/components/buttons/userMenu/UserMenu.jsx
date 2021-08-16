@@ -13,10 +13,10 @@ const UserMenu = () => {
 	const { setIsDeletingAllComplete, setIsCreatingNewList, clearFocusList, setIsEditingSettings } =
 		useContext(GlobalContext);
 
-	const { logout } = useContext(AuthContext);
+	const { logout, userSettings } = useContext(AuthContext);
 
 	return (
-		<Menu.Item>
+		<Menu.Item data-dark-icon={userSettings.darkMode ? 1 : 0}>
 			<Popup
 				open={open}
 				onOpen={() => setOpen(true)}

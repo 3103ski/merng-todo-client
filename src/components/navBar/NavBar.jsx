@@ -29,6 +29,7 @@ export const NavLinks = () => {
 						<Menu.Item
 							name='isolateMyDay'
 							active={activeItem === 'isolateMyDay'}
+							data-dark-icon={userSettings.darkMode ? 1 : 0}
 							onClick={toggleMyDayFilter}>
 							{isolateMyDay ? (
 								<Icon icon='fluent:weather-partly-cloudy-day-24-filled' />
@@ -37,7 +38,7 @@ export const NavLinks = () => {
 							)}
 						</Menu.Item>
 
-						<Menu.Item>
+						<Menu.Item data-dark-icon={userSettings.darkMode ? 1 : 0}>
 							<DueDateFilterMenu />
 						</Menu.Item>
 					</>
@@ -47,6 +48,7 @@ export const NavLinks = () => {
 					{!user ? (
 						<>
 							<Menu.Item
+								data-dark-icon={userSettings.darkMode ? 1 : 0}
 								name='register'
 								as={Link}
 								to='/register'
@@ -54,6 +56,7 @@ export const NavLinks = () => {
 								onClick={handleItemClick}
 							/>
 							<Menu.Item
+								data-dark-icon={userSettings.darkMode ? 1 : 0}
 								name='login'
 								as={Link}
 								to='/login'

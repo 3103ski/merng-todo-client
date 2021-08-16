@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 import { Icon } from '@iconify/react-with-api';
 import { useMutation } from '@apollo/client';
 import { Popup } from 'semantic-ui-react';
@@ -23,6 +24,11 @@ const AssignDueDateModal = ({ todoId, dueDate, isSettingDate, setIsSettingDate, 
 			todoId,
 		},
 	});
+
+	let displayDate = '';
+	if (dueDate !== '') {
+		displayDate = moment(new Date(dueDate)).format('dddd MMM Do YYYY');
+	}
 
 	return (
 		<Popup
@@ -54,7 +60,21 @@ const AssignDueDateModal = ({ todoId, dueDate, isSettingDate, setIsSettingDate, 
 			}}
 			onOpen={() => setIsSettingDate(true)}
 			open={isSettingDate}
-			trigger={<Icon icon='carbon:calendar-heat-map' />}
+			trigger={
+				dueDate !== '' ? (
+					<Popup
+						content={displayDate}
+						trigger={
+							<Icon
+								data-full-opacity={dueDate ? 1 : 0}
+								icon='carbon:calendar-heat-map'
+							/>
+						}
+					/>
+				) : (
+					<Icon data-full-opacity={dueDate ? 1 : 0} icon='carbon:calendar-heat-map' />
+				)
+			}
 		/>
 	);
 };

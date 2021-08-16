@@ -1,35 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { Popup } from 'semantic-ui-react';
 import { Icon } from '@iconify/react-with-api';
 import * as style from './todoMenu.module.scss';
 
-import { DeleteTodo, ToggleMyDay, AssignDueDate } from './menuButtons';
+import { DeleteTodo } from './menuButtons';
+import { AuthContext } from '../../../context/auth';
 
-const TodoMenu = ({ todo }) => {
+const TodoMenu = ({ todo, isSettingDate }) => {
 	const [menuState, setMenuState] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
-	const [isSettingDate, setIsSettingDate] = useState(false);
+
+	const { userSettings } = useContext(AuthContext);
 
 	return (
 		<>
 			<Popup
-				trigger={<Icon icon='bi:three-dots' />}
+				trigger={
+					<Icon data-dark-icon={userSettings.darkMode ? 1 : 0} icon='bi:three-dots' />
+				}
 				flowing
 				content={
 					<div className={style.IconMenu}>
-						{!todo.isSubTask ? (
-							<>
-								<ToggleMyDay myDay={todo.myDay} todoId={todo.id} />
-								<AssignDueDate
-									todoId={todo.id}
-									dueDate={todo.dueDate}
-									setIsSettingDate={setIsSettingDate}
-									isSettingDate={isSettingDate}
-									setMenuState={setMenuState}
-								/>
-							</>
-						) : null}
 						<Icon
 							icon='bi:trash-fill'
 							onClick={() => {

@@ -16,6 +16,7 @@ if (localStorage.getItem('jwtToken')) {
 
 	if (decodedToken.exp * 1000 < Date.now()) {
 		localStorage.removeItem('jwtToken');
+		
 	} else {
 		initialState.user = decodedToken;
 	}
@@ -41,6 +42,10 @@ const authReducer = (state, action) => {
 		case 'UPDATE_SETTINGS':
 			return updateObj(state, {
 				userSettings: action.userSettings,
+			});
+		case 'CLEAR_SETTINGS':
+			return updateObj(state, {
+				userSettings: initialState.userSettings,
 			});
 		default:
 			return state;
@@ -69,6 +74,11 @@ const AuthProvider = (props) => {
 		dispatch({ type: 'UPDATE_SETTINGS', userSettings });
 	};
 
+	const clearSettings = () => {
+		localStorage.removeItem('todoUserSettings');
+		dispatch({ type: 'CLEAR_SETTINGS' });
+	};
+
 	return (
 		<AuthContext.Provider
 			value={{
@@ -77,6 +87,7 @@ const AuthProvider = (props) => {
 				login,
 				logout,
 				updateSettings,
+				clearSettings,
 			}}
 			{...props}
 		/>
