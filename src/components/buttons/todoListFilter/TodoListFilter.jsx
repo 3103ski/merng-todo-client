@@ -14,18 +14,10 @@ const TodoListButton = ({ list }) => {
 	const { userSettings } = useContext(AuthContext);
 	console.log(list);
 
-	// const [todoQuery] = useQuery(GET_USER_TODOS, {
-	// 	update(_, { data }) {
-	// 		console.log(data);
-	// 	},
-	// 	variables: {
-	// 		userId: user.id,
-	// 	},
-	// });
-
 	return (
 		<div
 			id={list.id}
+			data-square-edges={userSettings.squareEdges ? 1 : 0}
 			style={{ backgroundColor: list.color }}
 			className={`${style.Container} noselect ${
 				focusList && focusList.value !== list.id ? style.NotSelected : null
@@ -49,10 +41,11 @@ const TodoListButton = ({ list }) => {
 			<p className={style.ListTitle} data-dark-mode-text={userSettings.darkText ? 1 : 0}>
 				{list.title}
 			</p>
-			<div className={style.TodoCountContainer}>
-				<p className={style.TodoCount} data-dark-mode-text={userSettings.darkText ? 1 : 0}>
-					{todoCount}
-				</p>
+			<div
+				className={style.TodoCountContainer}
+				data-dark-mode={userSettings.darkMode ? 1 : 0}
+				data-square-edges={userSettings.squareEdges ? 1 : 0}>
+				<p className={style.TodoCount}>{todoCount}</p>
 			</div>
 		</div>
 	);

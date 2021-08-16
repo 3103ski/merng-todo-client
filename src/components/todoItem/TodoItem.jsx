@@ -33,12 +33,6 @@ const TodoItem = ({ todoItem }) => {
 		document.getElementById(todoItem.id).style.backgroundColor = todoItem.color;
 	});
 
-	// useEffect(() => {
-	// 	if (todoItem.subTasks && todoItem.subTasks.length > 0) {
-	// 		setSubTasksOpen(true);
-	// 	}
-	// }, [todoItem]);
-
 	return (
 		<div
 			className={`${style.OuterContainer} noselect ${todoItem.isComplete && style.Complete}`}>
@@ -46,7 +40,10 @@ const TodoItem = ({ todoItem }) => {
 				<div className={style.TodoCompleteToggleContainer}>
 					<ToggleIsCompleteButton todo={todoItem} />
 				</div>
-				<div id={todoItem.id} className={style.TodoItemColorContainer}>
+				<div
+					id={todoItem.id}
+					data-square-edges={userSettings.squareEdges ? 1 : 0}
+					className={style.TodoItemColorContainer}>
 					<div className={style.TodoDetails}>
 						<p
 							className={style.TodoTitle}

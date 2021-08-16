@@ -46,6 +46,18 @@
 	background-color: $light-mode-bg;
 }
 
+[data-square-edges='0'],
+[data-square-edges='1'] {
+	transition: 0.3s !important;
+}
+
+[data-square-edges='0'] {
+	border-radius: 40px !important;
+}
+[data-square-edges='1'] {
+	border-radius: 0px !important;
+}
+
 .noselect {
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */

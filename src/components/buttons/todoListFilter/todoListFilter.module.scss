@@ -5,17 +5,25 @@
 	align-items: center;
 	padding: 4px 4px 4px 14px;
 	color: white;
-	border-radius: 25px;
+
 	margin: 0 15px 0 0;
-	transition: 0.25s;
 
 	p {
 		margin: 0;
 	}
 
+	[data-dark-mode='1'] {
+		p {
+			color: $dark-mode-icon;
+		}
+	}
+	[data-dark-mode='0'] {
+		p {
+			color: $light-mode-icon;
+		}
+	}
+
 	.TodoCountContainer {
-		background-color: $dark-mode-bg;
-		border-radius: 15px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -27,9 +35,7 @@
 
 		.TodoCount {
 			margin-left: 0;
-
 			padding: 0;
-			color: $light-mode-text;
 			font-size: 11px;
 		}
 	}

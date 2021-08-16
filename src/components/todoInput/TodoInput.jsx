@@ -90,6 +90,7 @@ const TodoInput = ({ lists }) => {
 	return (
 		<div
 			id='inputContainer'
+			data-square-edges={userSettings.squareEdges ? 1 : 0}
 			className={`${style.TodoInputContainer} ${
 				userSettings.darkText ? 'inputDark' : 'inputLight'
 			}`}
@@ -98,7 +99,9 @@ const TodoInput = ({ lists }) => {
 				backgroundColor: activeColor,
 			}}>
 			<Form onSubmit={addToList} className={style.InputInner}>
-				<div className={style.InputWrapper}>
+				<div
+					className={style.InputWrapper}
+					data-square-edges={userSettings.squareEdges ? 1 : 0}>
 					<Input
 						placeholder='Add a todo'
 						value={todoText}
@@ -108,6 +111,7 @@ const TodoInput = ({ lists }) => {
 					<Button
 						style={{ backgroundColor: activeColor }}
 						type='submit'
+						data-square-edges={userSettings.squareEdges ? 1 : 0}
 						className={style.TodoAddButton}>
 						<Icon
 							data-dark-mode-text={userSettings.darkText ? 1 : 0}

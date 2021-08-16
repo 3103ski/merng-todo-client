@@ -5,8 +5,7 @@ $drop-select-width: 180px;
 
 .TodoInputContainer {
 	width: 100%;
-	border-radius: 20px;
-	padding: 3px;
+	padding: 2px;
 
 	.InputInner {
 		display: flex;
@@ -18,7 +17,7 @@ $drop-select-width: 180px;
 			align-items: center;
 			padding-left: 20px;
 			background-color: white;
-			border-radius: 20px;
+
 			width: calc(100% - #{$drop-select-width});
 
 			.TodoInput {
@@ -31,7 +30,6 @@ $drop-select-width: 180px;
 			}
 
 			.TodoAddButton {
-				border-radius: 25px !important;
 				padding: 0 0 0 1px;
 				display: flex;
 				align-items: center;

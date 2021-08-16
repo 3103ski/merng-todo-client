@@ -30,7 +30,6 @@ $rightWidth: 60px;
 			width: calc(100% - (#{$leftWidth} + #{$rightWidth}));
 			display: flex;
 			align-items: stretch;
-			border-radius: 40px;
 			color: white;
 
 			p {

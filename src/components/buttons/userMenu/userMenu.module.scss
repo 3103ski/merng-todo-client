@@ -6,3 +6,27 @@
 		cursor: pointer;
 	}
 }
+
+.UserMenuContainer {
+	a {
+		color: $dark-grey;
+	}
+}
+
+.MenuLabel {
+	font-size: 9px;
+	opacity: 0.7;
+	margin: 14px 0 4px 0;
+}
+.MenuToggle {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+.MenuDivider {
+	width: 100%;
+	height: 1px;
+	opacity: 0.6;
+	background-color: $light-grey;
+	margin: 5px 0;
+}
