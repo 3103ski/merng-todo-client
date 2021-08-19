@@ -10,11 +10,18 @@ import { DueDateFilterMenu, UserMenu, FocusListMenu } from '../../components/';
 
 export const NavLinks = () => {
 	const { user, userSettings } = useContext(AuthContext);
-	const { isolateMyDay, toggleMyDayFilter, focusList, expandAllSubTasks, setExpandAllSubTasks } =
-		useContext(GlobalContext);
+	const {
+		isolateMyDay,
+		todoDeleteOptionVisible,
+		setTodoDeleteOptionVisible,
+		toggleMyDayFilter,
+		focusList,
+		expandAllSubTasks,
+		setExpandAllSubTasks,
+	} = useContext(GlobalContext);
 
 	const [activeItem, setActiveItem] = useState('login');
-	console.log('The nav sees ', userSettings);
+	console.log('The nav sees ', todoDeleteOptionVisible);
 
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 
@@ -82,6 +89,17 @@ export const NavLinks = () => {
 									<FocusListMenu />
 								</Menu.Item>
 							) : null}
+							<Menu.Item
+								onClick={() => {
+									setTodoDeleteOptionVisible();
+								}}
+								style={{ padding: '13px 0' }}>
+								<Icon
+									data-dark-icon={userSettings.darkMode ? 1 : 0}
+									icon='codicon:trash'
+								/>
+							</Menu.Item>
+
 							<UserMenu />
 						</>
 					)}

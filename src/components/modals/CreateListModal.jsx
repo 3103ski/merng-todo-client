@@ -6,11 +6,11 @@ import { useMutation, gql } from '@apollo/client';
 
 import { CREATE_TODO_LIST } from '../../graphql/';
 import { GlobalContext } from '../../context/global';
+import { randomHex } from '../../util/helperFunctions';
 
 import * as style from './modals.module.scss';
 
 const CreateListModal = ({ list = null }) => {
-	const randomHex = () => `#${Math.floor(Math.random() * 17677215).toString(16)}`;
 	const defaultColor = 'rgb(129, 129, 129)';
 
 	const { isCreatingNewList, setIsCreatingNewList } = useContext(GlobalContext);

@@ -126,6 +126,7 @@ const TodoInput = ({ lists }) => {
 						data-dark-mode-text={userSettings.darkText ? 1 : 0}
 						value={selectedList}
 						upward
+						icon={'caret up'}
 						options={listOptions}
 						onChange={onChangeListSelector}
 					/>

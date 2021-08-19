@@ -25,7 +25,7 @@ const TodoMenu = ({ todo, isSettingDate }) => {
 						<Icon
 							icon='bi:trash-fill'
 							onClick={() => {
-								setMenuState(false);
+								// setMenuState(false);
 								setIsDeleting(true);
 							}}
 						/>

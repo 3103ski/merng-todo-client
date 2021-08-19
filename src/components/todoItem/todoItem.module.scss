@@ -1,7 +1,7 @@
 @import '../../sass/';
 
-$leftWidth: 45px;
-$rightWidth: 60px;
+$leftWidth: 28px;
+$rightWidth: 0px;
 
 .OuterContainer {
 	&.Complete {
@@ -13,13 +13,57 @@ $rightWidth: 60px;
 		margin-bottom: 4px;
 		transition: 0.2s;
 
-		.TodoCompleteToggleContainer,
+		.LeftIconContainer,
 		.TodoMenuContainer {
 			@include flex-center-row;
 		}
 
-		.TodoCompleteToggleContainer {
+		.LeftIconContainer {
 			width: $leftWidth;
+			overflow: hidden;
+
+			.LeftIconContainerInner {
+				flex-wrap: nowrap;
+				display: flex;
+				align-items: center;
+				width: $leftWidth;
+				transition: 0.2s;
+				transition-timing-function: ease-in;
+
+				.CompleteIcon,
+				.DeleteIcon {
+					transition: 0.2s;
+				}
+
+				.DeleteIcon {
+					svg {
+						font-size: 28px;
+					}
+				}
+
+				&[data-is-deleting='0'] {
+					margin-right: 0px;
+
+					.CompleteIcon {
+						opacity: 1;
+					}
+
+					.DeleteIcon {
+						opacity: 0;
+					}
+				}
+				&[data-is-deleting='1'] {
+					margin-right: 50px;
+
+					.DeleteIcon {
+						opacity: 1;
+					}
+
+					.CompleteIcon {
+						opacity: 0;
+					}
+				}
+			}
 
 			svg {
 				font-size: 23px;

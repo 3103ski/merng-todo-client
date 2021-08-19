@@ -3,16 +3,20 @@ import { Popup } from 'semantic-ui-react';
 import { Icon } from '@iconify/react-with-api';
 
 import * as style from './todoItem.module.scss';
-import { ToggleIsCompleteButton, TodoMenuButton, SubTaskInput } from '../../components/';
+import { ToggleIsCompleteButton, SubTaskInput } from '../../components/';
 import ToggleMyDayButton from '../buttons/todoMenu/menuButtons/ToggleMyDay.jsx';
+import DeleteTodo from '../buttons/todoMenu/menuButtons/DeleteTodo';
 import { checkDateToDateFilter } from '../../util/helperFunctions';
 import { GlobalContext } from '../../context/global';
 import { AuthContext } from '../../context//auth';
 import { AssignDueDate } from '../buttons/todoMenu//menuButtons/';
 
 const TodoItem = ({ todoItem }) => {
-	const { focusList, setFocusList, expandAllSubTasks } = useContext(GlobalContext);
+	const { focusList, setFocusList, expandAllSubTasks, todoDeleteOptionVisible } =
+		useContext(GlobalContext);
 	const { userSettings } = useContext(AuthContext);
+
+	const [isDeleting, setIsDeleting] = useState(false);
 	const [subTasksOpen, setSubTasksOpen] = useState(false);
 	const [isSettingDate, setIsSettingDate] = useState(false);
 
@@ -42,15 +46,32 @@ const TodoItem = ({ todoItem }) => {
 		) {
 			setSubTasksOpen(expandAllSubTasks);
 		}
-		console.log(expandAllSubTasks);
 	});
 
 	return (
 		<div
 			className={`${style.OuterContainer} noselect ${todoItem.isComplete && style.Complete}`}>
 			<div className={style.TodoItemContainer}>
-				<div className={style.TodoCompleteToggleContainer}>
-					<ToggleIsCompleteButton todo={todoItem} />
+				<div className={style.LeftIconContainer}>
+					<div
+						data-is-deleting={todoDeleteOptionVisible ? 1 : 0}
+						className={style.LeftIconContainerInner}>
+						<div className={style.CompleteIcon}>
+							<ToggleIsCompleteButton todo={todoItem} />
+						</div>
+						<div className={style.DeleteIcon}>
+							<Icon
+								onClick={() => setIsDeleting(true)}
+								data-dark-icon={userSettings.darkMode ? 1 : 0}
+								icon='mdi:delete-circle-outline'
+							/>
+							<DeleteTodo
+								isDeleting={isDeleting}
+								setIsDeleting={setIsDeleting}
+								todoId={todoItem.id}
+							/>
+						</div>
+					</div>
 				</div>
 				<div
 					id={todoItem.id}
@@ -126,9 +147,9 @@ const TodoItem = ({ todoItem }) => {
 						</div>
 					) : null}
 				</div>
-				<div className={style.TodoMenuContainer}>
+				{/* <div className={style.TodoMenuContainer}>
 					<TodoMenuButton isSettingDate={isSettingDate} todo={todoItem} />
-				</div>
+				</div> */}
 			</div>
 			{subTasksOpen ? <SubTaskInput todoItem={todoItem} /> : null}
 		</div>

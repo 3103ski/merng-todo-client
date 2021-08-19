@@ -8,12 +8,8 @@ const initialState = {
 	isDeletingAllComplete: false,
 	isCreatingNewList: false,
 	isEditingSettings: false,
+	todoDeleteOptionVisible: false,
 	expandAllSubTasks: false,
-	userSettings: {
-		darkMode: false,
-		darkText: false,
-		squareEdges: false,
-	},
 };
 
 const GlobalContext = createContext(initialState);
@@ -28,6 +24,7 @@ const globalReducer = (
 		isCreatingNewList,
 		isEditingSettings,
 		expandAllSubTasks,
+		todoDeleteOptionVisible,
 	}
 ) => {
 	switch (type) {
@@ -47,6 +44,8 @@ const globalReducer = (
 			return updateObj(state, { isEditingSettings });
 		case 'SET_EXPAND_ALL_SUB_TASKS':
 			return updateObj(state, { expandAllSubTasks });
+		case 'SET_TODO_DELETE_OPTION_VISIBLE':
+			return updateObj(state, { todoDeleteOptionVisible });
 		default:
 			return state;
 	}
@@ -54,6 +53,8 @@ const globalReducer = (
 
 const GlobalProvider = (props) => {
 	const [state, dispatch] = useReducer(globalReducer, initialState);
+
+	console.log('global state :: ', state);
 
 	const toggleMyDayFilter = () => {
 		dispatch({ type: 'TOGGLE_MY_DAY_FILTER' });
@@ -86,6 +87,14 @@ const GlobalProvider = (props) => {
 	const setExpandAllSubTasks = (expandAllSubTasks) => {
 		dispatch({ type: 'SET_EXPAND_ALL_SUB_TASKS', expandAllSubTasks });
 	};
+
+	const setTodoDeleteOptionVisible = () => {
+		dispatch({
+			type: 'SET_TODO_DELETE_OPTION_VISIBLE',
+			todoDeleteOptionVisible: !state.todoDeleteOptionVisible,
+		});
+	};
+
 	return (
 		<GlobalContext.Provider
 			value={{
@@ -96,12 +105,14 @@ const GlobalProvider = (props) => {
 				isCreatingNewList: state.isCreatingNewList,
 				isEditingSettings: state.isEditingSettings,
 				expandAllSubTasks: state.expandAllSubTasks,
+				todoDeleteOptionVisible: state.todoDeleteOptionVisible,
 				toggleMyDayFilter,
 				clearFocusList,
 				setFocusList,
 				setDateFilter,
 				setIsDeletingAllComplete,
 				setIsCreatingNewList,
+				setTodoDeleteOptionVisible,
 				setIsEditingSettings,
 				setExpandAllSubTasks,
 			}}

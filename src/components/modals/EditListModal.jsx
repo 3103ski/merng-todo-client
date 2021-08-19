@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { Modal, Button, Form, Grid, Label } from 'semantic-ui-react';
-import { SketchPicker } from 'react-color';
+import { Modal, Button, Form, Grid } from 'semantic-ui-react';
+import { SliderPicker } from 'react-color';
 import { useMutation, gql } from '@apollo/client';
 
 import { GET_USER_TODOS } from '../../graphql';
 import { GlobalContext } from '../../context/global';
+
+import { randomHex } from '../../util/helperFunctions';
+import * as style from './modals.module.scss';
 
 const EditListModal = ({ list, setMenuState, setIsEditing, isEditing, userId }) => {
 	const [color, setColor] = useState(list.color);
@@ -101,6 +104,7 @@ const EditListModal = ({ list, setMenuState, setIsEditing, isEditing, userId }) 
 
 	return (
 		<Modal
+			size={'tiny'}
 			onClose={() => {
 				setIsEditing(false);
 			}}
@@ -113,39 +117,38 @@ const EditListModal = ({ list, setMenuState, setIsEditing, isEditing, userId }) 
 				<Form>
 					<Grid>
 						<Grid.Row>
-							<Grid.Column width={5}>
-								<Form.Field>
-									<SketchPicker
-										color={color}
-										onChange={(color) => {
-											setColor(color.hex);
-										}}
-									/>
-								</Form.Field>
-							</Grid.Column>
-							<Grid.Column width={11}>
-								<Label.Detail style={{ marginBottom: '15px' }}>
-									If you can't read the white text in the bar above, try picking a
-									darker color.
-								</Label.Detail>
+							<Grid.Column width={16}>
 								<Form.Field>
 									<Form.Input
 										value={title}
 										onChange={(e) => setTitle(e.target.value)}
 										placeholder='Name your todo category'
 									/>
+									<SliderPicker
+										color={color}
+										onChange={(color) => {
+											setColor(color.hex);
+										}}
+									/>
 								</Form.Field>
 
-								<Button
-									color='green'
-									onClick={() => {
-										console.log('title :: ', title);
-										console.log('color :: ', color);
-										console.log('list id :: ', list.id);
-										updateList();
-									}}>
-									Update
-								</Button>
+								<div className={style.CreateListButtons}>
+									<Button
+										style={{ backgroundColor: color, color: 'white' }}
+										onClick={() => setColor(randomHex())}>
+										Random Color
+									</Button>
+									<Button
+										color='green'
+										onClick={() => {
+											console.log('title :: ', title);
+											console.log('color :: ', color);
+											console.log('list id :: ', list.id);
+											updateList();
+										}}>
+										Update
+									</Button>
+								</div>
 							</Grid.Column>
 						</Grid.Row>
 					</Grid>
