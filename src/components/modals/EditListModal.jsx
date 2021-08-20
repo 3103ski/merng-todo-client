@@ -44,7 +44,6 @@ const EditListModal = ({ list, setMenuState, setIsEditing, isEditing, userId }) 
 								};
 							});
 						}
-						console.log(subTasks);
 						cache.writeQuery({
 							query: gql`
 								query WriteTodo($id: ID) {
@@ -141,9 +140,6 @@ const EditListModal = ({ list, setMenuState, setIsEditing, isEditing, userId }) 
 									<Button
 										color='green'
 										onClick={() => {
-											console.log('title :: ', title);
-											console.log('color :: ', color);
-											console.log('list id :: ', list.id);
 											updateList();
 										}}>
 										Update

@@ -7,7 +7,7 @@ import { AuthContext } from '../../context/auth';
 import { GlobalContext } from '../../context/global';
 
 const DeleteAllCompletedModal = () => {
-	const { isDeletingAllComplete, setIsDeletingAllComplete } = useContext(GlobalContext);
+	const { isDeletingAllComplete, globalToggle } = useContext(GlobalContext);
 	const { user } = useContext(AuthContext);
 	const userId = user.id;
 
@@ -31,8 +31,8 @@ const DeleteAllCompletedModal = () => {
 	return (
 		<Modal
 			basic
-			onClose={() => setIsDeletingAllComplete(false)}
-			onOpen={() => setIsDeletingAllComplete(true)}
+			onClose={() => globalToggle({ isDeletingAllComplete: false })}
+			onOpen={() => globalToggle({ isDeletingAllComplete: true })}
 			open={isDeletingAllComplete}
 			size='small'>
 			<Header icon>
@@ -46,7 +46,11 @@ const DeleteAllCompletedModal = () => {
 				</p>
 			</Modal.Content>
 			<Modal.Actions>
-				<Button basic color='red' inverted onClick={() => setIsDeletingAllComplete(false)}>
+				<Button
+					basic
+					color='red'
+					inverted
+					onClick={() => globalToggle({ isDeletingAllComplete: false })}>
 					<Icon name='remove' /> No
 				</Button>
 				<Button
@@ -54,7 +58,7 @@ const DeleteAllCompletedModal = () => {
 					inverted
 					onClick={() => {
 						deleteCompleted();
-						setIsDeletingAllComplete(false);
+						globalToggle({ isDeletingAllComplete: false });
 					}}>
 					<Icon name='checkmark' /> Yes
 				</Button>

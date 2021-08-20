@@ -8,12 +8,11 @@ import { GlobalContext } from '../../../context/global';
 import { AuthContext } from '../../../context/auth';
 
 const FocusListMenu = () => {
-	const [menuState, setMenuState] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 	const [isDeletingCompletedTodos, setIsDeletingCompletedTodos] = useState(false);
 	const [isDeletingList, setIsDeletingList] = useState(false);
 
-	const { focusList } = useContext(GlobalContext);
+	const { focusList, globalToggle } = useContext(GlobalContext);
 	const { user, userSettings } = useContext(AuthContext);
 
 	const userId = user.id;
@@ -27,8 +26,7 @@ const FocusListMenu = () => {
 						<Icon
 							data-dark-icon={userSettings.darkMode ? 1 : 0}
 							onClick={() => {
-								setMenuState(false);
-								setIsDeletingCompletedTodos(true);
+								globalToggle({ isDeletingFocusListComplete: true });
 							}}
 							icon='carbon:clean'
 						/>
@@ -40,7 +38,6 @@ const FocusListMenu = () => {
 						<Icon
 							data-dark-icon={userSettings.darkMode ? 1 : 0}
 							onClick={() => {
-								setMenuState(false);
 								setIsEditing(true);
 							}}
 							icon='fluent:notepad-edit-16-filled'
@@ -53,7 +50,6 @@ const FocusListMenu = () => {
 						<Icon
 							data-dark-icon={userSettings.darkMode ? 1 : 0}
 							onClick={() => {
-								setMenuState(false);
 								setIsDeletingList(true);
 							}}
 							icon='codicon:clear-all'
@@ -64,12 +60,10 @@ const FocusListMenu = () => {
 			<DeleteListComplete
 				isDeletingCompletedTodos={isDeletingCompletedTodos}
 				setIsDeletingCompletedTodos={setIsDeletingCompletedTodos}
-				setMenuState={setMenuState}
 				list={focusList}
 				userId={userId}
 			/>
 			<DeleteList
-				setMenuState={setMenuState}
 				isDeletingList={isDeletingList}
 				setIsDeletingList={setIsDeletingList}
 				list={focusList}
@@ -80,7 +74,6 @@ const FocusListMenu = () => {
 				userId={userId}
 				setIsEditing={setIsEditing}
 				isEditing={isEditing}
-				setMenuState={setMenuState}
 			/>
 		</>
 	);

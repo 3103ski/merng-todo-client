@@ -92,7 +92,6 @@ const TodoItem = ({ todoItem }) => {
 									isSettingDate={isSettingDate}
 									todoId={todoItem.id}
 									dueDate={todoItem.dueDate}
-									setMenuState={() => console.log('blah')}
 								/>
 								<ToggleMyDayButton myDay={todoItem.myDay} todoId={todoItem.id} />
 								<div

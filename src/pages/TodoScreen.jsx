@@ -21,7 +21,7 @@ import * as style from './todoScreen.module.scss';
 
 const TodoScreen = () => {
 	const { user, userSettings } = useContext(AuthContext);
-	const { isolateMyDay, focusList, setFocusList, dateFilter, setIsCreatingNewList } =
+	const { isolateMyDay, focusList, setFocusList, dateFilter, globalToggle } =
 		useContext(GlobalContext);
 
 	const { loading: loadingLists, data: listData } = useQuery(GET_USER_LISTS, {
@@ -40,7 +40,7 @@ const TodoScreen = () => {
 					<Grid.Column className={style.ListCollectionCol}>
 						<div className={style.AddListIconContainer}>
 							<Icon
-								onClick={() => setIsCreatingNewList(true)}
+								onClick={() => globalToggle({ isCreatingNewList: true })}
 								data-dark-icon={userSettings.darkMode ? 1 : 0}
 								icon={
 									userSettings.darkMode

@@ -10,7 +10,7 @@ import { AuthContext } from '../../../context/auth';
 
 const TodoListButton = ({ list }) => {
 	const [todoCount, setTodoCount] = useState(null);
-	const { focusList, setFocusList, clearFocusList } = useContext(GlobalContext);
+	const { focusList, setFocusList } = useContext(GlobalContext);
 	const { userSettings, user } = useContext(AuthContext);
 
 	const { data } = useQuery(GET_USER_TODOS, {
@@ -42,7 +42,7 @@ const TodoListButton = ({ list }) => {
 			} `}
 			onClick={() => {
 				if (focusList && focusList.value === list.id) {
-					clearFocusList();
+					setFocusList(null);
 					setTodoCount(0);
 				}
 				if ((focusList && focusList.value !== list.id) || !focusList) {

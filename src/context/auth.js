@@ -16,7 +16,6 @@ if (localStorage.getItem('jwtToken')) {
 
 	if (decodedToken.exp * 1000 < Date.now()) {
 		localStorage.removeItem('jwtToken');
-		
 	} else {
 		initialState.user = decodedToken;
 	}
@@ -24,7 +23,6 @@ if (localStorage.getItem('jwtToken')) {
 
 if (localStorage.getItem('todoUserSettings')) {
 	const settings = JSON.parse(localStorage.getItem('todoUserSettings'));
-	console.log('starting settings :: ', settings);
 	initialState.userSettings = settings;
 }
 
@@ -58,7 +56,6 @@ const AuthProvider = (props) => {
 	const login = (userData) => {
 		localStorage.setItem('jwtToken', userData.token);
 		localStorage.setItem('todoUserSettings', JSON.stringify({ ...userData.userSettings }));
-		console.log('User logged in :: ', userData);
 
 		dispatch({ type: 'LOGIN', payload: userData });
 	};

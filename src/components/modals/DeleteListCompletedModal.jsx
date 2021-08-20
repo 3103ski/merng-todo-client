@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Icon } from '@iconify/react-with-api';
 import { Button, Header, Modal } from 'semantic-ui-react';
 
-const DeleteListCompletedModal = ({
-	isDeletingCompletedTodos,
-	setIsDeletingCompletedTodos,
-	list,
-}) => {
+import { GlobalContext } from '../../context/global';
+
+const DeleteListCompletedModal = ({ list }) => {
+	const { globalToggle, isDeletingFocusListComplete } = useContext(GlobalContext);
+
 	const [deleteCompleted] = useMutation(DELETE_LIST_COMPLETED, {
 		update(cache, { data: { deleteListCompletedTodos: ids } }) {
 			cache.modify({
@@ -28,9 +28,9 @@ const DeleteListCompletedModal = ({
 	return (
 		<Modal
 			basic
-			onClose={() => setIsDeletingCompletedTodos(false)}
-			onOpen={() => setIsDeletingCompletedTodos(true)}
-			open={isDeletingCompletedTodos}
+			onClose={() => globalToggle({ isDeletingFocusListComplete: false })}
+			onOpen={() => globalToggle({ isDeletingFocusListComplete: true })}
+			open={isDeletingFocusListComplete}
 			size='small'>
 			<Header icon>
 				<Icon name='archive' />
@@ -44,7 +44,7 @@ const DeleteListCompletedModal = ({
 					basic
 					color='red'
 					inverted
-					onClick={() => setIsDeletingCompletedTodos(false)}>
+					onClick={() => globalToggle({ isDeletingFocusListComplete: false })}>
 					<Icon name='remove' /> No
 				</Button>
 				<Button
@@ -52,7 +52,7 @@ const DeleteListCompletedModal = ({
 					inverted
 					onClick={() => {
 						deleteCompleted();
-						setIsDeletingCompletedTodos(false);
+						globalToggle({ isDeletingFocusListComplete: false });
 					}}>
 					<Icon name='checkmark' /> Yes
 				</Button>

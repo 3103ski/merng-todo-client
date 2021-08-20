@@ -12,13 +12,12 @@ import { AuthContext } from '../../../context/auth';
 
 const UserMenu = () => {
 	const [open, setOpen] = useState(false);
-	const { setIsDeletingAllComplete, clearFocusList } = useContext(GlobalContext);
+	const { setFocusList, globalToggle } = useContext(GlobalContext);
 
 	const { logout, userSettings, updateSettings } = useContext(AuthContext);
 
 	const [toggleDarkMode] = useMutation(UPDATE_USER_SETTINGS, {
 		update(_, { data }) {
-			console.log('update console :: ', data.updateSettings.userSettings);
 			updateSettings(data.updateSettings.userSettings);
 		},
 		variables: {
@@ -29,7 +28,6 @@ const UserMenu = () => {
 
 	const [toggleSquareEdges] = useMutation(UPDATE_USER_SETTINGS, {
 		update(_, { data }) {
-			console.log('update console :: ', data.updateSettings.userSettings);
 			updateSettings(data.updateSettings.userSettings);
 		},
 		variables: {
@@ -55,8 +53,9 @@ const UserMenu = () => {
 						<p
 							onClick={() => {
 								setOpen(false);
-								setIsDeletingAllComplete(true);
-								clearFocusList();
+								// setIsDeletingAllComplete(true);
+								globalToggle({ isDeletingAllComplete: true });
+								setFocusList(null);
 							}}>
 							Delete All Completed Todos
 						</p>

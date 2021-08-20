@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Icon } from '@iconify/react-with-api';
 import { Link } from 'react-router-dom';
@@ -10,20 +10,8 @@ import { DueDateFilterMenu, UserMenu, FocusListMenu } from '../../components/';
 
 export const NavLinks = () => {
 	const { user, userSettings } = useContext(AuthContext);
-	const {
-		isolateMyDay,
-		todoDeleteOptionVisible,
-		setTodoDeleteOptionVisible,
-		toggleMyDayFilter,
-		focusList,
-		expandAllSubTasks,
-		setExpandAllSubTasks,
-	} = useContext(GlobalContext);
-
-	const [activeItem, setActiveItem] = useState('login');
-	console.log('The nav sees ', todoDeleteOptionVisible);
-
-	const handleItemClick = (e, { name }) => setActiveItem(name);
+	const { isolateMyDay, todoDeleteOptionVisible, focusList, expandAllSubTasks, globalToggle } =
+		useContext(GlobalContext);
 
 	return (
 		<div className={style.NavOuterContainer}>
@@ -36,10 +24,9 @@ export const NavLinks = () => {
 					<div className={style.FilterIcons}>
 						<div
 							name='isolateMyDay'
-							active={activeItem === 'isolateMyDay'}
 							className={style.IconWrapper}
 							data-dark-icon={userSettings.darkMode ? 1 : 0}
-							onClick={toggleMyDayFilter}>
+							onClick={() => globalToggle({ isolateMyDay: !isolateMyDay })}>
 							{isolateMyDay ? (
 								<Icon icon='fluent:weather-partly-cloudy-day-24-filled' />
 							) : (
@@ -49,7 +36,7 @@ export const NavLinks = () => {
 
 						<div
 							className={style.IconWrapper}
-							onClick={() => setExpandAllSubTasks(!expandAllSubTasks)}
+							onClick={() => globalToggle({ expandAllSubTasks: !expandAllSubTasks })}
 							data-dark-icon={userSettings.darkMode ? 1 : 0}>
 							<Icon icon='ic:baseline-expand' />
 						</div>
@@ -70,16 +57,12 @@ export const NavLinks = () => {
 								name='register'
 								as={Link}
 								to='/register'
-								active={activeItem === 'register'}
-								onClick={handleItemClick}
 							/>
 							<Menu.Item
 								data-dark-icon={userSettings.darkMode ? 1 : 0}
 								name='login'
 								as={Link}
 								to='/login'
-								active={activeItem === 'login'}
-								onClick={handleItemClick}
 							/>
 						</>
 					) : (
@@ -91,7 +74,9 @@ export const NavLinks = () => {
 							) : null}
 							<Menu.Item
 								onClick={() => {
-									setTodoDeleteOptionVisible();
+									globalToggle({
+										todoDeleteOptionVisible: !todoDeleteOptionVisible,
+									});
 								}}
 								style={{ padding: '13px 0' }}>
 								<Icon

@@ -13,7 +13,7 @@ import * as style from './modals.module.scss';
 const CreateListModal = ({ list = null }) => {
 	const defaultColor = 'rgb(129, 129, 129)';
 
-	const { isCreatingNewList, setIsCreatingNewList } = useContext(GlobalContext);
+	const { isCreatingNewList, globalToggle } = useContext(GlobalContext);
 
 	const [errors, setErrors] = useState({});
 	const [color, setColor] = useState(list ? list.color : defaultColor);
@@ -39,7 +39,7 @@ const CreateListModal = ({ list = null }) => {
 			});
 			setColor(defaultColor);
 			setTitle('');
-			return setIsCreatingNewList(false);
+			return globalToggle({ isCreatingNewList: false });
 		},
 		onError(err) {
 			console.log('Returned Errors', err.graphQLErrors[0].extensions.exception.errors);
@@ -54,12 +54,12 @@ const CreateListModal = ({ list = null }) => {
 	return (
 		<Modal
 			onClose={() => {
-				setIsCreatingNewList(false);
+				globalToggle({ isCreatingNewList: false });
 				setColor(defaultColor);
 				return setTitle('');
 			}}
 			size={'tiny'}
-			onOpen={() => setIsCreatingNewList(true)}
+			onOpen={() => globalToggle({ isCreatingNewList: true })}
 			open={isCreatingNewList}>
 			<Modal.Header style={{ color: 'white', backgroundColor: color }}>
 				{title === '' ? 'Create List' : title}

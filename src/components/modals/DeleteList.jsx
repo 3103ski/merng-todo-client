@@ -6,7 +6,7 @@ import { Button, Header, Modal } from 'semantic-ui-react';
 import { GlobalContext } from '../../context/global';
 
 const DeleteList = ({ list, setIsDeletingList, isDeletingList }) => {
-	const { clearFocusList } = useContext(GlobalContext);
+	const { setFocusList } = useContext(GlobalContext);
 	const [deleteList] = useMutation(DELETE_LIST, {
 		update(cache, { data }) {
 			cache.modify({
@@ -23,7 +23,7 @@ const DeleteList = ({ list, setIsDeletingList, isDeletingList }) => {
 					},
 				},
 			});
-			clearFocusList();
+			setFocusList(null);
 		},
 		variables: {
 			listId: list.id,
