@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-
+import { Popup } from 'semantic-ui-react';
 import { useQuery } from '@apollo/client';
 import { GET_USER_TODOS } from '../../../graphql/';
 
@@ -32,7 +32,7 @@ const TodoListButton = ({ list }) => {
 		setTodoCount(incompleteTodos.length);
 	}, [incompleteTodos]);
 
-	return (
+	const todoListButton = (
 		<div
 			id={list.id}
 			data-square-edges={userSettings.squareEdges ? 1 : 0}
@@ -66,6 +66,12 @@ const TodoListButton = ({ list }) => {
 				<p className={style.TodoCount}>{todoCount}</p>
 			</div>
 		</div>
+	);
+
+	return userSettings.showPopups ? (
+		<Popup trigger={todoListButton} content={`Focus on ${list.title}`} />
+	) : (
+		todoListButton
 	);
 };
 

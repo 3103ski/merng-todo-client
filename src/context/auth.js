@@ -7,9 +7,12 @@ const initialState = {
 	userSettings: {
 		darkMode: false,
 		darkText: false,
+		showPopups: false,
 		squareEdges: false,
 	},
 };
+
+console.log('state began here', initialState);
 
 if (localStorage.getItem('jwtToken')) {
 	const decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
@@ -29,6 +32,7 @@ if (localStorage.getItem('todoUserSettings')) {
 const AuthContext = createContext(initialState);
 
 const authReducer = (state, action) => {
+	console.log('auth reducer initial state:: ', initialState);
 	switch (action.type) {
 		case 'LOGIN':
 			return updateObj(state, {
@@ -54,6 +58,7 @@ const AuthProvider = (props) => {
 	const [state, dispatch] = useReducer(authReducer, initialState);
 
 	const login = (userData) => {
+		console.log('This user :: ', userData);
 		localStorage.setItem('jwtToken', userData.token);
 		localStorage.setItem('todoUserSettings', JSON.stringify({ ...userData.userSettings }));
 

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react-with-api';
-import { Grid, Loader } from 'semantic-ui-react';
+import { Grid, Loader, Popup } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 
 import { AuthContext } from '../context/auth';
 import { GlobalContext } from '../context/global';
-import { GET_USER_LISTS } from '../util/graphql';
+import { GET_USER_LISTS, GET_USER_TODOS } from '../graphql/';
 import { checkDateToDateFilter } from '../util/helperFunctions';
 
 import {
@@ -27,9 +27,21 @@ const TodoScreen = () => {
 	const { loading: loadingLists, data: listData } = useQuery(GET_USER_LISTS, {
 		variables: { userId: user.id },
 	});
-	const { loading: loadingTodos, data: todoData } = useQuery(GET_TODOS, {
+	const { loading: loadingTodos, data: todoData } = useQuery(GET_USER_TODOS, {
 		variables: { userId: user.id },
 	});
+
+	const createListButton = (
+		<Icon
+			onClick={() => globalToggle({ isCreatingNewList: true })}
+			data-dark-icon={userSettings.darkMode ? 1 : 0}
+			icon={
+				userSettings.darkMode
+					? 'fluent:add-circle-16-filled'
+					: 'fluent:add-circle-16-regular'
+			}
+		/>
+	);
 
 	return !user ? (
 		<Redirect to='/login' />
@@ -39,15 +51,11 @@ const TodoScreen = () => {
 				<Grid.Row className={style.ListRow}>
 					<Grid.Column className={style.ListCollectionCol}>
 						<div className={style.AddListIconContainer}>
-							<Icon
-								onClick={() => globalToggle({ isCreatingNewList: true })}
-								data-dark-icon={userSettings.darkMode ? 1 : 0}
-								icon={
-									userSettings.darkMode
-										? 'fluent:add-circle-16-filled'
-										: 'fluent:add-circle-16-regular'
-								}
-							/>
+							{userSettings.showPopups ? (
+								<Popup content='Create a new list' trigger={createListButton} />
+							) : (
+								createListButton
+							)}
 						</div>
 
 						<div className={style.ListCollection}>
@@ -127,6 +135,8 @@ const TodoScreen = () => {
 						{listData && listData.getUserLists.length > 0 && (
 							<TodoInput lists={listData.getUserLists} />
 						)}
+
+						{/* Todo Modals */}
 						<DeleteAllComplete />
 						<CreateListModal />
 					</Grid.Column>
@@ -135,37 +145,5 @@ const TodoScreen = () => {
 		</>
 	);
 };
-
-const GET_TODOS = gql`
-	query ($userId: ID!) {
-		getUserTodos(userId: $userId) {
-			title
-			creatorId
-			listId
-			color
-			createdAt
-			listTitle
-			myDay
-			masterId
-			id
-			dueDate
-			isSubTask
-			isComplete
-			subTasks {
-				title
-				masterId
-				creatorId
-				listId
-				myDay
-				id
-				color
-				listTitle
-				dueDate
-				isSubTask
-				isComplete
-			}
-		}
-	}
-`;
 
 export default TodoScreen;

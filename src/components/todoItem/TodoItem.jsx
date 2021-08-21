@@ -48,6 +48,64 @@ const TodoItem = ({ todoItem }) => {
 		}
 	});
 
+	const listButton = (
+		<div
+			className={`${
+				todoItem.isSubTask ? null : userSettings.darkMode ? style.DarkList : style.LightList
+			} ${style.TodoItemList}`}
+			data-is-sub-task={todoItem.isSubTask ? 1 : 0}
+			onClick={focusRootList}>
+			<p data-dark-mode-text={userSettings.darkText ? 1 : 0}>{todoItem.listTitle}</p>
+			{checkDateToDateFilter('Past Due', todoItem.dueDate) && !todoItem.isComplete ? (
+				<Popup
+					content='Past Due'
+					trigger={
+						<Icon
+							data-dark-mode-text={userSettings.darkText ? 1 : 0}
+							style={{ marginLeft: '10px' }}
+							icon='ant-design:warning-filled'
+						/>
+					}
+				/>
+			) : null}
+		</div>
+	);
+
+	// wrapping div for following buttons necessary to prevent semantic UI popup conflict
+	const dueDateButton = (
+		<div>
+			<AssignDueDate
+				setIsSettingDate={setIsSettingDate}
+				isSettingDate={isSettingDate}
+				todoId={todoItem.id}
+				dueDate={todoItem.dueDate}
+			/>
+		</div>
+	);
+
+	const myDayButton = (
+		<div>
+			<ToggleMyDayButton myDay={todoItem.myDay} todoId={todoItem.id} />
+		</div>
+	);
+
+	const subTaskButton = (
+		<div className={style.SubTaskButton} onClick={() => setSubTasksOpen(!subTasksOpen)}>
+			<Icon
+				data-full-opacity={todoItem.subTasks.length > 0 ? 1 : 0}
+				data-dark-mode-text={userSettings.darkText ? 1 : 0}
+				icon='bi:list-check'
+			/>
+			{todoItem.subTasks.length > 0 ? (
+				<p
+					data-dark-mode-text={userSettings.darkText ? 1 : 0}
+					style={{ marginRight: '10px' }}>
+					{todoItem.subTasks.filter((task) => !task.isComplete).length}
+				</p>
+			) : null}
+		</div>
+	);
+
 	return (
 		<div
 			className={`${style.OuterContainer} noselect ${todoItem.isComplete && style.Complete}`}>
@@ -87,68 +145,38 @@ const TodoItem = ({ todoItem }) => {
 					<div className={style.IconContainer}>
 						{!todoItem.isSubTask ? (
 							<>
-								<AssignDueDate
-									setIsSettingDate={setIsSettingDate}
-									isSettingDate={isSettingDate}
-									todoId={todoItem.id}
-									dueDate={todoItem.dueDate}
-								/>
-								<ToggleMyDayButton myDay={todoItem.myDay} todoId={todoItem.id} />
-								<div
-									className={style.SubTaskButton}
-									onClick={() => setSubTasksOpen(!subTasksOpen)}>
-									<Icon
-										data-full-opacity={todoItem.subTasks.length > 0 ? 1 : 0}
-										data-dark-mode-text={userSettings.darkText ? 1 : 0}
-										icon='bi:list-check'
-									/>
-									{todoItem.subTasks.length > 0 ? (
-										<p
-											data-dark-mode-text={userSettings.darkText ? 1 : 0}
-											style={{ marginRight: '10px' }}>
-											{
-												todoItem.subTasks.filter((task) => !task.isComplete)
-													.length
-											}
-										</p>
-									) : null}
-								</div>
+								{userSettings.showPopups ? (
+									<>
+										<Popup content='Assign due date' trigger={dueDateButton} />
+										<Popup content="Add to 'My Day'" trigger={myDayButton} />
+										<Popup
+											content='Show/Hide/Add sub tasks'
+											trigger={subTaskButton}
+										/>
+									</>
+								) : (
+									<>
+										{dueDateButton}
+										{myDayButton}
+										{subTaskButton}
+									</>
+								)}
 							</>
 						) : null}
 					</div>
 					{!todoItem.isSubTask ? (
-						<div
-							className={`${
-								todoItem.isSubTask
-									? null
-									: userSettings.darkMode
-									? style.DarkList
-									: style.LightList
-							} ${style.TodoItemList}`}
-							data-is-sub-task={todoItem.isSubTask ? 1 : 0}
-							onClick={focusRootList}>
-							<p data-dark-mode-text={userSettings.darkText ? 1 : 0}>
-								{todoItem.listTitle}
-							</p>
-							{checkDateToDateFilter('Past Due', todoItem.dueDate) &&
-							!todoItem.isComplete ? (
+						<>
+							{userSettings.showPopups ? (
 								<Popup
-									content='Past Due'
-									trigger={
-										<Icon
-											data-dark-mode-text={userSettings.darkText ? 1 : 0}
-											style={{ marginLeft: '10px' }}
-											icon='ant-design:warning-filled'
-										/>
-									}
+									content={`Focus on ${todoItem.listTitle}`}
+									trigger={listButton}
 								/>
-							) : null}
-						</div>
+							) : (
+								listButton
+							)}
+						</>
 					) : null}
 				</div>
-				{/* <div className={style.TodoMenuContainer}>
-					<TodoMenuButton isSettingDate={isSettingDate} todo={todoItem} />
-				</div> */}
 			</div>
 			{subTasksOpen ? <SubTaskInput todoItem={todoItem} /> : null}
 		</div>

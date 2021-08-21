@@ -10,18 +10,30 @@ export const LOGIN_USER = gql`
 				darkMode
 				darkText
 				squareEdges
+				showPopups
 			}
 		}
 	}
 `;
 
 export const UPDATE_USER_SETTINGS = gql`
-	mutation updateSettings($darkMode: Boolean, $darkText: Boolean, $squareEdges: Boolean) {
-		updateSettings(darkMode: $darkMode, darkText: $darkText, squareEdges: $squareEdges) {
+	mutation updateSettings(
+		$darkMode: Boolean
+		$darkText: Boolean
+		$squareEdges: Boolean
+		$showPopups: Boolean
+	) {
+		updateSettings(
+			darkMode: $darkMode
+			darkText: $darkText
+			squareEdges: $squareEdges
+			showPopups: $showPopups
+		) {
 			userSettings {
 				darkMode
 				darkText
 				squareEdges
+				showPopups
 			}
 		}
 	}
@@ -43,6 +55,12 @@ export const REGISTER_USER = gql`
 			token
 			id
 			username
+			userSettings {
+				darkMode
+				darkText
+				squareEdges
+				showPopups
+			}
 			email
 		}
 	}

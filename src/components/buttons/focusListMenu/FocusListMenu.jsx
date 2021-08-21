@@ -17,45 +17,58 @@ const FocusListMenu = () => {
 
 	const userId = user.id;
 
+	const deleteListCompletedButton = (
+		<Icon
+			data-dark-icon={userSettings.darkMode ? 1 : 0}
+			onClick={() => {
+				globalToggle({ isDeletingFocusListComplete: true });
+			}}
+			icon='carbon:clean'
+		/>
+	);
+
+	const editListButton = (
+		<Icon
+			data-dark-icon={userSettings.darkMode ? 1 : 0}
+			onClick={() => {
+				setIsEditing(true);
+			}}
+			icon='fluent:notepad-edit-16-filled'
+		/>
+	);
+
+	const deleteListButton = (
+		<Icon
+			data-dark-icon={userSettings.darkMode ? 1 : 0}
+			onClick={() => {
+				setIsDeletingList(true);
+			}}
+			icon='codicon:clear-all'
+		/>
+	);
+
 	return (
 		<>
 			<div className={style.ListActionsMenu}>
-				<Popup
-					content='Delete Completed Todos'
-					trigger={
-						<Icon
-							data-dark-icon={userSettings.darkMode ? 1 : 0}
-							onClick={() => {
-								globalToggle({ isDeletingFocusListComplete: true });
-							}}
-							icon='carbon:clean'
+				{userSettings.showPopups ? (
+					<>
+						<Popup
+							content='Delete completed todos fo list that is currently in focus'
+							trigger={deleteListCompletedButton}
 						/>
-					}
-				/>
-				<Popup
-					content='Edit List'
-					trigger={
-						<Icon
-							data-dark-icon={userSettings.darkMode ? 1 : 0}
-							onClick={() => {
-								setIsEditing(true);
-							}}
-							icon='fluent:notepad-edit-16-filled'
+						<Popup
+							content='Edit the list currently in focus'
+							trigger={editListButton}
 						/>
-					}
-				/>
-				<Popup
-					content='Delete List'
-					trigger={
-						<Icon
-							data-dark-icon={userSettings.darkMode ? 1 : 0}
-							onClick={() => {
-								setIsDeletingList(true);
-							}}
-							icon='codicon:clear-all'
-						/>
-					}
-				/>
+						<Popup content='Delete list that is in focus' trigger={deleteListButton} />
+					</>
+				) : (
+					<>
+						{deleteListCompletedButton}
+						{editListButton}
+						{deleteListButton}
+					</>
+				)}
 			</div>
 			<DeleteListComplete
 				isDeletingCompletedTodos={isDeletingCompletedTodos}

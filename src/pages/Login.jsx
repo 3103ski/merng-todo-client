@@ -17,6 +17,7 @@ const Login = (props) => {
 
 	const [loginUser, { loading }] = useMutation(LOGIN_USER, {
 		update(_, { data: { login: userData } }) {
+			console.log('this user data :: ', userData);
 			login(userData);
 			props.history.push('/todos');
 		},

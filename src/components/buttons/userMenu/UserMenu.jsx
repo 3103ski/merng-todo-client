@@ -13,7 +13,6 @@ import { AuthContext } from '../../../context/auth';
 const UserMenu = () => {
 	const [open, setOpen] = useState(false);
 	const { setFocusList, globalToggle } = useContext(GlobalContext);
-
 	const { logout, userSettings, updateSettings } = useContext(AuthContext);
 
 	const [toggleDarkMode] = useMutation(UPDATE_USER_SETTINGS, {
@@ -23,6 +22,16 @@ const UserMenu = () => {
 		variables: {
 			...userSettings,
 			darkMode: !userSettings.darkMode,
+		},
+	});
+
+	const [toggleShowPopups] = useMutation(UPDATE_USER_SETTINGS, {
+		update(_, { data }) {
+			updateSettings(data.updateSettings.userSettings);
+		},
+		variables: {
+			...userSettings,
+			showPopups: !userSettings.showPopups,
 		},
 	});
 
@@ -53,7 +62,6 @@ const UserMenu = () => {
 						<p
 							onClick={() => {
 								setOpen(false);
-								// setIsDeletingAllComplete(true);
 								globalToggle({ isDeletingAllComplete: true });
 								setFocusList(null);
 							}}>
@@ -74,6 +82,14 @@ const UserMenu = () => {
 							<Checkbox
 								checked={userSettings.squareEdges}
 								onChange={toggleSquareEdges}
+								toggle
+							/>
+						</div>
+						<div className={style.MenuToggle}>
+							<p>Show Popups</p>
+							<Checkbox
+								checked={userSettings.showPopups}
+								onChange={toggleShowPopups}
 								toggle
 							/>
 						</div>
