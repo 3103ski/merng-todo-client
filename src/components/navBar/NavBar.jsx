@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../context/auth';
 import { GlobalContext } from '../../context/global';
-import * as style from './navBar.module.scss';
 import { DueDateFilterMenu, UserMenu, FocusListMenu } from '../../components/';
+
+import * as style from './navBar.module.scss';
 
 export const NavLinks = () => {
 	const { user, userSettings } = useContext(AuthContext);
@@ -15,8 +16,10 @@ export const NavLinks = () => {
 
 	const myDayFilterButton = (
 		<div
+			className={`${style.IconWrapper} ${style.MyDayFilterContainer}`}
 			name='isolateMyDay'
-			className={style.IconWrapper}
+			data-square-edges={userSettings.squareEdges ? 1 : 0}
+			data-icon-active={isolateMyDay ? 1 : 0}
 			data-dark-icon={userSettings.darkMode ? 1 : 0}
 			onClick={() => globalToggle({ isolateMyDay: !isolateMyDay })}>
 			{isolateMyDay ? (
@@ -29,19 +32,21 @@ export const NavLinks = () => {
 
 	const subTasksButton = (
 		<div
-			className={style.IconWrapper}
+			className={`${style.IconWrapper} ${style.SubTaskFilterContainer}`}
+			data-square-edges={userSettings.squareEdges ? 1 : 0}
 			onClick={() =>
 				globalToggle({
 					expandAllSubTasks: !expandAllSubTasks,
 				})
 			}
+			data-icon-active={expandAllSubTasks ? 1 : 0}
 			data-dark-icon={userSettings.darkMode ? 1 : 0}>
 			<Icon icon='ic:baseline-expand' />
 		</div>
 	);
 
 	const dateFilterButton = (
-		<div className={style.IconWrapper} data-dark-icon={userSettings.darkMode ? 1 : 0}>
+		<div>
 			<DueDateFilterMenu />
 		</div>
 	);

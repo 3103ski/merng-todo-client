@@ -196,7 +196,7 @@ const TodoItem = ({ todoItem }) => {
 				</div>
 			</div>
 			{!todoItem.isSubTask ? (
-				subTasksOpen || globalSubTaskActive ? (
+				(subTasksOpen || globalSubTaskActive) && todoItem.subTasks.length > 0 ? (
 					<SubTaskInput todoItem={todoItem} />
 				) : null
 			) : null}

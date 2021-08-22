@@ -31,10 +31,14 @@ const DueDateFilterMenu = () => {
 	);
 
 	return (
-		<>
+		<div
+			className={`${style.MainContainer}`}
+			data-has-date-filter={dateFilter ? 1 : 0}
+			data-square-edges={userSettings.squareEdges ? 1 : 0}
+			data-dark-icon={userSettings.darkMode ? 1 : 0}>
 			<Popup
 				trigger={
-					<div className={style.TriggerIcon}>
+					<div className={`noselect ${style.TriggerIcon}`}>
 						<Icon icon='carbon:calendar-heat-map' />
 					</div>
 				}
@@ -52,10 +56,7 @@ const DueDateFilterMenu = () => {
 				}
 			/>
 			{dateFilter ? (
-				<div
-					data-dark-mode={userSettings.darkMode ? 1 : 0}
-					data-square-edges={userSettings.squareEdges ? 1 : 0}
-					className={style.ActiveFilterButton}>
+				<div className={style.ActiveFilterButton}>
 					<p>{dateFilter}</p>
 					<Icon
 						data-dark-icon={userSettings.darkMode ? 1 : 0}
@@ -65,7 +66,7 @@ const DueDateFilterMenu = () => {
 					/>
 				</div>
 			) : null}
-		</>
+		</div>
 	);
 };
 

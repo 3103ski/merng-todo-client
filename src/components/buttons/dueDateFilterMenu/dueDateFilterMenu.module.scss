@@ -1,11 +1,86 @@
 @import '../../../sass/';
 
-.TriggerIcon {
-	&:hover {
-		cursor: pointer;
+@keyframes fadein {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
 	}
 }
 
+.MainContainer {
+	border: 1px solid $light-grey;
+	height: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: 0.3s;
+	padding: 0;
+
+	&[data-has-date-filter='0'] {
+		min-width: 35px;
+	}
+	&[data-has-date-filter='1'] {
+		min-width: 130px;
+		padding: 0 10px;
+
+		&[data-dark-icon='1'] {
+			background-color: $light-mode-bg;
+			svg,
+			p {
+				color: $dark-mode-bg;
+			}
+		}
+		&[data-dark-icon='0'] {
+			background-color: $dark-mode-bg;
+			svg,
+			p {
+				color: $light-mode-bg;
+			}
+		}
+	}
+	&:hover {
+		cursor: pointer;
+	}
+
+	.TriggerIcon {
+		display: flex;
+		align-items: center;
+	}
+
+	.ActiveFilterButton {
+		display: flex;
+		align-items: center;
+		margin: 0 0 0 3px;
+		height: 26px;
+		padding: 4px;
+		opacity: 0;
+
+		animation-name: fadein;
+		animation-delay: 0.1s;
+		animation-fill-mode: forwards;
+		animation-duration: 0.2s;
+		animation-timing-function: ease-in-out;
+
+		p {
+			margin: 0;
+			line-height: 12px;
+		}
+
+		.FilterX {
+			margin: 0 0 0 2px !important;
+		}
+
+		svg {
+			margin: 0;
+			font-size: 15px;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+}
 .DateFilterMenu {
 	display: flex;
 	flex-direction: column;
@@ -19,33 +94,6 @@
 
 		&:last-of-type {
 			margin-bottom: 0;
-		}
-	}
-}
-
-.ActiveFilterButton {
-	display: flex;
-	align-items: center;
-	border: solid 1px $dark-grey;
-
-	margin: 0 10px;
-	height: 26px;
-	padding: 4px 10px 4px 14px;
-
-	p {
-		margin: 0;
-		line-height: 12px;
-	}
-
-	.FilterX {
-		margin: 0 0 0 5px !important;
-	}
-
-	svg {
-		margin: 0;
-		font-size: 15px;
-		&:hover {
-			cursor: pointer;
 		}
 	}
 }
