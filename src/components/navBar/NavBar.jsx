@@ -16,7 +16,7 @@ export const NavLinks = () => {
 
 	const myDayFilterButton = (
 		<div
-			className={`${style.IconWrapper} ${style.MyDayFilterContainer}`}
+			className={`${style.IconWrapper} ${style.MyDayFilterContainer} noselect`}
 			name='isolateMyDay'
 			data-square-edges={userSettings.squareEdges ? 1 : 0}
 			data-icon-active={isolateMyDay ? 1 : 0}
@@ -32,7 +32,7 @@ export const NavLinks = () => {
 
 	const subTasksButton = (
 		<div
-			className={`${style.IconWrapper} ${style.SubTaskFilterContainer}`}
+			className={`${style.IconWrapper} noselect ${style.SubTaskFilterContainer}`}
 			data-square-edges={userSettings.squareEdges ? 1 : 0}
 			onClick={() =>
 				globalToggle({

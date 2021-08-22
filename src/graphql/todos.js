@@ -149,6 +149,39 @@ export const TOGGLE_TODO_IS_MY_DAY = gql`
 		}
 	}
 `;
+export const UPDATE_TODO_TITLE = gql`
+	mutation updateTodo($todoId: ID!, $title: String!) {
+		updateTodo(todoId: $todoId, title: $title, updateType: "title") {
+			title
+			creatorId
+			listId
+			myDay
+			color
+			createdAt
+			listTitle
+			id
+			dueDate
+			isSubTask
+			isComplete
+			subTasks {
+				title
+				creatorId
+				listId
+				color
+				myDay
+				createdAt
+				listTitle
+				id
+				dueDate
+				isSubTask
+				subTasks {
+					id
+				}
+				isComplete
+			}
+		}
+	}
+`;
 
 export const SET_DUE_DATE = gql`
 	mutation updateTodo($todoId: ID!, $dueDate: String!) {

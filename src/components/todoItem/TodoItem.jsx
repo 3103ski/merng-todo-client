@@ -1,15 +1,18 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Popup } from 'semantic-ui-react';
 import { Icon } from '@iconify/react-with-api';
+import { useMutation } from '@apollo/client';
 
 import * as style from './todoItem.module.scss';
 import { ToggleIsCompleteButton, SubTaskInput } from '../../components/';
 import ToggleMyDayButton from '../buttons/todoMenu/menuButtons/ToggleMyDay.jsx';
 import DeleteTodo from '../buttons/todoMenu/menuButtons/DeleteTodo';
-import { checkDateToDateFilter } from '../../util/helperFunctions';
-import { GlobalContext } from '../../context/global';
-import { AuthContext } from '../../context//auth';
 import { AssignDueDate } from '../buttons/todoMenu//menuButtons/';
+
+import { checkDateToDateFilter } from '../../util/helperFunctions';
+import { UPDATE_TODO_TITLE } from '../../graphql/';
+import { GlobalContext } from '../../context/global';
+import { AuthContext } from '../../context/auth';
 
 const TodoItem = ({ todoItem }) => {
 	const { focusList, setFocusList, expandAllSubTasks, todoDeleteOptionVisible } =
@@ -17,9 +20,22 @@ const TodoItem = ({ todoItem }) => {
 	const { userSettings } = useContext(AuthContext);
 
 	const [isDeleting, setIsDeleting] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
+	const [todoText, setTodoText] = useState(todoItem.title);
 	const [isSettingDate, setIsSettingDate] = useState(false);
 	const [globalSubTaskActive, setGlobalSubTaskActive] = useState(false);
 	const [subTasksOpen, setSubTasksOpen] = useState(false);
+
+	const [updateTitle] = useMutation(UPDATE_TODO_TITLE, {
+		update(cache, { data }) {
+			console.log(cache);
+			console.log(data);
+		},
+		variables: {
+			todoId: todoItem.id,
+			title: todoText,
+		},
+	});
 
 	const focusRootList = () => {
 		if (!focusList) {
@@ -135,11 +151,15 @@ const TodoItem = ({ todoItem }) => {
 					data-square-edges={userSettings.squareEdges ? 1 : 0}
 					className={style.TodoItemColorContainer}>
 					<div className={style.TodoDetails}>
-						<p
-							className={style.TodoTitle}
-							data-dark-mode-text={userSettings.darkText ? 1 : 0}>
-							{todoItem.title}
-						</p>
+						<EditableText
+							updateCallback={updateTitle}
+							todoId={todoItem.id}
+							isEditing={isEditing}
+							todoText={todoText}
+							setTodoText={setTodoText}
+							setIsEditing={setIsEditing}
+							userSettings={userSettings}
+						/>
 					</div>
 					<div className={style.IconContainer}>
 						{!todoItem.isSubTask ? (
@@ -196,10 +216,73 @@ const TodoItem = ({ todoItem }) => {
 				</div>
 			</div>
 			{!todoItem.isSubTask ? (
-				(subTasksOpen || globalSubTaskActive) && todoItem.subTasks.length > 0 ? (
+				subTasksOpen || (globalSubTaskActive && todoItem.subTasks.length > 0) ? (
 					<SubTaskInput todoItem={todoItem} />
 				) : null
 			) : null}
+		</div>
+	);
+};
+
+const EditableText = ({
+	todoId,
+	isEditing,
+	todoText,
+	setTodoText,
+	setIsEditing,
+	userSettings,
+	updateCallback,
+}) => {
+	function focusInput() {
+		const inputId = `todoInput_${todoId}`;
+		const input = document.getElementById(inputId);
+		return input.focus();
+	}
+
+	return (
+		<div className={style.EditableTextContainer}>
+			{isEditing ? (
+				<input
+					id={`todoInput_${todoId}`}
+					type='text'
+					value={todoText}
+					onKeyDown={(e) => {
+						if (e.key === 'Enter') {
+							setIsEditing(false);
+							updateCallback();
+						}
+					}}
+					onChange={(e) => setTodoText(e.target.value)}
+				/>
+			) : (
+				<p
+					onClick={async () => {
+						await setIsEditing(true);
+						return focusInput();
+					}}
+					className={style.TodoTitle}
+					data-dark-mode-text={userSettings.darkText ? 1 : 0}>
+					{todoText}
+				</p>
+			)}
+
+			{isEditing ? (
+				<Icon
+					icon='bi:check-circle'
+					onClick={() => {
+						setIsEditing(false);
+						updateCallback();
+					}}
+				/>
+			) : (
+				<Icon
+					icon='dashicons:edit'
+					onClick={async () => {
+						await setIsEditing(true);
+						focusInput();
+					}}
+				/>
+			)}
 		</div>
 	);
 };

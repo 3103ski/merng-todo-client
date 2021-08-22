@@ -6,5 +6,6 @@ export {
 	DELETE_TODO,
 	TOGGLE_TODO_IS_MY_DAY,
 	SET_DUE_DATE,
+	UPDATE_TODO_TITLE,
 } from './todos';
 export { REGISTER_USER, LOGIN_USER, UPDATE_USER_SETTINGS } from './users';
