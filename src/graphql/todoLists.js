@@ -7,10 +7,6 @@ export const GET_USER_LISTS = gql`
 			color
 			id
 			title
-			todos {
-				title
-				id
-			}
 		}
 	}
 `;
