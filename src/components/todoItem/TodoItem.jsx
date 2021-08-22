@@ -17,8 +17,9 @@ const TodoItem = ({ todoItem }) => {
 	const { userSettings } = useContext(AuthContext);
 
 	const [isDeleting, setIsDeleting] = useState(false);
-	const [subTasksOpen, setSubTasksOpen] = useState(false);
 	const [isSettingDate, setIsSettingDate] = useState(false);
+	const [globalSubTaskActive, setGlobalSubTaskActive] = useState(false);
+	const [subTasksOpen, setSubTasksOpen] = useState(false);
 
 	const focusRootList = () => {
 		if (!focusList) {
@@ -32,21 +33,6 @@ const TodoItem = ({ todoItem }) => {
 			setFocusList(null);
 		}
 	};
-
-	useEffect(() => {
-		document.getElementById(todoItem.id).style.backgroundColor = todoItem.color;
-	});
-
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	useEffect(() => {
-		if (
-			subTasksOpen !== expandAllSubTasks &&
-			!todoItem.isSubTask &&
-			todoItem.subTasks.length > 0
-		) {
-			setSubTasksOpen(expandAllSubTasks);
-		}
-	});
 
 	const listButton = (
 		<div
@@ -106,6 +92,19 @@ const TodoItem = ({ todoItem }) => {
 		</div>
 	);
 
+	useEffect(() => {
+		document.getElementById(todoItem.id).style.backgroundColor = todoItem.color;
+	});
+
+	useEffect(() => {
+		if (globalSubTaskActive !== expandAllSubTasks) {
+			setGlobalSubTaskActive(expandAllSubTasks);
+			if (subTasksOpen && globalSubTaskActive === false) {
+				setSubTasksOpen(false);
+			}
+		}
+	}, [globalSubTaskActive, expandAllSubTasks, subTasksOpen]);
+
 	return (
 		<div
 			className={`${style.OuterContainer} noselect ${todoItem.isComplete && style.Complete}`}>
@@ -147,10 +146,24 @@ const TodoItem = ({ todoItem }) => {
 							<>
 								{userSettings.showPopups ? (
 									<>
-										<Popup content='Assign due date' trigger={dueDateButton} />
-										<Popup content="Add to 'My Day'" trigger={myDayButton} />
 										<Popup
-											content='Show/Hide/Add sub tasks'
+											content={
+												todoItem.dueDate === ''
+													? 'Assign due date'
+													: 'Change Due Date'
+											}
+											trigger={dueDateButton}
+										/>
+										<Popup
+											content={
+												todoItem.myDay
+													? "Remove from 'My Day"
+													: "Add to 'My Day'"
+											}
+											trigger={myDayButton}
+										/>
+										<Popup
+											content={`${subTasksOpen ? 'Hide' : 'Show'} sub tasks`}
 											trigger={subTaskButton}
 										/>
 									</>
@@ -168,7 +181,11 @@ const TodoItem = ({ todoItem }) => {
 						<>
 							{userSettings.showPopups ? (
 								<Popup
-									content={`Focus on ${todoItem.listTitle}`}
+									content={`${
+										focusList
+											? `Remove ${todoItem.listTitle} Focus`
+											: `Focus on ${todoItem.listTitle}`
+									}`}
 									trigger={listButton}
 								/>
 							) : (
@@ -178,7 +195,11 @@ const TodoItem = ({ todoItem }) => {
 					) : null}
 				</div>
 			</div>
-			{subTasksOpen ? <SubTaskInput todoItem={todoItem} /> : null}
+			{!todoItem.isSubTask ? (
+				subTasksOpen || globalSubTaskActive ? (
+					<SubTaskInput todoItem={todoItem} />
+				) : null
+			) : null}
 		</div>
 	);
 };
