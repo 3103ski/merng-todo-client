@@ -37,6 +37,13 @@ const TodoItem = ({ todoItem }) => {
 		},
 	});
 
+	const closeEditTitleHandler = () => {
+		if (todoText !== todoItem.title) {
+			updateTitle();
+		}
+		return setIsEditing(false);
+	};
+
 	const focusRootList = () => {
 		if (!focusList) {
 			setFocusList({
@@ -108,6 +115,16 @@ const TodoItem = ({ todoItem }) => {
 		</div>
 	);
 
+	document.addEventListener('click', async (e) => {
+		const targetId = await e.target.id;
+		const inputId = await `todoInput_${todoItem.id}`;
+		const todoTitleId = `todoText_${todoItem.id}`;
+		if (isEditing && targetId !== inputId && targetId !== todoTitleId) {
+			console.log('I should close and save', todoText);
+			closeEditTitleHandler();
+		}
+	});
+
 	useEffect(() => {
 		document.getElementById(todoItem.id).style.backgroundColor = todoItem.color;
 	});
@@ -152,7 +169,7 @@ const TodoItem = ({ todoItem }) => {
 					className={style.TodoItemColorContainer}>
 					<div className={style.TodoDetails}>
 						<EditableText
-							updateCallback={updateTitle}
+							updateCallback={closeEditTitleHandler}
 							todoId={todoItem.id}
 							isEditing={isEditing}
 							todoText={todoText}
@@ -260,6 +277,7 @@ const EditableText = ({
 						await setIsEditing(true);
 						return focusInput();
 					}}
+					id={`todoText_${todoId}`}
 					className={style.TodoTitle}
 					data-dark-mode-text={userSettings.darkText ? 1 : 0}>
 					{todoText}
