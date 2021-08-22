@@ -92,7 +92,7 @@ const TodoItem = ({ todoItem }) => {
 	const subTaskButton = (
 		<div className={style.SubTaskButton} onClick={() => setSubTasksOpen(!subTasksOpen)}>
 			<Icon
-				data-full-opacity={todoItem.subTasks.length > 0 ? 1 : 0}
+				data-full-opacity={!todoItem.isSubTask ? (todoItem.subTasks.length > 0 ? 1 : 0) : 0}
 				data-dark-mode-text={userSettings.darkText ? 1 : 0}
 				icon='bi:list-check'
 			/>
@@ -105,6 +105,8 @@ const TodoItem = ({ todoItem }) => {
 			) : null}
 		</div>
 	);
+
+	console.log(todoItem);
 
 	return (
 		<div

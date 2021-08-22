@@ -34,6 +34,9 @@ export const GET_USER_TODOS = gql`
 				color
 				listTitle
 				dueDate
+				subTasks {
+					id
+				}
 				isSubTask
 				isComplete
 				id
@@ -138,6 +141,9 @@ export const TOGGLE_TODO_IS_MY_DAY = gql`
 				id
 				dueDate
 				isSubTask
+				subTasks {
+					id
+				}
 				isComplete
 			}
 		}
