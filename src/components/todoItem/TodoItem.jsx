@@ -106,8 +106,6 @@ const TodoItem = ({ todoItem }) => {
 		</div>
 	);
 
-	console.log(todoItem);
-
 	return (
 		<div
 			className={`${style.OuterContainer} noselect ${todoItem.isComplete && style.Complete}`}>

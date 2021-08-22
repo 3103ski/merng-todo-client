@@ -111,6 +111,11 @@ const REGISTER_USER = gql`
 			username
 			token
 			createdAt
+			userSettings {
+				darkMode
+				showPopups
+				squareEdges
+			}
 		}
 	}
 `;

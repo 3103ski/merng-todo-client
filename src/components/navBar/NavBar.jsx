@@ -115,8 +115,18 @@ export const NavLinks = () => {
 							) : (
 								deleteToggleButton
 							)}
-
-							<UserMenu />
+							{userSettings.showPopups ? (
+								<Popup
+									content='User Menu'
+									trigger={
+										<div>
+											<UserMenu />
+										</div>
+									}
+								/>
+							) : (
+								<UserMenu />
+							)}
 						</>
 					)}
 				</Menu.Menu>

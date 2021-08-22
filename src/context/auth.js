@@ -12,8 +12,6 @@ const initialState = {
 	},
 };
 
-console.log('state began here', initialState);
-
 if (localStorage.getItem('jwtToken')) {
 	const decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
 
