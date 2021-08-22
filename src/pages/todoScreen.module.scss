@@ -21,9 +21,13 @@
 				align-items: center;
 				justify-content: center;
 				font-size: 28px;
-				width: 47px;
+				// width: 30px;
+				padding-right: 2px;
 				transition: 0.25s;
 				opacity: 0.5;
+				svg {
+					margin-left: -2px;
+				}
 				&:hover {
 					opacity: 1;
 				}
