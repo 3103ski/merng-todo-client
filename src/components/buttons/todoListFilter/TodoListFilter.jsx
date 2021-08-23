@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Popup } from 'semantic-ui-react';
+import { Icon } from '@iconify/react-with-api';
 import { useQuery } from '@apollo/client';
 import { GET_USER_TODOS } from '../../../graphql/';
 
@@ -63,7 +64,11 @@ const TodoListButton = ({ list }) => {
 				className={style.TodoCountContainer}
 				data-dark-mode={userSettings.darkMode ? 1 : 0}
 				data-square-edges={userSettings.squareEdges ? 1 : 0}>
-				<p className={style.TodoCount}>{todoCount}</p>
+				{todoCount > 0 ? (
+					<p className={style.TodoCount}>{todoCount}</p>
+				) : (
+					<Icon icon='emojione-v1:left-check-mark' />
+				)}
 			</div>
 		</div>
 	);

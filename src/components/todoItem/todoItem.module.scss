@@ -199,6 +199,10 @@ p {
 	p,
 	input {
 		width: 100%;
+
+		&:focus {
+			outline: none;
+		}
 	}
 
 	svg {

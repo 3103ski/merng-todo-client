@@ -38,10 +38,10 @@ const TodoItem = ({ todoItem }) => {
 	});
 
 	const closeEditTitleHandler = () => {
+		setIsEditing(false);
 		if (todoText !== todoItem.title) {
 			updateTitle();
 		}
-		return setIsEditing(false);
 	};
 
 	const focusRootList = () => {
@@ -117,10 +117,9 @@ const TodoItem = ({ todoItem }) => {
 
 	document.addEventListener('click', async (e) => {
 		const targetId = await e.target.id;
-		const inputId = await `todoInput_${todoItem.id}`;
+		const inputId = `todoInput_${todoItem.id}`;
 		const todoTitleId = `todoText_${todoItem.id}`;
-		if (isEditing && targetId !== inputId && targetId !== todoTitleId) {
-			console.log('I should close and save', todoText);
+		if (isEditing === true && targetId !== inputId && targetId !== todoTitleId) {
 			closeEditTitleHandler();
 		}
 	});
