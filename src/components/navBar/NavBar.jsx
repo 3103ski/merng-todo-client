@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import { Menu, Popup } from 'semantic-ui-react';
-import { Icon } from '@iconify/react-with-api';
 import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../context/auth';
 import { GlobalContext } from '../../context/global';
-import { DueDateFilterMenu, UserMenu, FocusListMenu } from '../../components/';
+import { DueDateFilterMenu, UserMenu, FocusListMenu, NavIconButton } from '../../components/';
 
 import * as style from './navBar.module.scss';
 
@@ -15,34 +14,27 @@ export const NavLinks = () => {
 		useContext(GlobalContext);
 
 	const myDayFilterButton = (
-		<div
-			className={`${style.IconWrapper} ${style.MyDayFilterContainer} noselect`}
-			name='isolateMyDay'
-			data-square-edges={userSettings.squareEdges ? 1 : 0}
-			data-icon-active={isolateMyDay ? 1 : 0}
-			data-dark-icon={userSettings.darkMode ? 1 : 0}
-			onClick={() => globalToggle({ isolateMyDay: !isolateMyDay })}>
-			{isolateMyDay ? (
-				<Icon icon='fluent:weather-partly-cloudy-day-24-filled' />
-			) : (
-				<Icon icon='fluent:weather-partly-cloudy-day-16-regular' />
-			)}
-		</div>
+		<NavIconButton
+			icon={
+				isolateMyDay
+					? 'fluent:weather-partly-cloudy-day-24-filled'
+					: 'fluent:weather-partly-cloudy-day-16-regular'
+			}
+			active={isolateMyDay}
+			callback={() => globalToggle({ isolateMyDay: !isolateMyDay })}
+		/>
 	);
 
 	const subTasksButton = (
-		<div
-			className={`${style.IconWrapper} noselect ${style.SubTaskFilterContainer}`}
-			data-square-edges={userSettings.squareEdges ? 1 : 0}
-			onClick={() =>
+		<NavIconButton
+			icon='ic:baseline-expand'
+			active={expandAllSubTasks}
+			callback={() =>
 				globalToggle({
 					expandAllSubTasks: !expandAllSubTasks,
 				})
 			}
-			data-icon-active={expandAllSubTasks ? 1 : 0}
-			data-dark-icon={userSettings.darkMode ? 1 : 0}>
-			<Icon icon='ic:baseline-expand' />
-		</div>
+		/>
 	);
 
 	const dateFilterButton = (
@@ -52,15 +44,15 @@ export const NavLinks = () => {
 	);
 
 	const deleteToggleButton = (
-		<Menu.Item
-			onClick={() => {
+		<NavIconButton
+			active={todoDeleteOptionVisible}
+			callback={() =>
 				globalToggle({
 					todoDeleteOptionVisible: !todoDeleteOptionVisible,
-				});
-			}}
-			style={{ padding: '13px 0' }}>
-			<Icon data-dark-icon={userSettings.darkMode ? 1 : 0} icon='codicon:trash' />
-		</Menu.Item>
+				})
+			}
+			icon='codicon:trash'
+		/>
 	);
 
 	const filterButtons = userSettings.showPopups ? (
@@ -89,52 +81,46 @@ export const NavLinks = () => {
 				data-dark-mode={userSettings.darkMode ? 1 : 0}>
 				{user && <div className={style.FilterIcons}>{filterButtons}</div>}
 
-				<Menu.Menu position='right'>
-					{!user ? (
-						<>
-							<Menu.Item
-								data-dark-icon={userSettings.darkMode ? 1 : 0}
-								name='register'
-								as={Link}
-								to='/register'
+				{!user ? (
+					<div className={style.MenuRight}>
+						<Menu.Item
+							data-dark-icon={userSettings.darkMode ? 1 : 0}
+							name='register'
+							as={Link}
+							to='/register'
+						/>
+						<Menu.Item
+							data-dark-icon={userSettings.darkMode ? 1 : 0}
+							name='login'
+							as={Link}
+							to='/login'
+						/>
+					</div>
+				) : (
+					<div className={style.MenuRight}>
+						{focusList ? <FocusListMenu /> : null}
+						{userSettings.showPopups ? (
+							<Popup
+								content='Toggle between completing and deleting todos'
+								trigger={deleteToggleButton}
 							/>
-							<Menu.Item
-								data-dark-icon={userSettings.darkMode ? 1 : 0}
-								name='login'
-								as={Link}
-								to='/login'
+						) : (
+							deleteToggleButton
+						)}
+						{userSettings.showPopups ? (
+							<Popup
+								content='User Menu'
+								trigger={
+									<div>
+										<UserMenu />
+									</div>
+								}
 							/>
-						</>
-					) : (
-						<>
-							{focusList ? (
-								<Menu.Item>
-									<FocusListMenu />
-								</Menu.Item>
-							) : null}
-							{userSettings.showPopups ? (
-								<Popup
-									content='Toggle between completing and deleting todos'
-									trigger={deleteToggleButton}
-								/>
-							) : (
-								deleteToggleButton
-							)}
-							{userSettings.showPopups ? (
-								<Popup
-									content='User Menu'
-									trigger={
-										<div>
-											<UserMenu />
-										</div>
-									}
-								/>
-							) : (
-								<UserMenu />
-							)}
-						</>
-					)}
-				</Menu.Menu>
+						) : (
+							<UserMenu />
+						)}
+					</div>
+				)}
 			</Menu>
 		</div>
 	);

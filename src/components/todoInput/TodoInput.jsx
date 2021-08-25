@@ -91,9 +91,7 @@ const TodoInput = ({ lists }) => {
 		<div
 			id='inputContainer'
 			data-square-edges={userSettings.squareEdges ? 1 : 0}
-			className={`${style.TodoInputContainer} ${
-				userSettings.darkText ? 'inputDark' : 'inputLight'
-			}`}
+			className={`${style.TodoInputContainer} `}
 			style={{
 				borderColor: activeColor,
 				backgroundColor: activeColor,
@@ -113,17 +111,13 @@ const TodoInput = ({ lists }) => {
 						type='submit'
 						data-square-edges={userSettings.squareEdges ? 1 : 0}
 						className={style.TodoAddButton}>
-						<Icon
-							data-dark-mode-text={userSettings.darkText ? 1 : 0}
-							icon='fluent:arrow-enter-up-24-regular'
-						/>
+						<Icon icon='fluent:arrow-enter-up-24-regular' />
 					</Button>
 				</div>
 
 				{!focusList ? (
 					<Dropdown
 						className={style.DropMenu}
-						data-dark-mode-text={userSettings.darkText ? 1 : 0}
 						value={selectedList}
 						upward
 						icon={'caret up'}

@@ -22,18 +22,14 @@
 .NavInnerContainer {
 	width: 100%;
 
-	.IconWrapper {
+	.MenuRight {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		height: 35px;
-		border: solid 1px $light-grey;
-		margin-right: 10px;
 	}
 
 	.MyDayFilterContainer,
 	.SubTaskFilterContainer {
-		width: 35px;
+		width: $nav-icon-container-size;
 	}
 
 	[data-icon-active='1'],
@@ -43,24 +39,16 @@
 			background-color: $light-grey !important;
 
 			svg {
-				color: $dark-mode-bg !important;
+				color: $dark-grey !important;
 			}
 		}
 
 		&[data-dark-icon='0'] {
 			$shadow-color: rgba(153, 145, 145, 0.65);
 			background-color: $dark-grey;
-			box-shadow: 2px 2px 5px $shadow-color, -2px -2px 5px $shadow-color,
-				-2px 2px 5px $shadow-color, 2px -2px 5px $shadow-color;
 			svg {
 				color: $light-mode-bg !important;
 			}
 		}
 	}
-}
-[data-date-filter='1'] {
-	width: 120px;
-}
-[data-date-filter='0'] {
-	width: 35px;
 }

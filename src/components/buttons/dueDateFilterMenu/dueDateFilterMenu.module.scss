@@ -29,11 +29,11 @@
 			background-color: $light-mode-bg;
 			svg,
 			p {
-				color: $dark-mode-bg;
+				color: $dark-grey;
 			}
 		}
 		&[data-dark-icon='0'] {
-			background-color: $dark-mode-bg;
+			background-color: $dark-grey;
 			svg,
 			p {
 				color: $light-mode-bg;

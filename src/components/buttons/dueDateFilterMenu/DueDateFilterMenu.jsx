@@ -9,6 +9,7 @@ import { checkDateToDateFilter } from '../../../util/helperFunctions';
 
 const DueDateFilterMenu = () => {
 	const [isOpen, setIsOpen] = useState(false);
+
 	const { dateFilter, setDateFilter } = useContext(GlobalContext);
 	const { userSettings } = useContext(AuthContext);
 

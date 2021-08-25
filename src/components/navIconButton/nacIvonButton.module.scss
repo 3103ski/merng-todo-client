@@ -1,0 +1,38 @@
+@import '../../sass/';
+
+.IconWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: $nav-icon-container-size;
+	min-width: $nav-icon-container-size;
+	border: solid 1px $light-grey;
+	// margin-right: 10px;
+}
+
+[data-space-right='1'] {
+	margin-right: 8px;
+}
+[data-space-right='0'] {
+	margin-left: 8px;
+}
+
+[data-icon-active='1'],
+[data-date-filter='1'] {
+	&[data-dark-icon='1'] {
+		$shadow-color: rgba(153, 145, 145, 0.65);
+		background-color: $light-grey !important;
+
+		svg {
+			color: $dark-grey !important;
+		}
+	}
+
+	&[data-dark-icon='0'] {
+		$shadow-color: rgba(153, 145, 145, 0.65);
+		background-color: $dark-grey;
+		svg {
+			color: $light-mode-bg !important;
+		}
+	}
+}

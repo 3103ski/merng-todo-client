@@ -57,9 +57,7 @@ const TodoListButton = ({ list }) => {
 					setFocusList(fl);
 				}
 			}}>
-			<p className={style.ListTitle} data-dark-mode-text={userSettings.darkText ? 1 : 0}>
-				{list.title}
-			</p>
+			<p className={style.ListTitle}>{list.title}</p>
 			<div
 				className={style.TodoCountContainer}
 				data-dark-mode={userSettings.darkMode ? 1 : 0}

@@ -6,7 +6,6 @@ const initialState = {
 	user: null,
 	userSettings: {
 		darkMode: false,
-		darkText: false,
 		showPopups: false,
 		squareEdges: false,
 	},

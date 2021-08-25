@@ -64,16 +64,12 @@ const TodoItem = ({ todoItem }) => {
 			} ${style.TodoItemList}`}
 			data-is-sub-task={todoItem.isSubTask ? 1 : 0}
 			onClick={focusRootList}>
-			<p data-dark-mode-text={userSettings.darkText ? 1 : 0}>{todoItem.listTitle}</p>
+			<p>{todoItem.listTitle}</p>
 			{checkDateToDateFilter('Past Due', todoItem.dueDate) && !todoItem.isComplete ? (
 				<Popup
 					content='Past Due'
 					trigger={
-						<Icon
-							data-dark-mode-text={userSettings.darkText ? 1 : 0}
-							style={{ marginLeft: '10px' }}
-							icon='ant-design:warning-filled'
-						/>
+						<Icon style={{ marginLeft: '10px' }} icon='ant-design:warning-filled' />
 					}
 				/>
 			) : null}
@@ -102,13 +98,10 @@ const TodoItem = ({ todoItem }) => {
 		<div className={style.SubTaskButton} onClick={() => setSubTasksOpen(!subTasksOpen)}>
 			<Icon
 				data-full-opacity={!todoItem.isSubTask ? (todoItem.subTasks.length > 0 ? 1 : 0) : 0}
-				data-dark-mode-text={userSettings.darkText ? 1 : 0}
 				icon='bi:list-check'
 			/>
 			{todoItem.subTasks.length > 0 ? (
-				<p
-					data-dark-mode-text={userSettings.darkText ? 1 : 0}
-					style={{ marginRight: '10px' }}>
+				<p style={{ marginRight: '10px' }}>
 					{todoItem.subTasks.filter((task) => !task.isComplete).length}
 				</p>
 			) : null}
@@ -277,8 +270,7 @@ const EditableText = ({
 						return focusInput();
 					}}
 					id={`todoText_${todoId}`}
-					className={style.TodoTitle}
-					data-dark-mode-text={userSettings.darkText ? 1 : 0}>
+					className={style.TodoTitle}>
 					{todoText}
 				</p>
 			)}
