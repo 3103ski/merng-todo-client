@@ -6,7 +6,8 @@ import App from './App';
 
 const httpLink = createHttpLink({
 	// uri: 'http://localhost:5000/graphql',
-	uri: 'https://filterdo.herokuapp.com/graphql',
+	uri: 'https://filterdo.uw.r.appspot.com/graphql',
+	// uri: 'https://filterdo.herokuapp.com/graphql',
 });
 
 const authLink = setContext(() => {

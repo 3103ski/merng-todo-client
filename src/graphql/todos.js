@@ -23,6 +23,12 @@ export const GET_USER_TODOS = gql`
 			listTitle
 			id
 			dueDate
+			comments {
+				id
+				text
+				creatorId
+				todoId
+			}
 			isSubTask
 			isComplete
 			subTasks {
@@ -65,6 +71,12 @@ export const ADD_TODO_TO_LIST = gql`
 			masterId
 			myDay
 			isComplete
+			todoUpdates {
+				id
+				text
+				creatorId
+				todoId
+			}
 			subTasks {
 				title
 				creatorId
@@ -98,6 +110,12 @@ export const TOGGLE_TODO_IS_COMPLETE = gql`
 			dueDate
 			isSubTask
 			isComplete
+			todoUpdates {
+				id
+				text
+				creatorId
+				todoId
+			}
 			subTasks {
 				title
 				creatorId
@@ -130,6 +148,12 @@ export const TOGGLE_TODO_IS_MY_DAY = gql`
 			dueDate
 			isSubTask
 			isComplete
+			todoUpdates {
+				id
+				text
+				creatorId
+				todoId
+			}
 			subTasks {
 				title
 				creatorId

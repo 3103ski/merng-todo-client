@@ -130,6 +130,8 @@ const TodoItem = ({ todoItem }) => {
 		}
 	}, [globalSubTaskActive, expandAllSubTasks, subTasksOpen]);
 
+	console.log('I am an item :: ', todoItem);
+
 	return (
 		<div
 			className={`${style.OuterContainer} noselect ${todoItem.isComplete && style.Complete}`}>
