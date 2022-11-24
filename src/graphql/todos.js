@@ -53,12 +53,7 @@ export const GET_USER_TODOS = gql`
 
 export const ADD_TODO_TO_LIST = gql`
 	mutation addTodoItem($title: String!, $listId: ID!, $isSubTask: Boolean, $masterId: ID!) {
-		addTodoListItem(
-			listId: $listId
-			masterId: $masterId
-			title: $title
-			isSubTask: $isSubTask
-		) {
+		addTodoListItem(listId: $listId, masterId: $masterId, title: $title, isSubTask: $isSubTask) {
 			title
 			creatorId
 			listId
@@ -71,12 +66,12 @@ export const ADD_TODO_TO_LIST = gql`
 			masterId
 			myDay
 			isComplete
-			todoUpdates {
-				id
-				text
-				creatorId
-				todoId
-			}
+			# todoUpdates {
+			# 	id
+			# 	text
+			# 	creatorId
+			# 	todoId
+			# }
 			subTasks {
 				title
 				creatorId
@@ -110,12 +105,12 @@ export const TOGGLE_TODO_IS_COMPLETE = gql`
 			dueDate
 			isSubTask
 			isComplete
-			todoUpdates {
-				id
-				text
-				creatorId
-				todoId
-			}
+			# todoUpdates {
+			# 	id
+			# 	text
+			# 	creatorId
+			# 	todoId
+			# }
 			subTasks {
 				title
 				creatorId
@@ -148,12 +143,12 @@ export const TOGGLE_TODO_IS_MY_DAY = gql`
 			dueDate
 			isSubTask
 			isComplete
-			todoUpdates {
-				id
-				text
-				creatorId
-				todoId
-			}
+			# todoUpdates {
+			# 	id
+			# 	text
+			# 	creatorId
+			# 	todoId
+			# }
 			subTasks {
 				title
 				creatorId
